@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Emscripten-Generated Code</title>
+		<title>augmented_deque_t</title>
 		<style>
 			.emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
 			textarea.emscripten { font-family: monospace; width: 80%; }
@@ -193,8 +193,8 @@
 	<div class="whitespace-pre-wrap mx-[12px] my-[6px] leading-[150%]">The projection and accumulation steps are skipped. What's left can be seen as a <span class="inline_code">std::vector</span>/<span class="inline_code">std::deque</span> that never invalidates iterators/references/pointers, or a <span class="inline_code">std::list</span> with random access ability.</div>
 <pre class="mx-[12px] block_code leading-[110%] mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_deque_t</span></span>&lt;
-    <span class="keyword">char</span>,
-    std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;
+	<span class="keyword">char</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;
 &gt; augmented_deque;
 </pre>
 </div>
@@ -206,10 +206,10 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 	<div class="whitespace-pre-wrap mx-[12px] my-[6px] leading-[150%]">The projection step is skipped. <span class="inline_code">element_t</span>(<span class="inline_code"><span class="keyword">char</span></span>)s are accumulated into <span class="inline_code">accumulated_storage_t</span>(<span class="inline_code">std::<span class="struct">string</span></span>)s.</div>
 <pre class="mx-[12px] block_code leading-[110%] mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_deque_t</span></span>&lt;
-    <span class="keyword">char</span>,
-    std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;,
-    std::<span class="struct">tuple</span>&lt;
-        std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_stride1_chunk1_projector_skipped_and_accumulator_sequence_t</span>&lt;<span class="keyword">char</span>, std::<span class="struct">string</span>&gt;&gt;
+	<span class="keyword">char</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_stride1_chunk1_projector_skipped_and_accumulator_sequence_t</span>&lt;<span class="keyword">char</span>, std::<span class="struct">string</span>&gt;&gt;
 	&gt;
 &gt;
 </pre>
@@ -222,11 +222,11 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 	<div class="whitespace-pre-wrap mx-[12px] my-[6px] leading-[150%]">sequence 0: the projection step is skipped; accumulator is <span class="inline_code"><span class="keyword">int</span> operator+(<span class="keyword">int</span>, <span class="keyword">int</span>)</span>. sequence 1: every 3 <span class="inline_code">element_t</span>(<span class="inline_code"><span class="keyword">int</span></span>)s are projected into their <span class="inline_code">std::ranges::max_element</span>, then accumulated into their <span class="inline_code">std::ranges::min</span>.</div>
 <pre class="mx-[12px] block_code leading-[110%] mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_deque_t</span></span>&lt;
-    <span class="keyword">int</span>,
-    std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
-    std::<span class="struct">tuple</span>&lt;
+	<span class="keyword">int</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+	std::<span class="struct">tuple</span>&lt;
 		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_stride1_chunk1_projector_skipped_and_accumulator_plus_t</span>&lt;<span class="keyword">int</span>&gt;&gt;,
-       std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 3&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_chunkgt1_projector_max_element_and_accumulator_min_t</span>&lt;<span class="keyword">int</span>&gt;&gt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 3&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_chunkgt1_projector_max_element_and_accumulator_min_t</span>&lt;<span class="keyword">int</span>&gt;&gt;
 	&gt;
 &gt; augmented_deque;
 </pre>
@@ -239,10 +239,10 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 	<div class="whitespace-pre-wrap mx-[12px] my-[6px] leading-[150%]">sequence 0: the projection step is skipped; accumulator is <span class="inline_code">std::<span class="struct">string</span> operator+(std::<span class="struct">string</span> <span class="keyword">const</span>&amp;, std::<span class="struct">string</span> <span class="keyword">const</span>&amp;)</span>. sequence 1: every 3 <span class="inline_code">element_t</span>(<span class="inline_code"><span class="keyword">int</span></span>)s are projected into their <span class="inline_code">std::ranges::max_element</span>, then accumulated into their <span class="inline_code">std::ranges::min</span>.</div>
 <pre class="mx-[12px] block_code leading-[110%] mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_deque_t</span></span>&lt;
-    std::<span class="struct">string</span>,
-    std::<span class="struct">allocator</span>&lt;std::<span class="struct">string</span>&gt;,
-    std::<span class="struct">tuple</span>&lt;
-        std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_stride1_chunk1_projector_skipped_and_accumulator_plus_t</span>&lt;std::<span class="struct">string</span>&gt;&gt;,
+	std::<span class="struct">string</span>,
+	std::<span class="struct">allocator</span>&lt;std::<span class="struct">string</span>&gt;,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_stride1_chunk1_projector_skipped_and_accumulator_plus_t</span>&lt;std::<span class="struct">string</span>&gt;&gt;,
 		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 3&gt;, augmented_containers::augmented_deque_helpers::<span class="struct">example_chunkgt1_projector_max_element_and_accumulator_min_t</span>&lt;std::<span class="struct">string</span>&gt;&gt;
 	&gt;
 &gt; augmented_deque;
@@ -256,9 +256,9 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 	<div class="whitespace-pre-wrap mx-[12px] my-[6px] leading-[150%]">sequence 0: the projection and accumulation steps are skipped. sequence 1: every 3 <span class="inline_code">element_t</span>(<span class="inline_code"><span class="keyword">int</span></span>)s are projected into their <span class="inline_code">std::ranges::stable_sort</span> (stores addresses so you can modify the original elements), then accumulated into their <span class="inline_code">std::ranges::merge</span> (stores addresses so you can modify the original elements).</div>
 <pre class="mx-[12px] block_code leading-[110%] mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_deque_t</span></span>&lt;
-    <span class="keyword">int</span>,
-    std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
-    std::<span class="struct">tuple</span>&lt;
+	<span class="keyword">int</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+	std::<span class="struct">tuple</span>&lt;
 		<span class="comment">//std::pair&lt;std::integral_constant&lt;std::size_t, 3&gt;, projector_and_accumulator_min_n_element_t&lt;int, 3&gt;&gt;, //commented one of the sub-sequences because it looks messy when there are three images stacked together</span>
 		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 3&gt;, <span class="struct">projector_and_accumulator_min_n_element_t</span>&lt;<span class="keyword">int</span>, 3, <span class="keyword">true</span>&gt;&gt;
 	&gt;
@@ -273,10 +273,10 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 	<div class="whitespace-pre-wrap mx-[12px] my-[6px] leading-[150%]">each <span class="inline_code">element_t</span>(<span class="inline_code"><span class="keyword">int</span></span>)s is projected into the navigator portion (<span class="inline_code">prev</span> and <span class="inline_code">next</span> pointers) to be ready to form a circular doubly linked list. The accumulator takes chunk-begins (<span class="inline_code">std::ranges::prev(it).is_end() || (*std::ranges::prev(it) &lt; 50) != (it &lt; 50)</span>), discards not-chunk-begins (and takes other accumulated circular doubly linked lists), accumulates them into a circular doubly linked lists representing <span class="inline_code">std::ranges::chunk_by_view</span> of the original sequence.</div>
 <pre class="mx-[12px] block_code leading-[110%] mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_deque_t</span></span>&lt;
-    <span class="keyword">int</span>,
-    std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
-    std::<span class="struct">tuple</span>&lt;
-        std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, <span class="struct">projector_and_accumulator_diffing_adjacent_element_t</span>&gt;
+	<span class="keyword">int</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, <span class="struct">projector_and_accumulator_diffing_adjacent_element_t</span>&gt;
 	&gt;
 &gt; augmented_deque;
 </pre>
@@ -289,10 +289,10 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 	<div class="whitespace-pre-wrap mx-[12px] my-[6px] leading-[150%]">Similar to the <span class="inline_code">projector_and_accumulator_yield_one_view</span> example, except that each <span class="inline_code">accumulated_storage_t</span> is "a map from <span class="inline_code">element % 3</span> to circular doubly linked list's end node" (instead of just "one end node"). The result represents C++32's <span class="inline_code">std::ranges::group_by_view</span> of the original sequence (<span class="inline_code">navigator_style = std::ranges::group_by_view::navigator_style_t::circular_doubly_linked_list, map_container_tt = std::map</span>).</div>
 <pre class="mx-[12px] block_code leading-[110%] mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_deque_t</span></span>&lt;
-    <span class="keyword">int</span>,
-    std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
-    std::<span class="struct">tuple</span>&lt;
-        std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, <span class="struct">projector_and_accumulator_group_by_t</span>&gt;
+	<span class="keyword">int</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;std::<span class="keyword">size_t</span>, 1&gt;, <span class="struct">projector_and_accumulator_group_by_t</span>&gt;
 	&gt;
 &gt; augmented_deque;
 </pre>
@@ -473,7 +473,6 @@ function initialize_examples()
 		{
 			((example_prefix, is_interactive) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
 			{
-				console.log(example_prefix);
 				window[example_prefix + "animation_playing"] = false;
 				window[example_prefix + "pending_animations"] = [];
 				var sequences_count = Module[example_prefix + "sequences_count"]();
@@ -871,7 +870,7 @@ function initialize_examples()
 			};
 		  };
 		</script>
-    {{{ SCRIPT }}}
+	{{{ SCRIPT }}}
 	
 	</body>
 </html>
