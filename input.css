@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*
+{
+	transform-style:preserve-3d;
+	word-break: normal; overflow-wrap: anywhere;
+}
+
+html, body {
+    font-family: DejaVuSans,"DejaVu Sans",arial,sans-serif;
+    /* font-size: 16px; */
+}
+
+.vlayout
+{
+	display: flex;
+	flex-direction: column;
+	padding: 9px;
+	row-gap: 9px;
+	background-color: #F0F0F0;
+}
+.hlayout
+{
+	display: flex;
+	flex-direction: row;
+	padding: 9px;
+	column-gap: 9px;
+	background-color: #F0F0F0;
+}
+.zero_out_nested_layout_margin
+{
+	padding: 0px;
+}
+
+.vscrollarea
+{
+	border:1px solid;
+	border-top-color:#A0A0A0;
+	border-right-color:white;
+	border-bottom-color:white;
+	border-left-color:#A0A0A0;
+	box-shadow: inset -1px -1px #F0F0F0, inset 1px 1px #696969;
+	overflow-y: scroll;
+}
+.hscrollarea
+{
+	border:1px solid;
+	border-top-color:#A0A0A0;
+	border-right-color:white;
+	border-bottom-color:white;
+	border-left-color:#A0A0A0;
+	box-shadow: inset -1px -1px #F0F0F0, inset 1px 1px #696969;
+	overflow-x: scroll;
+}
+
+button
+{
+	border:1px solid;
+	border-top-color:white;
+	border-right-color:#696969;
+	border-bottom-color:#696969;
+	border-left-color:white;
+	box-shadow: inset -1px -1px #A0A0A0;
+	background-color: #F0F0F0;
+	padding:3px;
+}
+button:active:hover
+{
+	border-top-color:#696969;
+	border-right-color:white;
+	border-bottom-color:white;
+	border-left-color:#696969;
+	box-shadow: inset 1px 1px #A0A0A0;
+	background-color: #F0F0F0;
+}
+button:focus
+{
+	outline: none;
+	/* outline-style: dashed; */
+}
+
+input
+{
+	border:1px solid;
+	border-top-color:#A0A0A0;
+	border-right-color:white;
+	border-bottom-color:white;
+	border-left-color:#A0A0A0;
+	box-shadow: inset -1px -1px #F0F0F0, inset 1px 1px #696969;
+	padding:2px;
+}
+input:focus
+{
+	outline: none;
+}
+
+a
+{
+	color: #0000FF;
+	background-color:#0000FF09;
+}
+a:hover
+{
+	text-decoration-line: underline;
+}
+
+.keyword
+{
+	color:#0000FF;
+}
+.struct
+{
+	color:#00B4B4;
+}
+.struct_in_question
+{
+	font-weight: 700;
+}
+
+.block_code
+{
+	font-family:Consolas,monospace;
+
+	border: 1px solid #D6D6D6;
+	background-color: rgba(0,0,0,0.031);
+	overflow-x:auto;
+	overflow-y:auto;
+}
+
+.inline_code
+{
+	font-family:Consolas,monospace;
+
+	border: 1px solid #D6D6D6;
+	margin: 0 2px;
+	padding: 0 2px;
+	background-color: rgba(0,0,0,0.031);
+}
+
+.comment
+{
+	color: #008000;
+}
+
+.math
+{
+	border: 1px dotted black;
+}
+
+.math_formula
+{
+	font-family: "Times New Roman";
+	font-style: italic;
+	border: 1px dotted black;
+	padding:2px;
+}
+
+.td_red
+{
+	position:relative;
+}
+.td_red::before
+{
+	position:absolute;
+	content: "\200B";
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	background-color:#FF000020;
+}
+
+.td_green
+{
+	position:relative;
+}
+.td_green::before
+{
+	position:absolute;
+	content: "\200B";
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	background-color:#00FF0020;
+}
+
+.ring
+{
+	border:3px solid blue;
+	box-shadow:none;
+}
+@keyframes ping {
+  75%, 100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+.animation_ping
+{
+	animation: ping 1s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
