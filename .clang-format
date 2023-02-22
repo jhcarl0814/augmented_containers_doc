@@ -1,0 +1,54 @@
+---
+# We'll use defaults from the LLVM style, but with 4 columns indentation.
+BasedOnStyle: LLVM
+IndentWidth: 4
+---
+Language: Cpp
+ColumnLimit: 0
+AlignOperands: DontAlign
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: True
+  AfterClass: True
+  AfterControlStatement: MultiLine
+  AfterEnum: False
+  AfterFunction: True
+  AfterNamespace: True
+  AfterStruct: True
+  AfterUnion: True
+  AfterExternBlock: True
+  BeforeCatch: True
+  BeforeElse: True
+  BeforeLambdaBody: True
+  BeforeWhile: True
+  IndentBraces: False
+  SplitEmptyFunction: False
+  SplitEmptyRecord: False
+  SplitEmptyNamespace: False
+AlignAfterOpenBracket: DontAlign
+AlignEscapedNewlines: DontAlign
+AllowShortBlocksOnASingleLine: Always
+AllowShortCaseLabelsOnASingleLine: True
+AllowShortEnumsOnASingleLine: True
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: True
+AlignTrailingComments: Never
+IndentPPDirectives: BeforeHash
+SpaceBeforeCtorInitializerColon: False
+SpaceBeforeInheritanceColon: False
+SpaceBeforeParens: Never
+SpaceAfterTemplateKeyword: False
+ReflowComments: False
+QualifierAlignment: Right
+PointerAlignment: Right
+ReferenceAlignment: Right
+SpaceAroundPointerQualifiers: Before
+SortIncludes: Never
+NamespaceIndentation: All
+MaxEmptyLinesToKeep: 10
+ContinuationIndentWidth: 4
+PackConstructorInitializers: Never
+LambdaBodyIndentation: Signature

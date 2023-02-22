@@ -156,8 +156,7 @@ namespace augmented_containers
         to_graphs_parameters_t<to_graphs_parameters_t_parameters_t...> to_graphs_parameters)
     {
         using namespace dot;
-        using detail::augmented_deque::circular_doubly_linked_list_node_navigator_t;
-        using namespace detail::tagged_ptr_ns;
+        using namespace detail::language;
         using namespace detail::visualization;
 
         return [&]<std::size_t... I>(std::index_sequence<I...>)
@@ -291,7 +290,7 @@ namespace augmented_containers
                                                 { return decltype(table_t::rows){
                                                       row_t{{
                                                           cell_t{
-                                                              .BGCOLOR = circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(sequence.list_node_end) == sequence.list_node_end ? inactive_cell_color : active_cell_color,
+                                                              .BGCOLOR = sequence_t::navigator_t::untagged_next_or_tagged_end(sequence.list_node_end) == sequence.list_node_end ? inactive_cell_color : active_cell_color,
                                                               .content = html_label_t{pointer_member_text_to_space(not_member_to_text(u8"list_node_front", tagged_ptr_bit0_unsetted(sequence.list_node_end)->next))},
                                                           },
                                                       }},
@@ -309,7 +308,7 @@ namespace augmented_containers
                                             { return decltype(table_t::rows){
                                                   row_t{{
                                                       cell_t{
-                                                          .BGCOLOR = circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(sequence.digit_node_end) == sequence.digit_node_end ? inactive_cell_color : active_cell_color,
+                                                          .BGCOLOR = sequence_t::navigator_t::untagged_next_or_tagged_end(sequence.digit_node_end) == sequence.digit_node_end ? inactive_cell_color : active_cell_color,
                                                           .content = html_label_t{pointer_member_text_to_space(not_member_to_text(u8"digit_front", sequence.digit_front()))},
                                                       },
                                                   }},
@@ -346,7 +345,7 @@ namespace augmented_containers
                                             { return decltype(table_t::rows){
                                                   row_t{{
                                                       cell_t{
-                                                          .BGCOLOR = circular_doubly_linked_list_node_navigator_t::untagged_prev_or_tagged_end(sequence.digit_node_end) == sequence.digit_node_end ? inactive_cell_color : active_cell_color,
+                                                          .BGCOLOR = sequence_t::navigator_t::untagged_prev_or_tagged_end(sequence.digit_node_end) == sequence.digit_node_end ? inactive_cell_color : active_cell_color,
                                                           .content = html_label_t{pointer_member_text_to_space(not_member_to_text(u8"digit_back", sequence.digit_back()))},
                                                       },
                                                   }},
@@ -365,7 +364,7 @@ namespace augmented_containers
                                                 { return decltype(table_t::rows){
                                                       row_t{{
                                                           cell_t{
-                                                              .BGCOLOR = circular_doubly_linked_list_node_navigator_t::untagged_prev_or_tagged_end(sequence.list_node_end) == sequence.list_node_end ? inactive_cell_color : active_cell_color,
+                                                              .BGCOLOR = sequence_t::navigator_t::untagged_prev_or_tagged_end(sequence.list_node_end) == sequence.list_node_end ? inactive_cell_color : active_cell_color,
                                                               .content = html_label_t{pointer_member_text_to_space(not_member_to_text(u8"list_node_back", tagged_ptr_bit0_unsetted(sequence.list_node_end)->prev))},
                                                           },
                                                       }},
@@ -423,7 +422,7 @@ namespace augmented_containers
 #ifndef __EMSCRIPTEN__
                                                     .datum =
 #endif
-                                                        sequence.read_range(to_graphs_parameters.iterators_element[0], to_graphs_parameters.iterators_element[1]),
+                                                        augmented_deque.template read_range<I>(to_graphs_parameters.iterators_element[0], to_graphs_parameters.iterators_element[1]),
 #ifndef __EMSCRIPTEN__
                                                     .converter_generated_statements_back_inserter =
 #endif
@@ -438,7 +437,7 @@ namespace augmented_containers
                     }
                     std::vector<edge_statement_t> sequence_members_edges;
                     if constexpr(generating_list_node_front_and_back)
-                        if(circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(sequence.list_node_end) != sequence.list_node_end)
+                        if(sequence_t::navigator_t::untagged_next_or_tagged_end(sequence.list_node_end) != sequence.list_node_end)
                             sequence_members_edges.push_back(edge_statement_t{{{
                                                                                   node_id_t{u8"list_node_front", std::nullopt, c},
                                                                                   node_id_t{u8"list_node_" + object_pointer_to_string(sequence_t::list_node_t::untagged_next(sequence.list_node_end))},
@@ -449,7 +448,7 @@ namespace augmented_containers
                                     {u8"tailclip", u8"false"},
                                     {u8"style", u8"dashed"},
                                 }}});
-                    if(circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(sequence.digit_node_end) != sequence.digit_node_end)
+                    if(sequence_t::navigator_t::untagged_next_or_tagged_end(sequence.digit_node_end) != sequence.digit_node_end)
                         sequence_members_edges.push_back(edge_statement_t{{{
                                                                               node_id_t{u8"digit_front", std::nullopt, c},
                                                                               node_id_t{u8"digit_node_" + object_pointer_to_string(sequence.digit_front())},
@@ -460,7 +459,7 @@ namespace augmented_containers
                                 {u8"constraint", u8"true"},
                                 {u8"tailclip", u8"false"},
                             }}});
-                    if(circular_doubly_linked_list_node_navigator_t::untagged_prev_or_tagged_end(sequence.digit_node_end) != sequence.digit_node_end)
+                    if(sequence_t::navigator_t::untagged_prev_or_tagged_end(sequence.digit_node_end) != sequence.digit_node_end)
                         sequence_members_edges.push_back(edge_statement_t{{{
                                                                               node_id_t{u8"digit_back", std::nullopt, c},
                                                                               node_id_t{u8"digit_node_" + object_pointer_to_string(sequence.digit_back())},
@@ -472,7 +471,7 @@ namespace augmented_containers
                                 {u8"tailclip", u8"false"},
                             }}});
                     if constexpr(generating_list_node_front_and_back)
-                        if(circular_doubly_linked_list_node_navigator_t::untagged_prev_or_tagged_end(sequence.list_node_end) != sequence.list_node_end)
+                        if(sequence_t::navigator_t::untagged_prev_or_tagged_end(sequence.list_node_end) != sequence.list_node_end)
                             sequence_members_edges.push_back(edge_statement_t{{{
                                                                                   node_id_t{u8"list_node_back", std::nullopt, c},
                                                                                   node_id_t{u8"list_node_" + object_pointer_to_string(sequence_t::list_node_t::untagged_prev(sequence.list_node_end))},
@@ -623,7 +622,7 @@ namespace augmented_containers
                             tree_node_recursive(p_tree_node->child_right);
                     };
 
-                    for(auto p_digit_node_navigator = circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(sequence.digit_node_end); p_digit_node_navigator != sequence.digit_node_end; p_digit_node_navigator = p_digit_node_navigator->next)
+                    for(auto p_digit_node_navigator = sequence_t::navigator_t::untagged_next_or_tagged_end(sequence.digit_node_end); p_digit_node_navigator != sequence.digit_node_end; p_digit_node_navigator = p_digit_node_navigator->next)
                     {
                         auto p_digit_node = static_cast<typename sequence_t::digit_node_t *>(p_digit_node_navigator);
 
@@ -808,7 +807,7 @@ namespace augmented_containers
 
                     if constexpr(I == 0)
                     {
-                        for(auto p_list_node_navigator = circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(sequence.list_node_end); p_list_node_navigator != sequence.list_node_end; p_list_node_navigator = p_list_node_navigator->next)
+                        for(auto p_list_node_navigator = sequence_t::navigator_t::untagged_next_or_tagged_end(sequence.list_node_end); p_list_node_navigator != sequence.list_node_end; p_list_node_navigator = p_list_node_navigator->next)
                         {
                             auto p_list_node = static_cast<typename sequence_t::list_node_t *>(p_list_node_navigator);
 
@@ -1034,7 +1033,7 @@ namespace augmented_containers
                     }
                     else
                     {
-                        for(auto p_list_node_navigator = circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(sequence.list_node_end); p_list_node_navigator != sequence.list_node_end; p_list_node_navigator = p_list_node_navigator->next)
+                        for(auto p_list_node_navigator = sequence_t::navigator_t::untagged_next_or_tagged_end(sequence.list_node_end); p_list_node_navigator != sequence.list_node_end; p_list_node_navigator = p_list_node_navigator->next)
                         {
                             auto p_list_node = static_cast<typename sequence_t::list_node_t *>(p_list_node_navigator);
 
@@ -1187,7 +1186,7 @@ namespace augmented_containers
                                 }}});
                         }
 
-                        for(auto p_list_node_navigator = circular_doubly_linked_list_node_navigator_t::untagged_next_or_tagged_end(stride1_sequence.list_node_end); p_list_node_navigator != stride1_sequence.list_node_end; p_list_node_navigator = p_list_node_navigator->next)
+                        for(auto p_list_node_navigator = sequence_t::navigator_t::untagged_next_or_tagged_end(stride1_sequence.list_node_end); p_list_node_navigator != stride1_sequence.list_node_end; p_list_node_navigator = p_list_node_navigator->next)
                         {
                             auto p_list_node = static_cast<typename stride1_sequence_t::list_node_t *>(p_list_node_navigator);
 
