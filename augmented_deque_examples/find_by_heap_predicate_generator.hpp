@@ -343,3 +343,43 @@ std::string AUGMENTED_DEQUE_EXAMPLE_PREFIXING(additional_info)()
 
 std::int32_t AUGMENTED_DEQUE_EXAMPLE_PREFIXING(front_lower_endpoint)() { return static_cast<std::int32_t>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().begin_element()->first); }
 std::int32_t AUGMENTED_DEQUE_EXAMPLE_PREFIXING(back_upper_endpoint)() { return static_cast<std::int32_t>((--augmented_containers::detail::utility::unmove(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element()))->second); }
+std::int32_t AUGMENTED_DEQUE_EXAMPLE_PREFIXING(prev_lower_endpoint)()
+{
+    return
+#ifdef __EMSCRIPTEN__
+        std::prev
+#else
+        std::ranges::prev
+#endif
+        (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0])
+            .is_end()
+        ? static_cast<std::int32_t>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_prev_element))
+        : static_cast<std::int32_t>(
+#ifdef __EMSCRIPTEN__
+              std::prev
+#else
+              std::ranges::prev
+#endif
+              (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0])
+                  ->first);
+}
+std::int32_t AUGMENTED_DEQUE_EXAMPLE_PREFIXING(next_lower_endpoint)()
+{
+    return
+#ifdef __EMSCRIPTEN__
+        std::next
+#else
+        std::ranges::next
+#endif
+        (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0])
+            .is_end()
+        ? static_cast<std::int32_t>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_next_element))
+        : static_cast<std::int32_t>(
+#ifdef __EMSCRIPTEN__
+              std::next
+#else
+              std::ranges::next
+#endif
+              (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0])
+                  ->first);
+}

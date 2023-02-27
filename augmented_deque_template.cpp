@@ -584,6 +584,8 @@ EMSCRIPTEN_BINDINGS(module) {
 
   emscripten::function(AUGMENTED_DEQUE_EXAMPLE_PREFIXING_STRING("front_lower_endpoint"), &AUGMENTED_DEQUE_EXAMPLE_PREFIXING(front_lower_endpoint));
   emscripten::function(AUGMENTED_DEQUE_EXAMPLE_PREFIXING_STRING("back_upper_endpoint"), &AUGMENTED_DEQUE_EXAMPLE_PREFIXING(back_upper_endpoint));
+  emscripten::function(AUGMENTED_DEQUE_EXAMPLE_PREFIXING_STRING("prev_lower_endpoint"), &AUGMENTED_DEQUE_EXAMPLE_PREFIXING(prev_lower_endpoint));
+  emscripten::function(AUGMENTED_DEQUE_EXAMPLE_PREFIXING_STRING("next_lower_endpoint"), &AUGMENTED_DEQUE_EXAMPLE_PREFIXING(next_lower_endpoint));
 #undef AUGMENTED_DEQUE_EXAMPLE_PREFIXING
 #undef AUGMENTED_DEQUE_EXAMPLE_PREFIXING_STRING
 #undef AUGMENTED_DEQUE_EXAMPLE_PREFIX
