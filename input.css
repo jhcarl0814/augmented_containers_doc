@@ -119,7 +119,7 @@ a:hover
 	font-weight: 700;
 }
 
-.block_code
+.block-code
 {
 	font-family:Consolas,monospace;
 
@@ -127,9 +127,13 @@ a:hover
 	background-color: rgba(0,0,0,0.031);
 	overflow-x:auto;
 	overflow-y:auto;
+	
+	padding-left:6px;
+	padding-right:6px;
+	padding-bottom:1px;
 }
 
-.inline_code
+.inline-code
 {
 	font-family:Consolas,monospace;
 
@@ -137,6 +141,11 @@ a:hover
 	margin: 0 2px;
 	padding: 0 2px;
 	background-color: rgba(0,0,0,0.031);
+}
+
+.dubious-code
+{
+	background-color: rgba(255,255,0,0.8);
 }
 
 .comment
