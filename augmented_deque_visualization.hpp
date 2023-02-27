@@ -136,13 +136,14 @@ namespace augmented_containers
         } // namespace visualization
     } // namespace detail
 
-    template<typename element_to_string_converter_t = std::monostate, typename projected_and_accumulated_storage_to_string_converters_t = std::monostate, typename iterators_element_t = std::monostate, typename read_ranges_t = std::monostate>
+    template<typename element_to_string_converter_t, typename projected_and_accumulated_storage_to_string_converter_per_sequence_t, typename iterators_element_t, typename read_range_per_sequence_t, typename iterators_projected_storage_per_sequence_t = std::nullopt_t>
     struct to_graphs_parameters_t
     {
         element_to_string_converter_t element_to_string_converter;
-        projected_and_accumulated_storage_to_string_converters_t projected_and_accumulated_storage_to_string_converters;
+        projected_and_accumulated_storage_to_string_converter_per_sequence_t projected_and_accumulated_storage_to_string_converter_per_sequence;
         iterators_element_t iterators_element;
-        read_ranges_t read_ranges;
+        read_range_per_sequence_t read_range_per_sequence;
+        iterators_projected_storage_per_sequence_t iterators_projected_storage_per_sequence = std::nullopt;
     };
 #if __cpp_deduction_guides >= 201907L
 #else
@@ -386,7 +387,7 @@ namespace augmented_containers
                                                           cell_t{
                                                               .BGCOLOR = active_cell_color,
                                                               .COLSPAN = 6,
-                                                              .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converters))(to_string_converter_parameters_t{
+                                                              .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
 #ifndef __EMSCRIPTEN__
                                                                   .member_name =
 #endif
@@ -409,12 +410,12 @@ namespace augmented_containers
                                                   }; }(),
                                             }}}},
                             }}});
-                        if(std::get<I>(to_graphs_parameters.read_ranges) && to_graphs_parameters.iterators_element.size() >= 2 && to_graphs_parameters.iterators_element[0] <= to_graphs_parameters.iterators_element[1])
+                        if(std::get<I>(to_graphs_parameters.read_range_per_sequence) && to_graphs_parameters.iterators_element.size() >= 2 && to_graphs_parameters.iterators_element[0] <= to_graphs_parameters.iterators_element[1])
                         {
                             sequence_members_digit_end_accumulated_storage.statements.push_back(node_statement_t{{u8"read_range"},
                                 {{
                                     {u8"id", u8"read_range"},
-                                    {u8"label", std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converters))(to_string_converter_parameters_t{
+                                    {u8"label", std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
 #ifndef __EMSCRIPTEN__
                                                     .member_name =
 #endif
@@ -494,6 +495,8 @@ namespace augmented_containers
                     std::vector<edge_statement_t> list_node_edges;
                     std::vector<node_statement_t> iterator_element_nodes;
                     std::vector<edge_statement_t> iterator_element_edges;
+                    std::vector<node_statement_t> iterator_projected_storage_nodes;
+                    std::vector<edge_statement_t> iterator_projected_storage_edges;
                     subgraph_t list_nodes_same_rank{.statements = {
                                                         attr_t{u8"rank", u8"same"},
                                                     }};
@@ -577,7 +580,7 @@ namespace augmented_containers
                                                             cell_t{
                                                                 .BGCOLOR = active_cell_color,
                                                                 .COLSPAN = 4,
-                                                                .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converters))(to_string_converter_parameters_t{
+                                                                .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
 #ifndef __EMSCRIPTEN__
                                                                     .member_name =
 #endif
@@ -744,7 +747,7 @@ namespace augmented_containers
                                                                 cell_t{
                                                                     .BGCOLOR = active_cell_color,
                                                                     .COLSPAN = 6,
-                                                                    .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converters))(to_string_converter_parameters_t{
+                                                                    .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
 #ifndef __EMSCRIPTEN__
                                                                         .member_name =
 #endif
@@ -911,7 +914,7 @@ namespace augmented_containers
                                                                     .content = html_label_t{pointer_member_text_to_space(member_to_text(u8"prev", print_object_pointer_t{p_list_node->prev}))},
                                                                 },
                                                                 cell_t{
-                                                                    .content = std::get<0>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converters))(to_string_converter_parameters_t{
+                                                                    .content = std::get<0>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
 #ifndef __EMSCRIPTEN__
                                                                         .member_name =
 #endif
@@ -1146,7 +1149,7 @@ namespace augmented_containers
                                                             },
                                                             cell_t{
                                                                 .BGCOLOR = active_cell_color,
-                                                                .content = std::get<0>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converters))(to_string_converter_parameters_t{
+                                                                .content = std::get<0>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
 #ifndef __EMSCRIPTEN__
                                                                     .member_name =
 #endif
@@ -1337,6 +1340,52 @@ namespace augmented_containers
                             ++index; //
                         });
 #endif
+                    if constexpr(!std::is_same_v<decltype(to_graphs_parameters.iterators_projected_storage_per_sequence), std::nullopt_t>)
+                    {
+#ifdef __EMSCRIPTEN__
+                        std::for_each(std::get<I>(to_graphs_parameters.iterators_projected_storage_per_sequence).begin(), std::get<I>(to_graphs_parameters.iterators_projected_storage_per_sequence).end(), [&, index = 0](auto iterator_projected_storage) mutable
+                            {
+                                if(iterator_projected_storage.current_list_node != sequence.list_node_end)
+                                {
+                                    iterator_projected_storage_nodes.push_back(node_statement_t{{u8"itp[" + index_to_string(index) + u8"]"},
+                                        {{
+                                            {u8"id", u8"itp[" + index_to_string(index) + u8"]"},
+                                            {u8"label", u8"itp[" + index_to_string(index) + u8"]"},
+                                        }}});
+                                    iterator_projected_storage_edges.push_back(edge_statement_t{{{
+                                                                                                    node_id_t{u8"list_node_" + object_pointer_to_string(iterator_projected_storage.current_list_node)},
+                                                                                                    node_id_t{u8"itp[" + index_to_string(index) + u8"]", std::nullopt, c},
+                                                                                                }},
+                                        {{
+                                            {u8"id", u8"itp[" + index_to_string(index) + u8"]" + u8"->list_node"},
+                                            {u8"dir", u8"back"},
+                                        }}});
+                                }
+                                ++index; //
+                            });
+#else
+                        std::ranges::for_each(std::get<I>(to_graphs_parameters.iterators_projected_storage_per_sequence), [&, index = 0](auto iterator_projected_storage) mutable
+                            {
+                                if(iterator_projected_storage.current_list_node != sequence.list_node_end)
+                                {
+                                    iterator_projected_storage_nodes.push_back(node_statement_t{{u8"itp[" + index_to_string(index) + u8"]"},
+                                        {{
+                                            {u8"id", u8"itp[" + index_to_string(index) + u8"]"},
+                                            {u8"label", u8"itp[" + index_to_string(index) + u8"]"},
+                                        }}});
+                                    iterator_projected_storage_edges.push_back(edge_statement_t{{{
+                                                                                                    node_id_t{u8"list_node_" + object_pointer_to_string(iterator_projected_storage.current_list_node)},
+                                                                                                    node_id_t{u8"itp[" + index_to_string(index) + u8"]", std::nullopt, c},
+                                                                                                }},
+                                        {{
+                                            {u8"id", u8"itp[" + index_to_string(index) + u8"]" + u8"->list_node"},
+                                            {u8"dir", u8"back"},
+                                        }}});
+                                }
+                                ++index; //
+                            });
+#endif
+                    }
 
                     graph_t g{
                         .is_strict = false,
@@ -1377,19 +1426,23 @@ namespace augmented_containers
                     std::copy(tree_nodes.begin(), tree_nodes.end(), std::back_inserter(g.statements));
                     std::copy(list_nodes.begin(), list_nodes.end(), std::back_inserter(g.statements));
                     std::copy(iterator_element_nodes.begin(), iterator_element_nodes.end(), std::back_inserter(g.statements));
+                    std::copy(iterator_projected_storage_nodes.begin(), iterator_projected_storage_nodes.end(), std::back_inserter(g.statements));
                     std::copy(digit_node_edges.begin(), digit_node_edges.end(), std::back_inserter(g.statements));
                     std::copy(tree_node_edges.begin(), tree_node_edges.end(), std::back_inserter(g.statements));
                     std::copy(list_node_edges.begin(), list_node_edges.end(), std::back_inserter(g.statements));
                     std::copy(iterator_element_edges.begin(), iterator_element_edges.end(), std::back_inserter(g.statements));
+                    std::copy(iterator_projected_storage_edges.begin(), iterator_projected_storage_edges.end(), std::back_inserter(g.statements));
 #else
                     std::ranges::copy(digit_nodes, std::back_inserter(g.statements));
                     std::ranges::copy(tree_nodes, std::back_inserter(g.statements));
                     std::ranges::copy(list_nodes, std::back_inserter(g.statements));
                     std::ranges::copy(iterator_element_nodes, std::back_inserter(g.statements));
+                    std::ranges::copy(iterator_projected_storage_nodes, std::back_inserter(g.statements));
                     std::ranges::copy(digit_node_edges, std::back_inserter(g.statements));
                     std::ranges::copy(tree_node_edges, std::back_inserter(g.statements));
                     std::ranges::copy(list_node_edges, std::back_inserter(g.statements));
                     std::ranges::copy(iterator_element_edges, std::back_inserter(g.statements));
+                    std::ranges::copy(iterator_projected_storage_edges, std::back_inserter(g.statements));
 #endif
 
                     g.statements.push_back(digit_nodes_same_rank);
