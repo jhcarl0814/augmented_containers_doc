@@ -77,7 +77,7 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(
     using accumulated_storage_t = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t);
 
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t)
-    monoidal() const { return {nullptr, nullptr}; }
+    identity_element() const { return {nullptr, nullptr}; }
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t)
     operator()(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t) lhs, AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_node_t) const &rhs) const;
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t)
@@ -292,7 +292,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                         }}};
                 },
 #ifndef __EMSCRIPTEN__
-               .projected_and_accumulated_storage_to_string_converters =
+               .projected_and_accumulated_storage_to_string_converter_per_sequence =
 #endif
                     std::make_tuple(std::make_pair(
                         [](auto parameters) -> html_label_t
@@ -543,7 +543,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
 #endif
                     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
 #ifndef __EMSCRIPTEN__
-               .read_ranges =
+               .read_range_per_sequence =
 #endif
                     std::make_tuple(false),
             }))

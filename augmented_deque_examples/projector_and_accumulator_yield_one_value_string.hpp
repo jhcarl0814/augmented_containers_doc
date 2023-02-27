@@ -127,7 +127,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                         }}};
                 },
 #ifndef __EMSCRIPTEN__
-               .projected_and_accumulated_storage_to_string_converters =
+               .projected_and_accumulated_storage_to_string_converter_per_sequence =
 #endif
                     std::make_tuple(
                         std::make_pair(
@@ -186,7 +186,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
 #endif
                     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
 #ifndef __EMSCRIPTEN__
-               .read_ranges =
+               .read_range_per_sequence =
 #endif
                     std::make_tuple(true, true),
             }))
