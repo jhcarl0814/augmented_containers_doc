@@ -2,58 +2,122 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	.heading1 {
+		@apply m-[9px];
+	}
+	.heading2 {
+		@apply whitespace-pre-wrap mx-[12px] mt-[36px] mb-[12px] font-bold text-[140%];
+	}
+	.heading3 {
+		@apply whitespace-pre-wrap mx-[12px] mt-[36px] mb-[12px] font-bold text-[120%];
+	}
+	.paragraph {
+		@apply whitespace-pre-wrap mx-[12px] my-[6px];
+		@apply leading-[calc(var(--line-height-paragraph)*1em)];
+	}
+	.block-code
+	{
+		font-family:DejaVuSansMono,"DejaVu Sans Mono",courier,monospace;
+		font-family:Consolas,monospace;
+		@apply leading-[1.2em];
+
+		@apply border-[1px] border-[#D6D6D6] bg-[rgba(0,0,0,0.031)] overflow-x-auto overflow-y-auto;
+		@apply px-[6px] pb-[1px];
+	}
+	td>.block-code:first-child {
+		@apply mt-[6px];
+	}
+	td>.block-code:last-child {
+		@apply mb-[6px];
+	}
+	.inline-code
+	{
+		font-family:DejaVuSansMono,"DejaVu Sans Mono",courier,monospace;
+		font-family:Consolas,monospace;
+		@apply leading-[1.2em];
+
+		@apply border-[1px] border-[#D6D6D6] bg-[rgba(0,0,0,0.031)] my-[0px] mx-[2px] py-[0px] px-[2px];
+	}
+	.dubious-code
+	{
+		@apply bg-[#FFFF00]/[0.8];
+	}
+	.table-default-border {
+		@apply [&>thead>tr>td]:border-[1px] [&>thead>tr>td]:border-[#aaa] [&>thead>tr>td]:px-[6px];
+		@apply [&>tbody>tr>td]:border-[1px] [&>tbody>tr>td]:border-[#aaa] [&>tbody>tr>td]:px-[6px];
+	}
+	.table-default-align {
+		@apply [&>thead>tr>td]:align-top;
+		@apply [&>tbody>tr>td]:align-top;
+	}
+	.table-no-shrink {
+		@apply [&>thead>tr>td]:whitespace-pre;
+		@apply [&>tbody>tr>td]:whitespace-pre;
+	}
+	.table-shrink-block-code {
+		@apply [&>thead>tr>td>.block-code]:w-fit;
+		@apply [&>tbody>tr>td>.block-code]:w-fit;
+	}
+	
+	.top-level-window {
+		@apply bg-[#F0F0F0];
+	}
+	.vlayout
+	{
+		@apply flex flex-col p-[9px] gap-y-[9px];
+	}
+	.hlayout
+	{
+		@apply flex flex-row p-[9px] gap-x-[9px];
+	}
+	.zero-out-nested-layout-margin
+	{
+		@apply p-[0px];
+	}
+	.vscrollarea
+	{
+		@apply border-[1px] border-t-[#A0A0A0] border-r-[#FFFFFF] border-b-[#FFFFFF] border-l-[#A0A0A0] shadow-[inset_-1px_-1px_#F0F0F0,_inset_1px_1px_#696969];
+		@apply overflow-y-scroll;
+	}
+	.hscrollarea
+	{
+		@apply border-[1px] border-t-[#A0A0A0] border-r-[#FFFFFF] border-b-[#FFFFFF] border-l-[#A0A0A0] shadow-[inset_-1px_-1px_#F0F0F0,_inset_1px_1px_#696969];
+		@apply overflow-x-scroll;
+	}
+	
+}
+
+@layer utilities {
+	.font-restore {
+		font-family: DejaVuSans,"DejaVu Sans",arial,sans-serif;
+		@apply text-[calc(var(--font-scale)*1rem)] leading-[1.5em];
+	}
+	.keyword
+	{
+		@apply text-[#0000FF];
+	}
+	.struct
+	{
+		@apply text-[#00B4B4];
+	}
+	.struct_in_question
+	{
+		@apply font-bold;
+	}
+	.concept
+	{
+		@apply text-[#00B4B4] drop-shadow-[1px_1px_0px_#0000FF];
+	}
+}
+
 *
 {
 	transform-style:preserve-3d;
 	word-break: normal; overflow-wrap: anywhere;
 }
 
-html, body {
-    font-family: DejaVuSans,"DejaVu Sans",arial,sans-serif;
-    /* font-size: 16px; */
-}
 
-.vlayout
-{
-	display: flex;
-	flex-direction: column;
-	padding: 9px;
-	row-gap: 9px;
-	background-color: #F0F0F0;
-}
-.hlayout
-{
-	display: flex;
-	flex-direction: row;
-	padding: 9px;
-	column-gap: 9px;
-	background-color: #F0F0F0;
-}
-.zero_out_nested_layout_margin
-{
-	padding: 0px;
-}
-
-.vscrollarea
-{
-	border:1px solid;
-	border-top-color:#A0A0A0;
-	border-right-color:white;
-	border-bottom-color:white;
-	border-left-color:#A0A0A0;
-	box-shadow: inset -1px -1px #F0F0F0, inset 1px 1px #696969;
-	overflow-y: scroll;
-}
-.hscrollarea
-{
-	border:1px solid;
-	border-top-color:#A0A0A0;
-	border-right-color:white;
-	border-bottom-color:white;
-	border-left-color:#A0A0A0;
-	box-shadow: inset -1px -1px #F0F0F0, inset 1px 1px #696969;
-	overflow-x: scroll;
-}
 
 button
 {
@@ -106,47 +170,8 @@ a:hover
 	text-decoration-line: underline;
 }
 
-.keyword
-{
-	color:#0000FF;
-}
-.struct
-{
-	color:#00B4B4;
-}
-.struct_in_question
-{
-	font-weight: 700;
-}
 
-.block-code
-{
-	font-family:Consolas,monospace;
 
-	border: 1px solid #D6D6D6;
-	background-color: rgba(0,0,0,0.031);
-	overflow-x:auto;
-	overflow-y:auto;
-	
-	padding-left:6px;
-	padding-right:6px;
-	padding-bottom:1px;
-}
-
-.inline-code
-{
-	font-family:Consolas,monospace;
-
-	border: 1px solid #D6D6D6;
-	margin: 0 2px;
-	padding: 0 2px;
-	background-color: rgba(0,0,0,0.031);
-}
-
-.dubious-code
-{
-	background-color: rgba(255,255,0,0.8);
-}
 
 .comment
 {
