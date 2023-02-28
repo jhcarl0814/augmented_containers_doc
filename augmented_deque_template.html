@@ -1308,8 +1308,8 @@ function initialize_examples()
 										return generate_random_string(Math.floor(Math.random() * 6));
 									else if(example_prefix_possibly_interactive == "find_by_heap_predicate_generator_")
 									{
-										let prev_lower_endpoint = Module[example_prefix_possibly_interactive + "prev_lower_endpoint"]();
-										let next_lower_endpoint = Module[example_prefix_possibly_interactive + "next_lower_endpoint"]();
+										let prev_lower_endpoint = Module[example_prefix_possibly_interactive + "prev_lower_endpoint"](0);
+										let next_lower_endpoint = Module[example_prefix_possibly_interactive + "next_lower_endpoint"](0);
 										return generate_random_interval(prev_lower_endpoint, next_lower_endpoint);
 									}
 									else
