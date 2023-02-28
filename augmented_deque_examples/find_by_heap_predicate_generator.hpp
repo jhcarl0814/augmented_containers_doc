@@ -35,7 +35,7 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projecting_n_ary_functor_interval_to_up
 {
     using projected_storage_t = std::int64_t;
     template<typename it_element_t>
-    std::size_t operator()(it_element_t it_element) const { return it_element->second; }
+    std::int64_t operator()(it_element_t it_element) const { return it_element->second; }
 };
 
 augmented_containers::augmented_deque_t<
