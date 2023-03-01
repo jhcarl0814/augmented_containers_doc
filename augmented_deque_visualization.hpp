@@ -728,9 +728,9 @@ namespace augmented_containers
                                                                 .COLSPAN = 2,
                                                                 .content = /*html_label_t{member_to_text(u8"digit_position", p_digit_node->digit_position)}*/ [&]()
                                                                 { return html_label_t{text_t{{
-                                                                      textitem_t{u8"2"},
+                                                                      textitem_t{std::make_pair(font_t{.COLOR = u8"#00000060"}, text_t{{textitem_t{u8"2"}}})},
                                                                       textitem_t{std::make_pair(sup_t{}, text_t{{{index_to_string(p_digit_node->digit_position)}}})},
-                                                                      textitem_t{u8"*" + index_to_string((p_digit_node->tree_left != nullptr) + (p_digit_node->tree_right != nullptr))},
+                                                                      textitem_t{std::make_pair(font_t{.COLOR = u8"#00000060"}, text_t{{textitem_t{u8"*" + index_to_string((p_digit_node->tree_left != nullptr) + (p_digit_node->tree_right != nullptr))}}})},
                                                                   }}}; }(),
                                                             },
                                                             cell_t{
