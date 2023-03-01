@@ -12,7 +12,7 @@ std::random_device AUGMENTED_DEQUE_EXAMPLE_PREFIXING(rd); // Will be used to obt
 std::mt19937 AUGMENTED_DEQUE_EXAMPLE_PREFIXING(gen)(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(rd)()); // Standard mersenne_twister_engine seeded with rd()
 std::uniform_int_distribution<> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(distrib)(0, 10);
 
-struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_group_by_node_t)
+struct alignas(std::max({alignof(void *), static_cast<std::size_t>(0b10)})) AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_group_by_node_t)
 {
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_group_by_node_t) *prev = nullptr, *next = nullptr;
 };
@@ -43,7 +43,7 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_group_by_t)
 };
 struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_group_by_node_t)
 {
-    struct record_t
+    struct alignas(std::max({alignof(void *), static_cast<std::size_t>(0b10)})) record_t
     {
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_group_by_node_t) *front = nullptr, *back = nullptr;
         friend bool operator==(record_t const &lhs, record_t const &rhs) = default;

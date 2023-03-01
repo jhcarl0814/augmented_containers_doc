@@ -11,7 +11,7 @@ std::random_device AUGMENTED_DEQUE_EXAMPLE_PREFIXING(rd); // Will be used to obt
 std::mt19937 AUGMENTED_DEQUE_EXAMPLE_PREFIXING(gen)(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(rd)()); // Standard mersenne_twister_engine seeded with rd()
 std::uniform_int_distribution<> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(distrib)(0, 100);
 
-struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_node_t)
+struct alignas(std::max({alignof(void *), static_cast<std::size_t>(0b10)})) AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_node_t)
 {
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_node_t) *prev = nullptr, *next = nullptr;
 };
@@ -40,7 +40,7 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_t)
         return true;
     }
 };
-struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t)
+struct alignas(std::max({alignof(void *), static_cast<std::size_t>(0b10)})) AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t)
 {
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_node_t) *front = nullptr, *back = nullptr;
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t)
@@ -71,8 +71,7 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_no
     }
     friend bool operator==(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t) const &lhs, AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t) const &rhs) = default;
 };
-struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(
-    accumulating_diffing_adjacent_element_binary_functor_t)
+struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulating_diffing_adjacent_element_binary_functor_t)
 {
     using accumulated_storage_t = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t);
 
