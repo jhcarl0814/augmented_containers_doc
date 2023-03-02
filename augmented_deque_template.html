@@ -80,9 +80,9 @@
 
 
 <div class="container mx-auto">
-	<details class="m-[9px] border-[1px] border-black">
+	<details class="m-[9px] border-[1px] border-[#000000]">
 		<summary class="p-[9px] cursor-pointer">/ &gt;&gt; augmented_containers &gt;&gt; augmented_deque_t</summary>
-<pre class="whitespace-pre-wrap p-[9px] border-t-[1px] border-t-black">
+<pre class="whitespace-pre-wrap p-[9px] border-t-[1px] border-t-[#000000]">
 <a href="/">jhcarl0814.github.io</a>
 	<span class="">Augmented Containers</span>
 		<span class="font-bold text-[120%]">Sequence</span>
@@ -135,7 +135,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td rowspan="5" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center">operations</td>
+				<td rowspan="5" class="[writing-mode:vertical-rl] text-center">operations</td>
 				<td class="!border-r-[2px] !border-r-[#000000]">range update</td>
 				<td class="td_red"><span class="math_formula">O(N)</span>, <span class="math_formula">O(distance(range))</span> if range's begin/end is at accumulation end</td>
 				<td><span class="math_formula">O(distance(range)+lg(N))</span></td>
@@ -377,7 +377,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 		</thead>
 		<tbody>
 			<tr>
-				<td rowspan="10" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center">how to handle</td>
+				<td rowspan="10" class="[writing-mode:vertical-rl] text-center">how to handle</td>
 				<td class="!border-r-[2px] !border-r-[#000000]">use projection to handle (without accumulation)</td>
 				<td class="whitespace-pre-wrap"><span class="inline-code">transform</span>
 <span class="inline-code">adjacent_difference</span></td>
@@ -712,7 +712,7 @@ emplace_back() other's elements</pre></td>
 	</thead>
 	<tbody>
 		<tr>
-			<td rowspan="2" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
+			<td rowspan="2" class="[writing-mode:vertical-rl] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
 and
 <span class="inline-code">other.allocator_element</span></td>
 			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">==</span></td>
@@ -753,7 +753,7 @@ other.p = create_and_link_end_nodes()
 					<td><pre class="block-code"><table class="font-restore my-[6px] table-default-border table-default-align table-no-shrink table-shrink-block-code">
 	<tbody>
 		<tr>
-			<td rowspan="2" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center"><span class="inline-code">allocator_element</span>
+			<td rowspan="2" class="[writing-mode:vertical-rl] text-center"><span class="inline-code">allocator_element</span>
 and
 <span class="inline-code">other.allocator_element</span></td>
 			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">==</span></td>
@@ -772,7 +772,7 @@ emplace_back(move()) other's elements
 					<td><table class="my-[6px] table-default-border table-default-align table-no-shrink table-shrink-block-code">
 	<tbody>
 		<tr>
-			<td rowspan="2" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center"><span class="inline-code">allocator_element</span>
+			<td rowspan="2" class="[writing-mode:vertical-rl] text-center"><span class="inline-code">allocator_element</span>
 and
 <span class="inline-code">other.allocator_element</span></td>
 			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">==</span></td>
@@ -804,7 +804,7 @@ and
 	</thead>
 	<tbody>
 		<tr>
-			<td rowspan="2" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
+			<td rowspan="2" class="[writing-mode:vertical-rl] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
 and
 <span class="inline-code">other.allocator_element</span></td>
 			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">==</span></td>
@@ -835,7 +835,7 @@ swap(<span class="keyword">this</span>-&gt;p, other.p)</pre></td>
 	</thead>
 	<tbody>
 		<tr>
-			<td rowspan="2" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
+			<td rowspan="2" class="[writing-mode:vertical-rl] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
 and
 <span class="inline-code">other.allocator_element</span></td>
 			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">==</span></td>
@@ -869,7 +869,7 @@ and
 	</thead>
 	<tbody>
 		<tr>
-			<td rowspan="2" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
+			<td rowspan="2" class="[writing-mode:vertical-rl] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
 and
 <span class="inline-code">other.allocator_element</span></td>
 			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">==</span></td>
@@ -900,7 +900,7 @@ swap(<span class="keyword">this</span>-&gt;p, other.p)</pre></td>
 	</thead>
 	<tbody>
 		<tr>
-			<td rowspan="2" style="writing-mode:vertical-rl;" class="!px-[0px] !py-[6px] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
+			<td rowspan="2" class="[writing-mode:vertical-rl] text-center"><span class="inline-code"><span class="keyword">this</span>-&gt;allocator_element</span>
 and
 <span class="inline-code">other.allocator_element</span></td>
 			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">==</span></td>
@@ -952,7 +952,7 @@ function initialize_examples()
 				let example_root = document.getElementById(example_prefix_possibly_interactive + "example");
 				example_root.innerHTML = `
 					<div class="lg:min-w-[80%] lg:max-w-[80%] min-h-[calc(min(45vw,90vh))] max-h-[calc(min(45vw,90vh))] select-none relative">
-						<div class="sequences border-[1px] border-black overflow-y-visible pointer-events-none absolute inset-0
+						<div class="sequences border-[1px] border-[#000000] overflow-y-visible pointer-events-none absolute inset-0
 							[&>.sequence]:absolute [&>.sequence]:inset-0 [&>.sequence]:z-[-1]
 							[&>.sequence>svg]:min-w-[100%] [&>.sequence>svg]:max-w-[100%] [&>.sequence>svg]:min-h-[100%] [&>.sequence>svg]:max-h-[100%]
 						" style="

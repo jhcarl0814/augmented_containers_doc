@@ -5,7 +5,7 @@ module.exports = {
         aspectRatio: true,
     },
     content: [
-        "./**/*.{html,js}",
+        "./docs/**/*.{html,js}",
     ],
 	theme: {
 		extend: {},
