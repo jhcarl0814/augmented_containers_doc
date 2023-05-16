@@ -1,0 +1,1666 @@
+<!doctype html>
+<html lang="en-us" class="overflow-y-hidden h-[100%]">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>augmented_sequence_t</title>
+		<style>
+			.emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+			textarea.emscripten { font-family: monospace; width: 80%; }
+			div.emscripten { text-align: center; }
+			div.emscripten_border { border: 1px solid black; }
+			/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+			canvas.emscripten { border: 0px none; background-color: black; }
+
+			.spinner {
+				height: 50px;
+				width: 50px;
+				margin: 0px auto;
+				-webkit-animation: rotation .8s linear infinite;
+				-moz-animation: rotation .8s linear infinite;
+				-o-animation: rotation .8s linear infinite;
+				animation: rotation 0.8s linear infinite;
+				border-left: 10px solid rgb(0,150,240);
+				border-right: 10px solid rgb(0,150,240);
+				border-bottom: 10px solid rgb(0,150,240);
+				border-top: 10px solid rgb(100,0,200);
+				border-radius: 100%;
+				background-color: rgb(200,100,250);
+			}
+			@-webkit-keyframes rotation {
+				from {-webkit-transform: rotate(0deg);}
+				to {-webkit-transform: rotate(360deg);}
+			}
+			@-moz-keyframes rotation {
+				from {-moz-transform: rotate(0deg);}
+				to {-moz-transform: rotate(360deg);}
+			}
+			@-o-keyframes rotation {
+				from {-o-transform: rotate(0deg);}
+				to {-o-transform: rotate(360deg);}
+			}
+			@keyframes rotation {
+				from {transform: rotate(0deg);}
+				to {transform: rotate(360deg);}
+			}
+
+		</style>
+		
+		<link rel="shortcut icon" href="data:image/bmp;base64,Qk1+AAAAAAAAAD4AAAAoAAAAEAAAABAAAAABAAEAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		<link rel="stylesheet" href="./app.css">
+		
+		<script src="./d3.v7.min.js" type='application/javascript'></script>
+		<script src="./graphviz.umd.js" type="javascript/worker"></script>
+		<script src="./d3-graphviz.js" type='application/javascript'></script>
+	</head>
+	<body class="overflow-x-hidden overflow-y-auto h-[100%] [--font-scale:1] [--line-height-paragraph:1.5] font-restore" style="perspective:100vw;">
+		<div style="display:none;">
+			<hr/>
+			<figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>emscripten</strong></center></figure>
+			<div class="emscripten" id="status">Downloading...</div>
+			<div class="emscripten">
+				<progress value="0" max="100" id="progress" hidden=1></progress>  
+			</div>
+			<div class="emscripten_border">
+				<canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+			</div>
+			<hr/>
+			<div class="emscripten">
+				<input type="checkbox" id="resize">Resize canvas
+				<input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer
+				&nbsp;&nbsp;&nbsp;
+				<input type="button" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, document.getElementById('resize').checked)">
+			</div>
+			
+			<hr/>
+			<textarea class="emscripten" id="output" rows="8"></textarea>
+			<hr>
+		</div>
+
+
+<div class="container mx-auto">
+	<details class="m-[9px] border-[1px] border-[#000000]">
+		<summary class="p-[9px] cursor-pointer">/ &gt;&gt; augmented_containers &gt;&gt; augmented_sequence_t</summary>
+<pre class="whitespace-pre-wrap p-[9px] border-t-[1px] border-t-[#000000]">
+<a href="/">jhcarl0814.github.io</a>
+	<span class="">Augmented Containers</span>
+		<span class="font-bold text-[120%]">Sequence</span>
+			augmented_*****_t
+			<a href="/augmented_containers_doc/augmented_deque.html">augmented_deque_t</a>
+<div class="bg-[#00FFFF20]">			<a href="/augmented_containers_doc/augmented_sequence.html">augmented_sequence_t</a>
+</div>		<span class="font-bold text-[120%]">Associative</span>
+			augmented_***&ZeroWidthSpace;/&ZeroWidthSpace;***&ZeroWidthSpace;/&ZeroWidthSpace;********&ZeroWidthSpace;/&ZeroWidthSpace;********_t
+		<span class="font-bold text-[120%]">*****</span>
+			augmented_*****_t
+</pre>
+	</details>
+</div>
+
+<div class="container mx-auto">
+	<h1 class="heading1"><span class="text-[112%]">augmented_containers::</span>&ZeroWidthSpace;<span class="text-[160%]">augmented_sequence_t</span></h1>
+<pre class="mx-[12px] block-code mb-[18px]">
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="struct"><span class="struct_in_question">augmented_sequence_physical_representation_e</span></span> {
+	rb3p,
+	rb2p,
+	<span style="color:transparent;">finger_tree,</span> };
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="struct"><span class="struct_in_question">augmented_sequence_size_management_e</span></span> {
+	no_size,
+	at_node_end,
+	at_each_node_except_node_end,
+};
+<span class="keyword">template</span>&lt;
+	<span class="keyword">typename</span> element_t,
+	<span class="keyword">typename</span> allocator_t = std::<span class="struct">allocator</span>&lt;element_t&gt;,
+	<span class="keyword">typename</span> accumulator_t_ = augmented_sequence_helpers::<span class="struct">empty_accumulator_t</span>,
+	<span class="keyword">typename</span> augmented_sequence_physical_representation_t = std::<span class="struct">integral_constant</span>&lt;<span class="struct">augmented_sequence_physical_representation_e</span>, <span class="struct">augmented_sequence_physical_representation_e</span>::rb3p&gt;,
+	<span class="keyword">typename</span> augmented_sequence_size_management_t = std::<span class="struct">integral_constant</span>&lt;<span class="struct">augmented_sequence_size_management_e</span>, <span class="struct">augmented_sequence_size_management_e</span>::at_each_node_except_node_end&gt;
+&gt; <span class="keyword">struct</span> <span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>;
+</pre>
+	<div class="mx-[12px]"><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/augmented_rb2p.hpp">augmented_rb2p.hpp</a>&gt; (one single header file library)</span></div>
+<pre class="mx-[12px] block-code mb-[18px]">
+<span class="keyword">template</span>&lt;
+	<span class="keyword">typename</span> element_t,
+	<span class="keyword">typename</span> allocator_t,
+	<span class="keyword">typename</span> accumulator_t,
+	<span class="keyword">typename</span> augmented_sequence_physical_representation_t,
+	<span class="keyword">typename</span> augmented_sequence_size_management_t
+&gt; requires(<span class="keyword">static_cast</span>&lt;<span class="struct">augmented_sequence_physical_representation_e</span>&gt;(<span class="struct">augmented_sequence_physical_representation_t</span>{}) == <span class="struct">augmented_sequence_physical_representation_e</span>::rb2p)
+<span class="keyword">struct</span> <span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>;
+</pre>
+	<div class="mx-[12px]"><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/augmented_rb3p.hpp">augmented_rb3p.hpp</a>&gt; (one single header file library)</span></div>
+<pre class="mx-[12px] block-code mb-[18px]">
+<span class="keyword">template</span>&lt;
+	<span class="keyword">typename</span> element_t,
+	<span class="keyword">typename</span> allocator_t,
+	<span class="keyword">typename</span> accumulator_t,
+	<span class="keyword">typename</span> augmented_sequence_physical_representation_t,
+	<span class="keyword">typename</span> augmented_sequence_size_management_t
+&gt; requires(<span class="keyword">static_cast</span>&lt;<span class="struct">augmented_sequence_physical_representation_e</span>&gt;(<span class="struct">augmented_sequence_physical_representation_t</span>{}) == <span class="struct">augmented_sequence_physical_representation_e</span>::rb3p)
+<span class="keyword">struct</span> <span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>;
+</pre>
+</div>
+
+<div class="container mx-auto">
+	<p class="paragraph"><span class="struct_in_question">augmented_sequence_t</span> is an augmented, general-purpose sequence. It's part of the augmented containers library, providing a stronger version of <span class="inline-code">sequence containers</span> (let containers (and possibly its subranges) always have several accompanying results of algorithms/views), as well as <span class="inline-code">&lt;algorithm&gt;</span> and <span class="inline-code">&lt;ranges&gt;</span> (when the input sequence changes, refresh output values/ranges in logarithmic time complexity).</p>
+	<ul class="list-disc list-inside">
+		<li class="paragraph"><span class="struct_in_question">augmented_sequence_t</span> allows subrange update: first modify some elements, then call <span class="inline-code">update_range</span> to refresh the accumulated results that cover those elements in <span class="math_formula">O(distance(range)+lg(N))</span> time. A common mistake would be to forget to call <span class="inline-code">update_range</span>.</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_sequence_t</span> allows subrange query: call <span class="inline-code">read_range</span> to collect accumulated results that cover the range in <span class="math_formula">O(lg(distance(range)))</span> time. If the accumulated result is a range instead of a single value, the result is probably formed by accumulated results linking to each other, in this case you should not call <span class="inline-code">read_range</span> because there are no more pointers left for you to form another range (see examples below for an intuitive feel).</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_sequence_t</span> allows inserting and erasing single element in <span class="math_formula">O(lg(N))</span> time. Inserting a range of elements is implemented by 1 bulk loading operation (<span class="math_formula">O(distance(range))</span> time) and 1 split operation followed by 2 concatenate operations. Erasing a range of elements is implemented by 2 split operations.</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_sequence_t</span> allows spliting one sequence into two in <span class="math_formula">O(lg(N))</span> time, and allows concatenating two sequences into one in <span class="math_formula">O(lg(max(N<sub>lhs</sub>, N<sub>rhs</sub>)))</span> time.</li>
+		<li class="paragraph">⚠Insert, erase, split, concatenate operations automatically update accumulated results of the affected nodes. <span class="inline-code">update_range</span> is needed only after modification of elements through dereferencing iterators.</li>
+	</ul>
+</div>
+
+<div class="container mx-auto">
+	<h2 class="heading2">Physical representations and Size management</h2>
+	<table class="mx-[12px] my-[6px] bg-[#f2f2f2] table-default-border table-default-align">
+		<thead class="border-b-[2px] border-b-[#000000]">
+			<tr>
+				<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+				<td colspan="2" class="text-center">members</td>
+			</tr>
+			<tr>
+				<td><span class="inline-code"><span class="struct">iterator</span>::operator++</span><br><span class="inline-code"><span class="struct">iterator</span>::operator--</span></td>
+				<td><span class="inline-code">split_emit_left</span><br><span class="inline-code">split_emit_right</span></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td rowspan="2" class="[writing-mode:vertical-rl] text-center">physical<br>representation</td>
+				<td class="!border-r-[2px] !border-r-[#000000]">red-black tree<br>two pointers per node</td>
+				<td><span class="math_formula">O(1)</span></td>
+				<td>At the beginning of split operation, spends <span class="math_formula">O(1)</span> time to get predecessor of the element at the split position.<br>In the first round of split operation, spends <span class="math_formula">O(1)</span> time to get insert position in the subtree.</td>
+			</tr>
+			<tr>
+				<td class="!border-r-[2px] !border-r-[#000000]">red-black tree<br>three pointers per node</td>
+				<td class="td_red"><span class="math_formula">O(lg(N))</span> (amortized <span class="math_formula">O(1)</span>)</td>
+				<td class="td_red">At the beginning of split operation, spends <span class="math_formula">O(lg(N))</span> time to get predecessor of the element at the split position.<br>In the first round of split operation, spends <span class="math_formula">O(lg(N))</span> time to get insert position in the subtree.</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<table class="mx-[12px] my-[6px] bg-[#f2f2f2] table-default-border table-default-align">
+		<thead class="border-b-[2px] border-b-[#000000]">
+			<tr>
+				<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+				<td colspan="3" class="text-center">members</td>
+			</tr>
+			<tr>
+				<td><span class="inline-code">size</span></td>
+				<td><span class="inline-code"><span class="struct">iterator</span></span></td>
+				<td><span class="inline-code">split_emit_left</span><br><span class="inline-code">split_emit_right</span></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td rowspan="3" class="[writing-mode:vertical-rl] text-center">size<br>management</td>
+				<td class="!border-r-[2px] !border-r-[#000000]">does not store size</td>
+				<td class="td_red">not supported</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="!border-r-[2px] !border-r-[#000000]">stores size at end node</td>
+				<td></td>
+				<td></td>
+				<td class="td_red">At the end of split operation, spends <span class="math_formula">O(distance(range<sub>emitted</sub>))</span> time to restore the sizes.</td>
+			</tr>
+			<tr>
+				<td class="!border-r-[2px] !border-r-[#000000]">stores subtree sizes at each node except node end</td>
+				<td></td>
+				<td class="td_green">Can get <span class="inline-code">index</span> of iterator and has all functions required by <span class="inline-code">std::<span class="concept">random_access_iterator</span></span>, all take <span class="math_formula">O(lg(N))</span> time.<br>⚠<span class="inline-code"><span class="struct">iterator</span>::<span class="struct">iterator_concept</span></span> is still <span class="inline-code">std::<span class="struct">bidirectional_iterator_tag</span></span> because of time complexity requirements.</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="container mx-auto">
+	<h2 class="heading2">Examples</h2>
+	<p class="paragraph">The untagged pointers are drawn as solid lines. The <span class="inline-code">0b1</span>-tagged pointers are drawn as dashed lines.</p>
+	<p class="paragraph">In <span class="inline-code">rb3p</span>'s examples, end node's <span class="inline-code">child_right</span>, <span class="inline-code">parent</span> and <span class="inline-code">child_left</span> are drawn separately to not break graphviz's layout.</p>
+	<p class="paragraph">In <span class="inline-code">rb2p</span>'s examples, non-end node's loop (node's <span class="inline-code">my_list_beign()</span> → node's child_right, node's child_right's <span class="inline-code">next()</span> → node's leftmost_descendent_of_child_right, node's leftmost_descendent_of_child_right's <span class="inline-code">my_list_begin()</span> → node's rightmost_descendent_of_child_left, node's rightmost_descendent_of_child_left's <span class="inline-code">my_list_beign()</span> → node's child_left, node's child_left's <span class="inline-code">next()</span> → node, the last edge of the loop is <span class="inline-code">0b1</span>-tagged) has it's edges drawn end-to-end to make it clearer (the pointers are still pointing to whole nodes, not members of nodes).</p>
+	<p class="paragraph">In <span class="inline-code">rb2p</span>'s examples, end node's loop (end node's <span class="inline-code">my_list_beign()</span> → leftmost_descendent_of_root, leftmost_descendent_of_root's <span class="inline-code">my_list_beign()</span> → root, root's <span class="inline-code">next()</span> → rightmost_descendent_of_root, rightmost_descendent_of_root's <span class="inline-code">my_list_beign()</span> → end_node, the last edge of the loop is <span class="inline-code">0b1</span>-tagged) is not drawn to not break graphviz's layout.</p>
+	<p class="paragraph">In <span class="inline-code">rb2p</span>'s examples, end node has <span class="inline-code">my_list_beign_</span>, non-end node has <span class="inline-code">my_list_beign_</span> and <span class="inline-code">next_</span>. The bit210 of <span class="inline-code">my_list_beign_</span> stores the role of the node (there are 8 roles: end<span class="inline-code">△</span>, root<span class="inline-code">▽</span>, child_left_not_a_leftmost_descendent<span class="inline-code">◤</span>, child_left_leftmost_descendent_of_non_root<span class="inline-code">◢</span>, child_left_leftmost_descendent_of_root<span class="inline-code">◁</span>, child_right_not_a_rightmost_descendent<span class="inline-code">◥</span>, child_right_rightmost_descendent_of_non_root<span class="inline-code">◣</span>, child_right_rightmost_descendent_of_root<span class="inline-code">▷</span>), the other bits are used to store <span class="inline-code">my_list_beign()</span>. The bit2 of <span class="inline-code">next_</span> stores the color of the node (reflected on the color of cells' borders), the bit1 of <span class="inline-code">next_</span> stores whether <span class="inline-code">my_list_beign()</span> is <span class="inline-code">0b1</span>-tagged, the bit0 of <span class="inline-code">next_</span> stores whether <span class="inline-code">next()</span> is <span class="inline-code">0b1</span>-tagged, the other bits are used to store <span class="inline-code">next()</span>.</p>
+</div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">empty</h3>
+	<p class="paragraph">The accumulation step is skipped. What's left (when <span class="inline-code">augmented_sequence_size_management_t</span> is <span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span>) can be seen as a <span class="inline-code">std::vector</span>/<span class="inline-code">std::deque</span> that supports fast split/concatenate and never invalidates iterators/references/pointers, or a <span class="inline-code">std::list</span> with random access ability.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+	<span class="keyword">char</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;,
+	augmented_containers::augmented_sequence_helpers::<span class="struct">empty_accumulator_t</span>,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="empty" id="empty_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="empty_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="empty" id="empty_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="empty_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="empty" id="empty_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="empty_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="empty" id="empty_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="empty_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="empty" id="empty_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="empty_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="empty" id="empty_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="empty_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#empty_rb2p_no_size_radio_button:not(:checked)) ~ #empty_rb2p_no_size_example{ display: none; }
+	table:has(#empty_rb2p_no_size_radio_button:not(:checked)) ~ #empty_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#empty_rb2p_no_size_radio_button:checked) ~ #empty_rb2p_no_size_example{ display: flex; }
+	table:has(#empty_rb2p_no_size_radio_button:checked) ~ #empty_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#empty_rb2p_at_node_end_radio_button:not(:checked)) ~ #empty_rb2p_at_node_end_example{ display: none; }
+	table:has(#empty_rb2p_at_node_end_radio_button:not(:checked)) ~ #empty_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#empty_rb2p_at_node_end_radio_button:checked) ~ #empty_rb2p_at_node_end_example{ display: flex; }
+	table:has(#empty_rb2p_at_node_end_radio_button:checked) ~ #empty_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#empty_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #empty_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#empty_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #empty_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#empty_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #empty_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#empty_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #empty_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#empty_rb3p_no_size_radio_button:not(:checked)) ~ #empty_rb3p_no_size_example{ display: none; }
+	table:has(#empty_rb3p_no_size_radio_button:not(:checked)) ~ #empty_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#empty_rb3p_no_size_radio_button:checked) ~ #empty_rb3p_no_size_example{ display: flex; }
+	table:has(#empty_rb3p_no_size_radio_button:checked) ~ #empty_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#empty_rb3p_at_node_end_radio_button:not(:checked)) ~ #empty_rb3p_at_node_end_example{ display: none; }
+	table:has(#empty_rb3p_at_node_end_radio_button:not(:checked)) ~ #empty_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#empty_rb3p_at_node_end_radio_button:checked) ~ #empty_rb3p_at_node_end_example{ display: flex; }
+	table:has(#empty_rb3p_at_node_end_radio_button:checked) ~ #empty_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#empty_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #empty_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#empty_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #empty_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#empty_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #empty_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#empty_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #empty_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="empty_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+<div class="container mx-auto">
+	<h3 class="heading3">accumulator_yield_one_value</h3>
+	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">char</span></span>)s are accumulated into <span class="inline-code">accumulated_storage_t</span>(<span class="inline-code">std::<span class="struct">string</span></span>)s.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+	<span class="keyword">char</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;,
+	augmented_containers::augmented_sequence_helpers::<span class="struct">accumulator_sequence_t</span>&lt;<span class="keyword">char</span>, std::<span class="struct">string</span>&gt;,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="accumulator_yield_one_value" id="accumulator_yield_one_value_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_value_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_value" id="accumulator_yield_one_value_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_value_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_value" id="accumulator_yield_one_value_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="accumulator_yield_one_value_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="accumulator_yield_one_value" id="accumulator_yield_one_value_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_value_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_value" id="accumulator_yield_one_value_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_value_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_value" id="accumulator_yield_one_value_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_value_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#accumulator_yield_one_value_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb2p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_one_value_rb2p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_one_value_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_one_value_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_value_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb2p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb2p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_value_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_value_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_value_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#accumulator_yield_one_value_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb3p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_one_value_rb3p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_one_value_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_one_value_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_value_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb3p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb3p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_value_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_value_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_value_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_value_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_value_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_value_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="accumulator_yield_one_value_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_value_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+<div class="container mx-auto">
+	<h3 class="heading3">accumulator_yield_multiple_values</h3>
+	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)s' addresses and arrays thereof are accumulated into their <span class="inline-code">std::ranges::merge | std::views::take(3)</span> (stores addresses so you can modify the original elements).</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+	<span class="keyword">int</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+	augmented_containers::augmented_sequence_helpers::<span class="struct">accumulator_wrapping_accumulating_binary_functor_t</span>&lt;<span class="struct">accumulating_min_n_element_binary_functor_t</span>&lt;<span class="keyword">int</span>, 3, <span class="keyword">true</span>&gt;&gt;,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="accumulator_yield_multiple_values" id="accumulator_yield_multiple_values_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_values_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_values" id="accumulator_yield_multiple_values_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_values_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_values" id="accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="accumulator_yield_multiple_values" id="accumulator_yield_multiple_values_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_values_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_values" id="accumulator_yield_multiple_values_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_values_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_values" id="accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#accumulator_yield_multiple_values_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb2p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_values_rb2p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_values_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_values_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_values_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb2p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb2p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_values_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#accumulator_yield_multiple_values_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb3p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_values_rb3p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_values_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_values_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_values_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb3p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb3p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_values_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="accumulator_yield_multiple_values_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_values_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+<div class="container mx-auto">
+	<h3 class="heading3">accumulator_yield_one_view</h3>
+	<p class="paragraph">Each <span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)'s corresponding <span class="inline-code">accumulated_storage_t</span> comes with the navigator portion (<span class="inline-code">prev</span> and <span class="inline-code">next</span> pointers) to be ready to form a circular doubly linked list. The accumulator takes chunk-begins (<span class="inline-code">std::ranges::prev(it).is_end() || (*std::ranges::prev(it) &lt; 50) != (*it &lt; 50)</span>), discards non-chunk-begins (and takes other accumulated circular doubly linked lists), accumulates them into a circular doubly linked lists representing <span class="inline-code">std::ranges::chunk_by_view</span> of the original sequence.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+	<span class="keyword">int</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+	<span class="struct">diffing_adjacent_element_accumulator_t</span>,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="accumulator_yield_one_view" id="accumulator_yield_one_view_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_view_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_view" id="accumulator_yield_one_view_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_view_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_view" id="accumulator_yield_one_view_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="accumulator_yield_one_view_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="accumulator_yield_one_view" id="accumulator_yield_one_view_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_view_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_view" id="accumulator_yield_one_view_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_view_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_one_view" id="accumulator_yield_one_view_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_one_view_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#accumulator_yield_one_view_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb2p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_one_view_rb2p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_one_view_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_one_view_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_view_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb2p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb2p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_view_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_view_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_view_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#accumulator_yield_one_view_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb3p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_one_view_rb3p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_one_view_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_one_view_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_view_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb3p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb3p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_view_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_one_view_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_one_view_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_one_view_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_one_view_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_one_view_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="accumulator_yield_one_view_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_one_view_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+<div class="container mx-auto">
+	<h3 class="heading3">accumulator_yield_multiple_views</h3>
+	<p class="paragraph">Similar to the <span class="inline-code">accumulator_yield_one_view</span> example, except that each <span class="inline-code">accumulated_storage_t</span> has "a map from <span class="inline-code">element % 3</span> to circular doubly linked list's end node" (instead of just "one end node"). The result represents C++32's <span class="inline-code">std::ranges::group_by_view</span> of the original sequence (<span class="inline-code">navigator_style = std::ranges::group_by_view::navigator_style_t::circular_doubly_linked_list, map_container_tt = std::map</span>).</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+	<span class="keyword">int</span>,
+	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+	<span class="struct">group_by_element_accumulator_t</span>,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="accumulator_yield_multiple_views" id="accumulator_yield_multiple_views_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_views_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_views" id="accumulator_yield_multiple_views_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_views_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_views" id="accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="accumulator_yield_multiple_views" id="accumulator_yield_multiple_views_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_views_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_views" id="accumulator_yield_multiple_views_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_views_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="accumulator_yield_multiple_views" id="accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#accumulator_yield_multiple_views_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb2p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb2p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_views_rb2p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_views_rb2p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_views_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_views_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb2p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb2p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb2p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_views_rb2p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#accumulator_yield_multiple_views_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb3p_no_size_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb3p_no_size_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_views_rb3p_no_size_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_views_rb3p_no_size_radio_button:checked) ~ #accumulator_yield_multiple_views_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_views_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb3p_at_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb3p_at_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb3p_at_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_views_rb3p_at_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="accumulator_yield_multiple_views_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="accumulator_yield_multiple_views_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+<div class="container mx-auto">
+	<h3 class="heading3">find_by_monotonic_predicate</h3>
+	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code">std::<span class="struct">string</span></span>)s' <span class="inline-code">.size()</span>s are accumulated by <span class="inline-code">std::<span class="keyword">size_t</span> operator+(std::<span class="keyword">size_t</span>, std::<span class="keyword">size_t</span>)</span>. Use <span class="inline-code">.find_by_monotonic_predicate([&amp;](){ ... })</span> to find the first element where the <span class="inline-code">accumulated_storage_t</span>(<span class="inline-code">std::<span class="keyword">size_t</span></span>) (accumulated string size so far) starts to be greater than <span class="inline-code">the given character index</span>, i.e., the element that contains the <span class="inline-code">the given character index</span>th character. Note that the hierarchical structure saves time by skiping substructures that don't contain the results.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+    std::<span class="struct">string</span>,
+    std::<span class="struct">allocator</span>&lt;std::<span class="struct">string</span>&gt;,
+    augmented_containers::augmented_sequence_helpers::<span class="struct">accumulator_wrapping_accumulating_binary_functor_t</span>&lt;<span class="struct">accumulating_binary_functor_string_length</span>&gt;,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="find_by_monotonic_predicate" id="find_by_monotonic_predicate_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="find_by_monotonic_predicate_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_monotonic_predicate" id="find_by_monotonic_predicate_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_monotonic_predicate_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_monotonic_predicate" id="find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="find_by_monotonic_predicate" id="find_by_monotonic_predicate_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="find_by_monotonic_predicate_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_monotonic_predicate" id="find_by_monotonic_predicate_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_monotonic_predicate_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_monotonic_predicate" id="find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#find_by_monotonic_predicate_rb2p_no_size_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb2p_no_size_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb2p_no_size_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb2p_no_size_radio_button:checked) ~ #find_by_monotonic_predicate_rb2p_no_size_example{ display: flex; }
+	table:has(#find_by_monotonic_predicate_rb2p_no_size_radio_button:checked) ~ #find_by_monotonic_predicate_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#find_by_monotonic_predicate_rb2p_at_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb2p_at_node_end_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb2p_at_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb2p_at_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb2p_at_node_end_example{ display: flex; }
+	table:has(#find_by_monotonic_predicate_rb2p_at_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#find_by_monotonic_predicate_rb3p_no_size_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb3p_no_size_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb3p_no_size_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb3p_no_size_radio_button:checked) ~ #find_by_monotonic_predicate_rb3p_no_size_example{ display: flex; }
+	table:has(#find_by_monotonic_predicate_rb3p_no_size_radio_button:checked) ~ #find_by_monotonic_predicate_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#find_by_monotonic_predicate_rb3p_at_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb3p_at_node_end_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb3p_at_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb3p_at_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb3p_at_node_end_example{ display: flex; }
+	table:has(#find_by_monotonic_predicate_rb3p_at_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="find_by_monotonic_predicate_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_monotonic_predicate_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+<div class="container mx-auto">
+	<h3 class="heading3">find_by_heap_predicate</h3>
+	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)s are accumulated into their <span class="inline-code">std::ranges::max</span>. Use <span class="inline-code">.find_by_heap_predicate(jts_output, [&amp;](){ ... })</span> to eagerly find all elements greater than or equal to <span class="inline-code">the given threshold</span>. Note that the hierarchical structure saves time by skiping substructures that don't contain the results. It's possible to parallelize the search, depending on the availability of <span class="inline-code">std::execution</span>.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+    <span class="keyword">int</span>,
+    std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+    augmented_containers::augmented_sequence_helpers::<span class="struct">accumulator_wrapping_accumulating_binary_functor_t</span>&lt;augmented_containers::augmented_sequence_helpers::<span class="struct">accumulating_binary_functor_wrapping_homogeneous_binary_functor_t</span>&lt;<span class="keyword">int</span>, augmented_containers::augmented_sequence_helpers::<span class="struct">max_t</span>&lt;<span class="keyword">int</span>&gt;&gt;&gt;,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="find_by_heap_predicate" id="find_by_heap_predicate_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate" id="find_by_heap_predicate_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate" id="find_by_heap_predicate_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="find_by_heap_predicate_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="find_by_heap_predicate" id="find_by_heap_predicate_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate" id="find_by_heap_predicate_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate" id="find_by_heap_predicate_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#find_by_heap_predicate_rb2p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb2p_no_size_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb2p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb2p_no_size_radio_button:checked) ~ #find_by_heap_predicate_rb2p_no_size_example{ display: flex; }
+	table:has(#find_by_heap_predicate_rb2p_no_size_radio_button:checked) ~ #find_by_heap_predicate_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_rb2p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb2p_at_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb2p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb2p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb2p_at_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_rb2p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#find_by_heap_predicate_rb3p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb3p_no_size_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb3p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb3p_no_size_radio_button:checked) ~ #find_by_heap_predicate_rb3p_no_size_example{ display: flex; }
+	table:has(#find_by_heap_predicate_rb3p_no_size_radio_button:checked) ~ #find_by_heap_predicate_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_rb3p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb3p_at_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb3p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb3p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb3p_at_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_rb3p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="find_by_heap_predicate_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+<div class="container mx-auto">
+	<h3 class="heading3">find_by_heap_predicate_generator</h3>
+	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)s are accumulated into their <span class="inline-code">std::ranges::max</span>. Use <span class="inline-code">.find_by_heap_predicate_generator([&amp;](){ ... })</span> to lazily iterate through elements greater than or equal to <span class="inline-code">the given threshold</span>, until an element divisible by <span class="inline-code">the given denominator</span> is encountered. Note that the hierarchical structure saves time by skiping substructures that don't contain the results. It's possible to parallelize the search, depending on the availability of <span class="inline-code">std::execution</span>.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
+    <span class="keyword">int</span>,
+    std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
+    augmented_containers::augmented_sequence_helpers::<span class="struct">accumulator_wrapping_accumulating_binary_functor_t</span>&lt;augmented_containers::augmented_sequence_helpers::<span class="struct">accumulating_binary_functor_wrapping_homogeneous_binary_functor_t</span>&lt;<span class="keyword">int</span>, augmented_containers::augmented_sequence_helpers::<span class="struct">max_t</span>&lt;<span class="keyword">int</span>&gt;&gt;&gt;,
+	...
+&gt; augmented_sequence;
+</pre>
+</div>
+<table class="font-restore my-[6px] table-default-border table-default-align table-shrink-block-code">
+	<thead class="border-b-[2px] border-b-[#000000]">
+		<tr>
+			<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
+			<td colspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+		</tr>
+		<tr>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;no_size</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_node_end</span></td>
+			<td><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="3"><span class="inline-code"><span class="keyword">static_cast</span>&ZeroWidthSpace;&lt;&ZeroWidthSpace;augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_t</span>&ZeroWidthSpace;{&ZeroWidthSpace;}&ZeroWidthSpace;)</span></td>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb2p</span></td>
+			<td><input type="radio" name="find_by_heap_predicate_generator" id="find_by_heap_predicate_generator_rb2p_no_size_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_generator_rb2p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate_generator" id="find_by_heap_predicate_generator_rb2p_at_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_generator_rb2p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate_generator" id="find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button" checked><label for="find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+		<tr>
+			<td class="!border-r-[2px] !border-r-[#000000]"><span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_physical_representation_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;rb3p</span></td>
+			<td><input type="radio" name="find_by_heap_predicate_generator" id="find_by_heap_predicate_generator_rb3p_no_size_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_generator_rb3p_no_size_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate_generator" id="find_by_heap_predicate_generator_rb3p_at_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_generator_rb3p_at_node_end_radio_button" class="absolute inset-0"></label></td>
+			<td><input type="radio" name="find_by_heap_predicate_generator" id="find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_radio_button" class="hidden radio_push_button"><label for="find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_radio_button" class="absolute inset-0"></label></td>
+		</tr>
+	</tbody>
+</table>
+<style> /* https://stackoverflow.com/questions/36624127/set-html-element-visibility-by-radio-button-state/36624975#36624975 */
+	table:has(#find_by_heap_predicate_generator_rb2p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb2p_no_size_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb2p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb2p_no_size_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb2p_no_size_radio_button:checked) ~ #find_by_heap_predicate_generator_rb2p_no_size_example{ display: flex; }
+	table:has(#find_by_heap_predicate_generator_rb2p_no_size_radio_button:checked) ~ #find_by_heap_predicate_generator_rb2p_no_size_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_generator_rb2p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb2p_at_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb2p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb2p_at_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb2p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb2p_at_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_generator_rb2p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb2p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_interactive_example{ display: flex; }
+	
+	table:has(#find_by_heap_predicate_generator_rb3p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb3p_no_size_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb3p_no_size_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb3p_no_size_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb3p_no_size_radio_button:checked) ~ #find_by_heap_predicate_generator_rb3p_no_size_example{ display: flex; }
+	table:has(#find_by_heap_predicate_generator_rb3p_no_size_radio_button:checked) ~ #find_by_heap_predicate_generator_rb3p_no_size_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_generator_rb3p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb3p_at_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb3p_at_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb3p_at_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb3p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb3p_at_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_generator_rb3p_at_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb3p_at_node_end_interactive_example{ display: flex; }
+
+	table:has(#find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_radio_button:not(:checked)) ~ #find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_interactive_example{ display: none; }
+	table:has(#find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_example{ display: flex; }
+	table:has(#find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_radio_button:checked) ~ #find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_interactive_example{ display: flex; }
+</style>
+<div id="find_by_heap_predicate_generator_rb2p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb2p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb2p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb2p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb2p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb3p_no_size_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb3p_no_size_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb3p_at_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb3p_at_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="find_by_heap_predicate_generator_rb3p_at_each_node_except_node_end_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+
+		<script>
+function initialize_examples()
+{
+	for(let [example_name, example_physical_representation, example_size_management] of [
+		["empty_", "rb2p_", "no_size_", ],
+		["empty_", "rb2p_", "at_node_end_", ],
+		["empty_", "rb2p_", "at_each_node_except_node_end_", ],
+		["empty_", "rb3p_", "no_size_", ],
+		["empty_", "rb3p_", "at_node_end_", ],
+		["empty_", "rb3p_", "at_each_node_except_node_end_", ],
+		
+		["accumulator_yield_one_value_", "rb2p_", "no_size_", ],
+		["accumulator_yield_one_value_", "rb2p_", "at_node_end_", ],
+		["accumulator_yield_one_value_", "rb2p_", "at_each_node_except_node_end_", ],
+		["accumulator_yield_one_value_", "rb3p_", "no_size_", ],
+		["accumulator_yield_one_value_", "rb3p_", "at_node_end_", ],
+		["accumulator_yield_one_value_", "rb3p_", "at_each_node_except_node_end_", ],
+		
+		["accumulator_yield_multiple_values_", "rb2p_", "no_size_", ],
+		["accumulator_yield_multiple_values_", "rb2p_", "at_node_end_", ],
+		["accumulator_yield_multiple_values_", "rb2p_", "at_each_node_except_node_end_", ],
+		["accumulator_yield_multiple_values_", "rb3p_", "no_size_", ],
+		["accumulator_yield_multiple_values_", "rb3p_", "at_node_end_", ],
+		["accumulator_yield_multiple_values_", "rb3p_", "at_each_node_except_node_end_", ],
+		
+		["accumulator_yield_one_view_", "rb2p_", "no_size_", ],
+		["accumulator_yield_one_view_", "rb2p_", "at_node_end_", ],
+		["accumulator_yield_one_view_", "rb2p_", "at_each_node_except_node_end_", ],
+		["accumulator_yield_one_view_", "rb3p_", "no_size_", ],
+		["accumulator_yield_one_view_", "rb3p_", "at_node_end_", ],
+		["accumulator_yield_one_view_", "rb3p_", "at_each_node_except_node_end_", ],
+		
+		["accumulator_yield_multiple_views_", "rb2p_", "no_size_", ],
+		["accumulator_yield_multiple_views_", "rb2p_", "at_node_end_", ],
+		["accumulator_yield_multiple_views_", "rb2p_", "at_each_node_except_node_end_", ],
+		["accumulator_yield_multiple_views_", "rb3p_", "no_size_", ],
+		["accumulator_yield_multiple_views_", "rb3p_", "at_node_end_", ],
+		["accumulator_yield_multiple_views_", "rb3p_", "at_each_node_except_node_end_", ],
+		
+		["find_by_monotonic_predicate_", "rb2p_", "no_size_", ],
+		["find_by_monotonic_predicate_", "rb2p_", "at_node_end_", ],
+		["find_by_monotonic_predicate_", "rb2p_", "at_each_node_except_node_end_", ],
+		["find_by_monotonic_predicate_", "rb3p_", "no_size_", ],
+		["find_by_monotonic_predicate_", "rb3p_", "at_node_end_", ],
+		["find_by_monotonic_predicate_", "rb3p_", "at_each_node_except_node_end_", ],
+		
+		["find_by_heap_predicate_", "rb2p_", "no_size_", ],
+		["find_by_heap_predicate_", "rb2p_", "at_node_end_", ],
+		["find_by_heap_predicate_", "rb2p_", "at_each_node_except_node_end_", ],
+		["find_by_heap_predicate_", "rb3p_", "no_size_", ],
+		["find_by_heap_predicate_", "rb3p_", "at_node_end_", ],
+		["find_by_heap_predicate_", "rb3p_", "at_each_node_except_node_end_", ],
+		
+		["find_by_heap_predicate_generator_", "rb2p_", "no_size_", ],
+		["find_by_heap_predicate_generator_", "rb2p_", "at_node_end_", ],
+		["find_by_heap_predicate_generator_", "rb2p_", "at_each_node_except_node_end_", ],
+		["find_by_heap_predicate_generator_", "rb3p_", "no_size_", ],
+		["find_by_heap_predicate_generator_", "rb3p_", "at_node_end_", ],
+		["find_by_heap_predicate_generator_", "rb3p_", "at_each_node_except_node_end_", ],
+	])
+	{
+		for(let is_interactive of [false, true])
+		{
+			((example_prefix_possibly_interactive, example_prefix, example_name, example_physical_representation, example_size_management, is_interactive) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+			{
+				window[example_prefix_possibly_interactive + "animation_playing"] = false;
+				window[example_prefix_possibly_interactive + "pending_animations"] = [];
+				let iterators_count = Module[example_prefix_possibly_interactive + "get_iterators_container_index"]().size();
+				
+				let example_root = document.getElementById(example_prefix_possibly_interactive + "example");
+				example_root.innerHTML = `
+					<div class="lg:min-w-[80%] lg:max-w-[80%] min-h-[calc(min(45vw,90vh))] max-h-[calc(min(45vw,90vh))] select-none relative">
+						<div class="sequences border-[1px] border-[#000000] overflow-y-visible pointer-events-none absolute inset-0
+							[&>.sequence]:absolute [&>.sequence]:inset-0 [&>.sequence]:z-[-1]
+							[&>.sequence>svg]:min-w-[100%] [&>.sequence>svg]:max-w-[100%] [&>.sequence>svg]:min-h-[100%] [&>.sequence>svg]:max-h-[100%]
+						" style="
+							--translateX_mouse_move:0.5;
+							--translateY_mouse_move:0.5;
+						">
+							<div class="sequence" style="transform:
+								translateX(calc((-10 + 20*var(--translateX_mouse_move))*0.8vw))
+								translateY(calc((-10 + 20*var(--translateY_mouse_move))*0.45vw))
+								rotateY(-30deg) translateX(-15%);"></div>
+						</div>
+						<div class="mousemove_detecter absolute inset-0 z-[1]" style="touch-action:pan-y;"></div>
+					</div>
+					<div class="lg:min-w-[20%] lg:max-w-[20%] lg:min-h-[calc(min(45vw,90vh))] lg:max-h-[calc(min(45vw,90vh))] select-none top-level-window vlayout vscrollarea overflow-x-hidden items-start" style="font-family:Consolas,monospace;"><!-- https://stackoverflow.com/questions/38661784/breaking-space-opposite-of-non-breaking-space#comment127679932_71004260 -->
+						<div class="vlayout items-start zero-out-nested-layout-margin ${is_interactive?"":"pointer-events-none"}" style="${is_interactive?"":"filter: blur(1px);"}">
+							${(function(){
+								let result="";
+								for(let i=0; i!=iterators_count; ++i)
+								{
+									if(example_size_management == "no_size_" || example_size_management == "at_node_end_")
+									{
+										result+=`
+											<div class="hlayout zero-out-nested-layout-margin">
+												<div><button class="button_iterator${i}_decrement">--&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+												<div><button class="button_iterator${i}_increment">++&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+											</div>
+											<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+												<div><button class="button_iterator${i}_set_index_lhs">it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;std&ZeroWidthSpace;::&ZeroWidthSpace;ranges&ZeroWidthSpace;::&ZeroWidthSpace;next&ZeroWidthSpace;(&ZeroWidthSpace;lhs&ZeroWidthSpace;.&ZeroWidthSpace;begin&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;,&ZeroWidthSpace;i&ZeroWidthSpace;)</button></div>
+												<div><input type="text" size="5" class="input_iterator${i}_set_index_lhs h-[100%]"></div>
+											</div>
+											<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+												<div><button class="button_iterator${i}_set_index_rhs">it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;std&ZeroWidthSpace;::&ZeroWidthSpace;ranges&ZeroWidthSpace;::&ZeroWidthSpace;next&ZeroWidthSpace;(&ZeroWidthSpace;rhs&ZeroWidthSpace;.&ZeroWidthSpace;begin&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;,&ZeroWidthSpace;i&ZeroWidthSpace;)</button></div>
+												<div><input type="text" size="5" class="input_iterator${i}_set_index_rhs h-[100%]"></div>
+											</div>
+										`;
+									}
+									else if(example_size_management == "at_each_node_except_node_end_")
+									{
+										result+=`
+											<div class="hlayout zero-out-nested-layout-margin">
+												<div><button class="button_iterator${i}_decrement">--&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+												<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+													<div><button class="button_iterator${i}_subtraction_assignment">it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;-=</button></div>
+													<div><input type="text" size="5" class="input_iterator${i}_subtraction_assignment h-[100%]"></div>
+												</div>
+											</div>
+											<div class="hlayout zero-out-nested-layout-margin">
+												<div><button class="button_iterator${i}_increment">++&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+												<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+													<div><button class="button_iterator${i}_addition_assignment">it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;+=</button></div>
+													<div><input type="text" size="5" class="input_iterator${i}_addition_assignment h-[100%]"></div>
+												</div>
+											</div>
+											<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+												<div><button class="button_iterator${i}_set_index_lhs">it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;lhs&ZeroWidthSpace;.&ZeroWidthSpace;begin&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;+&ZeroWidthSpace;</button></div>
+												<div><input type="text" size="5" class="input_iterator${i}_set_index_lhs h-[100%]"></div>
+											</div>
+											<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+												<div><button class="button_iterator${i}_set_index_rhs">it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;rhs&ZeroWidthSpace;.&ZeroWidthSpace;begin&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;+&ZeroWidthSpace;</button></div>
+												<div><input type="text" size="5" class="input_iterator${i}_set_index_rhs h-[100%]"></div>
+											</div>
+										`;
+									}
+										
+									result+=`
+										<div><button class="button_iterator${i}_insert"></button></div>
+										<div><button class="button_iterator${i}_erase"></button></div>
+										<div><button class="button_iterator${i}_split"></button></div>
+											
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_iterator${i}_output">*&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=</button></div>
+											<div><input type="text" size="5" class="input_iterator${i}_output h-[100%]"></div>
+										</div>
+									`;
+								}
+								return result;
+							})()}
+							
+							<div><button class="button_concat_lhs">lhs &lt;&lt; std&ZeroWidthSpace;::&ZeroWidthSpace;move&ZeroWidthSpace;(&ZeroWidthSpace;rhs&ZeroWidthSpace;)</button></div>
+							<div><button class="button_concat_rhs">std&ZeroWidthSpace;::&ZeroWidthSpace;move&ZeroWidthSpace;(&ZeroWidthSpace;lhs&ZeroWidthSpace;) &gt;&gt; rhs</button></div>
+							<div><button class="button_update_range_lhs">lhs&ZeroWidthSpace;.&ZeroWidthSpace;update_range&ZeroWidthSpace;(&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;, it&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+							<div><button class="button_update_range_rhs">rhs&ZeroWidthSpace;.&ZeroWidthSpace;update_range&ZeroWidthSpace;(&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;2&ZeroWidthSpace;]&ZeroWidthSpace;, it&ZeroWidthSpace;[&ZeroWidthSpace;3&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+							${(function(){
+								let result="";
+								if(example_name == "find_by_monotonic_predicate_")
+									result+=`
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_find_by_monotonic_predicate_lhs">augmented_sequence&ZeroWidthSpace;.&ZeroWidthSpace;find_by_monotonic_predicate&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;&amp;&ZeroWidthSpace;index&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;std&ZeroWidthSpace;::&ZeroWidthSpace;size_t const &amp;&ZeroWidthSpace;accumulated_size&ZeroWidthSpace;)&ZeroWidthSpace;{ return accumulated_size > index&ZeroWidthSpace;; }&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_find_by_monotonic_predicate_lhs h-[100%]"></div>
+										</div>
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_find_by_monotonic_predicate_rhs">augmented_sequence&ZeroWidthSpace;.&ZeroWidthSpace;find_by_monotonic_predicate&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;&amp;&ZeroWidthSpace;index&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;std&ZeroWidthSpace;::&ZeroWidthSpace;size_t const &amp;&ZeroWidthSpace;accumulated_size&ZeroWidthSpace;)&ZeroWidthSpace;{ return accumulated_size > index&ZeroWidthSpace;; }&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_find_by_monotonic_predicate_rhs h-[100%]"></div>
+										</div>
+									`
+								return result;
+							})()}
+							${(function(){
+								let result="";
+								if(example_name == "find_by_heap_predicate_")
+									result+=`
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_find_by_heap_predicate_lhs">augmented_sequence&ZeroWidthSpace;.&ZeroWidthSpace;find_by_heap_predicate&ZeroWidthSpace;(&ZeroWidthSpace;jts_output&ZeroWidthSpace;, [&ZeroWidthSpace;&amp;&ZeroWidthSpace;threshold&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;int const &amp;&ZeroWidthSpace;key&ZeroWidthSpace;)&ZeroWidthSpace;{ return key >= threshold&ZeroWidthSpace;; }&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_find_by_heap_predicate_lhs h-[100%]"></div>
+										</div>
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_find_by_heap_predicate_rhs">augmented_sequence&ZeroWidthSpace;.&ZeroWidthSpace;find_by_heap_predicate&ZeroWidthSpace;(&ZeroWidthSpace;jts_output&ZeroWidthSpace;, [&ZeroWidthSpace;&amp;&ZeroWidthSpace;threshold&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;int const &amp;&ZeroWidthSpace;key&ZeroWidthSpace;)&ZeroWidthSpace;{ return key >= threshold&ZeroWidthSpace;; }&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_find_by_heap_predicate_rhs h-[100%]"></div>
+										</div>
+									`
+								return result;
+							})()}
+							${(function(){
+								let result="";
+								if(example_name == "find_by_heap_predicate_generator_")
+									result+=`
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_find_by_heap_predicate_generator_lhs">augmented_sequence&ZeroWidthSpace;.&ZeroWidthSpace;find_by_heap_predicate_generator&ZeroWidthSpace;(&ZeroWidthSpace;[&amp;threshold&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;int const &amp;element_or_max_element_in_tree){ return max_in_tree >= threshold&ZeroWidthSpace;; }&ZeroWidthSpace;) | std&ZeroWidthSpace;::&ZeroWidthSpace;views&ZeroWidthSpace;::&ZeroWidthSpace;take_while&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;&amp;&ZeroWidthSpace;denominator&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;auto jt&ZeroWidthSpace;)&ZeroWidthSpace;{ return *&ZeroWidthSpace;jt % denominator != 0; }&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_find_by_heap_predicate_generator_lhs h-[100%]"></div>
+										</div>
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_find_by_heap_predicate_generator_rhs">augmented_sequence&ZeroWidthSpace;.&ZeroWidthSpace;find_by_heap_predicate_generator&ZeroWidthSpace;(&ZeroWidthSpace;[&amp;threshold&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;int const &amp;element_or_max_element_in_tree){ return max_in_tree >= threshold&ZeroWidthSpace;; }&ZeroWidthSpace;) | std&ZeroWidthSpace;::&ZeroWidthSpace;views&ZeroWidthSpace;::&ZeroWidthSpace;take_while&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;&amp;&ZeroWidthSpace;denominator&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;auto jt&ZeroWidthSpace;)&ZeroWidthSpace;{ return *&ZeroWidthSpace;jt % denominator != 0; }&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_find_by_heap_predicate_generator_rhs h-[100%]"></div>
+										</div>
+									`
+								return result;
+							})()}
+						</div>
+					</div>
+				`;
+				
+				let sequences = example_root.getElementsByClassName("sequences")[0];
+				let mousemove_detecter = example_root.getElementsByClassName("mousemove_detecter")[0];
+				mousemove_detecter.addEventListener("pointermove", (e) => {
+					sequences.style.setProperty("--translateX_mouse_move",e.offsetX/e.target.clientWidth);
+					sequences.style.setProperty("--translateY_mouse_move",e.offsetY/e.target.clientHeight);
+				});
+				
+				let from_result_to_animations_to_play = function(result){
+					return function(){
+						return new Promise(function(resolve){
+							let sequence=sequences.getElementsByClassName("sequence")[0];
+							//console.log(d3.select(sequence).graphviz().active(example_prefix_possibly_interactive + "example"));
+							d3.select(sequence).graphviz().keyMode("id")
+								.transition(
+									function(){
+										return d3.transition(example_prefix_possibly_interactive + "example")
+											.duration(500)
+											.ease(d3.easeCubicOut)//.ease(d3.easeLinear)
+											.on("end", resolve)
+										;
+									}
+								)
+								.tweenShapes(false)
+								.tweenPrecision(10)//.tweenPrecision("10%")
+								.renderDot(result.get(0));
+						});
+					}
+				};
+				
+				let refresh_buttons_text = function(){
+					let iterators_container_index = Module[example_prefix_possibly_interactive + "get_iterators_container_index"]();
+					for(let i = 0; i != iterators_count; ++i)
+					{
+						((i) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+						{
+							example_root.getElementsByClassName(`button_iterator${i}_insert`)[0].innerHTML = `it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "lhs": "rhs")}&ZeroWidthSpace;.&ZeroWidthSpace;insert&ZeroWidthSpace;(&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;v&ZeroWidthSpace;)`;
+							example_root.getElementsByClassName(`button_iterator${i}_erase`)[0].innerHTML = `it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "lhs": "rhs")}&ZeroWidthSpace;.&ZeroWidthSpace;erase&ZeroWidthSpace;(&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)`;
+							
+							if(example_size_management == "no_size_")
+							{
+								example_root.getElementsByClassName(`button_iterator${i}_split`)[0].innerHTML = `&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "rhs": "lhs")}&ZeroWidthSpace;=&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "lhs": "rhs")}&ZeroWidthSpace;.&ZeroWidthSpace;split_emit_${(iterators_container_index.get(i) == 0 ? "right": "left")}&ZeroWidthSpace;(&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)`;
+							}
+							else if(example_size_management == "at_node_end_")
+							{
+								example_root.getElementsByClassName(`button_iterator${i}_split`)[0].innerHTML = `⚠&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "rhs": "lhs")}&ZeroWidthSpace;=&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "lhs": "rhs")}&ZeroWidthSpace;.&ZeroWidthSpace;split_emit_${(iterators_container_index.get(i) == 0 ? "right": "left")}&ZeroWidthSpace;(&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)`;
+							}
+							else if(example_size_management == "at_each_node_except_node_end_")
+							{
+								example_root.getElementsByClassName(`button_iterator${i}_split`)[0].innerHTML = `&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "rhs": "lhs")}&ZeroWidthSpace;=&ZeroWidthSpace;${(iterators_container_index.get(i) == 0 ? "lhs": "rhs")}&ZeroWidthSpace;.&ZeroWidthSpace;split_emit_${(iterators_container_index.get(i) == 0 ? "right": "left")}&ZeroWidthSpace;(&ZeroWidthSpace;it&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)`;
+							}
+						})(i);
+					}
+				};
+				refresh_buttons_text();
+				
+				if(is_interactive)
+				{
+					let play_or_schedule_animation = function(result){
+						let animations_to_play = from_result_to_animations_to_play(result);
+						if(window[example_prefix_possibly_interactive + "animation_playing"])
+							window[example_prefix_possibly_interactive + "pending_animations"].push(animations_to_play);
+						else
+						{
+							window[example_prefix_possibly_interactive + "animation_playing"] = true;
+							let play_animations = function(animations_to_play){
+								animations_to_play().then(function(){
+									if(window[example_prefix_possibly_interactive + "pending_animations"].length==0)
+										window[example_prefix_possibly_interactive + "animation_playing"] = false;
+									else
+										play_animations(window[example_prefix_possibly_interactive + "pending_animations"].shift());
+								});
+							};
+							play_animations(animations_to_play);
+						}
+					};
+					example_root.getElementsByClassName("button_concat_lhs")[0].addEventListener("click", () => {
+						Module[example_prefix_possibly_interactive + "concat"](0);
+						refresh_buttons_text();
+						play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+					});
+					example_root.getElementsByClassName("button_concat_rhs")[0].addEventListener("click", () => {
+						Module[example_prefix_possibly_interactive + "concat"](1);
+						refresh_buttons_text();
+						play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+					});
+					example_root.getElementsByClassName("button_update_range_lhs")[0].addEventListener("click", () => {
+						Module[example_prefix_possibly_interactive + "update_range"](0);
+						play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+					});
+					example_root.getElementsByClassName("button_update_range_rhs")[0].addEventListener("click", () => {
+						Module[example_prefix_possibly_interactive + "update_range"](1);
+						play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+					});
+					for(let i = 0; i != iterators_count; ++i)
+					{
+						((i) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+						{
+							example_root.getElementsByClassName(`button_iterator${i}_decrement`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_decrement"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							if(example_size_management == "at_each_node_except_node_end_")
+							{
+								example_root.getElementsByClassName(`button_iterator${i}_subtraction_assignment`)[0].addEventListener("click", () => {
+									let valueInt = parseInt(example_root.getElementsByClassName(`input_iterator${i}_subtraction_assignment`)[0].value);
+									if(isFinite(valueInt))
+									{
+										Module[example_prefix_possibly_interactive + "iterator_advance"](i, -valueInt);
+										play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+									}
+								});
+							}
+							example_root.getElementsByClassName(`button_iterator${i}_increment`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_increment"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							if(example_size_management == "at_each_node_except_node_end_")
+							{
+								example_root.getElementsByClassName(`button_iterator${i}_addition_assignment`)[0].addEventListener("click", () => {
+									let valueInt = parseInt(example_root.getElementsByClassName(`input_iterator${i}_addition_assignment`)[0].value);
+									if(isFinite(valueInt))
+									{
+										Module[example_prefix_possibly_interactive + "iterator_advance"](i, valueInt);
+										play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+									}
+								});
+							}
+							example_root.getElementsByClassName(`button_iterator${i}_set_index_lhs`)[0].addEventListener("click", () => {
+								let valueInt = parseInt(example_root.getElementsByClassName(`input_iterator${i}_set_index_lhs`)[0].value);
+								if(isFinite(valueInt))
+								{
+									Module[example_prefix_possibly_interactive + "iterator_set_index"](i, 0, valueInt);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								}
+							});
+							example_root.getElementsByClassName(`button_iterator${i}_set_index_rhs`)[0].addEventListener("click", () => {
+								let valueInt = parseInt(example_root.getElementsByClassName(`input_iterator${i}_set_index_rhs`)[0].value);
+								if(isFinite(valueInt))
+								{
+									Module[example_prefix_possibly_interactive + "iterator_set_index"](i, 1, valueInt);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								}
+							});
+							
+							example_root.getElementsByClassName(`button_iterator${i}_insert`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_insert"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator${i}_erase`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_erase"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator${i}_split`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_split"](i);
+								refresh_buttons_text();
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							
+							example_root.getElementsByClassName(`button_iterator${i}_output`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_output"](i, example_root.getElementsByClassName(`input_iterator${i}_output`)[0].value);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+						})(i);
+					}
+					if(example_name == "find_by_monotonic_predicate_")
+					{
+						example_root.getElementsByClassName("button_find_by_monotonic_predicate_lhs")[0].addEventListener("click", () => {
+							Module[example_prefix_possibly_interactive + "find_by_monotonic_predicate"](0, example_root.getElementsByClassName(`input_find_by_monotonic_predicate_lhs`)[0].value);
+							play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+						});
+						example_root.getElementsByClassName("button_find_by_monotonic_predicate_rhs")[0].addEventListener("click", () => {
+							Module[example_prefix_possibly_interactive + "find_by_monotonic_predicate"](1, example_root.getElementsByClassName(`input_find_by_monotonic_predicate_rhs`)[0].value);
+							play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+						});
+					}
+					if(example_name == "find_by_heap_predicate_")
+					{
+						example_root.getElementsByClassName("button_find_by_heap_predicate_lhs")[0].addEventListener("click", () => {
+							Module[example_prefix_possibly_interactive + "find_by_heap_predicate"](0, example_root.getElementsByClassName(`input_find_by_heap_predicate_lhs`)[0].value);
+							play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+						});
+						example_root.getElementsByClassName("button_find_by_heap_predicate_rhs")[0].addEventListener("click", () => {
+							Module[example_prefix_possibly_interactive + "find_by_heap_predicate"](1, example_root.getElementsByClassName(`input_find_by_heap_predicate_rhs`)[0].value);
+							play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+						});
+					}
+					if(example_name == "find_by_heap_predicate_generator_")
+					{
+						example_root.getElementsByClassName("button_find_by_heap_predicate_generator_lhs")[0].addEventListener("click", () => {
+							Module[example_prefix_possibly_interactive + "find_by_heap_predicate_generator"](0, example_root.getElementsByClassName(`input_find_by_heap_predicate_generator_lhs`)[0].value);
+							play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+						});
+						example_root.getElementsByClassName("button_find_by_heap_predicate_generator_rhs")[0].addEventListener("click", () => {
+							Module[example_prefix_possibly_interactive + "find_by_heap_predicate_generator"](1, example_root.getElementsByClassName(`input_find_by_heap_predicate_generator_rhs`)[0].value);
+							play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+						});
+					}
+				}
+				else
+				{
+					(async function(){
+						let create_ring_init=function(element){
+							element.parentElement.classList.add("relative");
+							element.parentElement.style.transformStyle="flat";
+						};
+						let create_ring=function(element){
+							let ring = document.createElement("div");
+							ring.classList.add("absolute");
+							ring.classList.add("inset-0");
+							ring.classList.add("ring");
+							ring.classList.add("animation_ping");
+							ring.classList.add("z-[1]");
+							element.parentElement.appendChild(ring);;
+							setTimeout(function(){ element.parentElement.removeChild(ring); }, 3000);
+						};
+						let isElementInViewport = function(el) { // https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+							let rect = el.getBoundingClientRect();
+							return (
+								rect.bottom >= 0 &&
+								rect.right >= 0 &&
+								rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+								rect.left <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+							);
+						};
+						let isElementVisible = function(el) { return !!el.offsetParent; }; // https://stackoverflow.com/questions/53047318/performant-way-to-find-out-if-an-element-or-any-of-its-ancestor-elements-has-dis/53068496#53068496
+						let isElementInViewportAndVisible = function(el) { return isElementInViewport(el) && isElementVisible(el); };
+						let generate_random_string = function(length) { // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+							const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+							let result = '';
+							for (let counter = 0; counter != length; ++counter)
+								result += characters.charAt(Math.floor(Math.random() * characters.length));
+							return result;
+						};
+						
+						let button_iterator0_set_index_lhs = example_root.getElementsByClassName(`button_iterator0_set_index_lhs`)[0]; create_ring_init(button_iterator0_set_index_lhs);
+						let button_iterator0_set_index_rhs = example_root.getElementsByClassName(`button_iterator0_set_index_rhs`)[0]; create_ring_init(button_iterator0_set_index_rhs);
+						let button_iterator1_set_index_lhs = example_root.getElementsByClassName(`button_iterator1_set_index_lhs`)[0]; create_ring_init(button_iterator1_set_index_lhs);
+						let button_iterator1_set_index_rhs = example_root.getElementsByClassName(`button_iterator1_set_index_rhs`)[0]; create_ring_init(button_iterator1_set_index_rhs);
+						let button_iterator2_set_index_lhs = example_root.getElementsByClassName(`button_iterator2_set_index_lhs`)[0]; create_ring_init(button_iterator2_set_index_lhs);
+						let button_iterator2_set_index_rhs = example_root.getElementsByClassName(`button_iterator2_set_index_rhs`)[0]; create_ring_init(button_iterator2_set_index_rhs);
+						let button_iterator3_set_index_lhs = example_root.getElementsByClassName(`button_iterator3_set_index_lhs`)[0]; create_ring_init(button_iterator3_set_index_lhs);
+						let button_iterator3_set_index_rhs = example_root.getElementsByClassName(`button_iterator3_set_index_rhs`)[0]; create_ring_init(button_iterator3_set_index_rhs);
+						
+						let button_iterator0_insert = example_root.getElementsByClassName(`button_iterator0_insert`)[0]; create_ring_init(button_iterator0_insert);
+						let button_iterator1_insert = example_root.getElementsByClassName(`button_iterator1_insert`)[0]; create_ring_init(button_iterator1_insert);
+						let button_iterator2_insert = example_root.getElementsByClassName(`button_iterator2_insert`)[0]; create_ring_init(button_iterator2_insert);
+						let button_iterator3_insert = example_root.getElementsByClassName(`button_iterator3_insert`)[0]; create_ring_init(button_iterator3_insert);
+						
+						let button_iterator0_erase = example_root.getElementsByClassName(`button_iterator0_erase`)[0]; create_ring_init(button_iterator0_erase);
+						let button_iterator1_erase = example_root.getElementsByClassName(`button_iterator1_erase`)[0]; create_ring_init(button_iterator1_erase);
+						let button_iterator2_erase = example_root.getElementsByClassName(`button_iterator2_erase`)[0]; create_ring_init(button_iterator2_erase);
+						let button_iterator3_erase = example_root.getElementsByClassName(`button_iterator3_erase`)[0]; create_ring_init(button_iterator3_erase);
+						
+						let button_iterator0_split = example_root.getElementsByClassName(`button_iterator0_split`)[0]; create_ring_init(button_iterator0_split);
+						let button_iterator1_split = example_root.getElementsByClassName(`button_iterator1_split`)[0]; create_ring_init(button_iterator1_split);
+						let button_iterator2_split = example_root.getElementsByClassName(`button_iterator2_split`)[0]; create_ring_init(button_iterator2_split);
+						let button_iterator3_split = example_root.getElementsByClassName(`button_iterator3_split`)[0]; create_ring_init(button_iterator3_split);
+						
+						let button_iterator0_output = example_root.getElementsByClassName(`button_iterator0_output`)[0]; create_ring_init(button_iterator0_output);
+						let button_iterator1_output = example_root.getElementsByClassName(`button_iterator1_output`)[0]; create_ring_init(button_iterator1_output);
+						let button_iterator2_output = example_root.getElementsByClassName(`button_iterator2_output`)[0]; create_ring_init(button_iterator2_output);
+						let button_iterator3_output = example_root.getElementsByClassName(`button_iterator3_output`)[0]; create_ring_init(button_iterator3_output);
+						
+						let button_concat_lhs = example_root.getElementsByClassName("button_"+"concat_lhs")[0]; create_ring_init(button_concat_lhs);
+						let button_concat_rhs = example_root.getElementsByClassName("button_"+"concat_rhs")[0]; create_ring_init(button_concat_rhs);
+						let button_update_range_lhs = example_root.getElementsByClassName("button_"+"update_range_lhs")[0]; create_ring_init(button_update_range_lhs);
+						let button_update_range_rhs = example_root.getElementsByClassName("button_"+"update_range_rhs")[0]; create_ring_init(button_update_range_rhs);
+						
+						let button_find_by_monotonic_predicate_lhs, input_find_by_monotonic_predicate_lhs;
+						let button_find_by_monotonic_predicate_rhs, input_find_by_monotonic_predicate_rhs;
+						if(example_name == "find_by_monotonic_predicate_")
+						{
+							button_find_by_monotonic_predicate_lhs = example_root.getElementsByClassName("button_"+"find_by_monotonic_predicate_lhs")[0]; create_ring_init(button_find_by_monotonic_predicate_lhs);
+							input_find_by_monotonic_predicate_lhs = example_root.getElementsByClassName("input_"+"find_by_monotonic_predicate_lhs")[0]; create_ring_init(input_find_by_monotonic_predicate_lhs);
+							button_find_by_monotonic_predicate_rhs = example_root.getElementsByClassName("button_"+"find_by_monotonic_predicate_rhs")[0]; create_ring_init(button_find_by_monotonic_predicate_rhs);
+							input_find_by_monotonic_predicate_rhs = example_root.getElementsByClassName("input_"+"find_by_monotonic_predicate_rhs")[0]; create_ring_init(input_find_by_monotonic_predicate_rhs);
+						}
+						let button_find_by_heap_predicate_lhs, input_find_by_heap_predicate_lhs;
+						let button_find_by_heap_predicate_rhs, input_find_by_heap_predicate_rhs;
+						if(example_name == "find_by_heap_predicate_")
+						{
+							button_find_by_heap_predicate_lhs = example_root.getElementsByClassName("button_"+"find_by_heap_predicate_lhs")[0]; create_ring_init(button_find_by_heap_predicate_lhs);
+							input_find_by_heap_predicate_lhs = example_root.getElementsByClassName("input_"+"find_by_heap_predicate_lhs")[0]; create_ring_init(input_find_by_heap_predicate_lhs);
+							button_find_by_heap_predicate_rhs = example_root.getElementsByClassName("button_"+"find_by_heap_predicate_rhs")[0]; create_ring_init(button_find_by_heap_predicate_rhs);
+							input_find_by_heap_predicate_rhs = example_root.getElementsByClassName("input_"+"find_by_heap_predicate_rhs")[0]; create_ring_init(input_find_by_heap_predicate_rhs);
+						}
+						let button_find_by_heap_predicate_generator_lhs, input_find_by_heap_predicate_generator_lhs;
+						let button_find_by_heap_predicate_generator_rhs, input_find_by_heap_predicate_generator_rhs;
+						if(example_name == "find_by_heap_predicate_generator_")
+						{
+							button_find_by_heap_predicate_generator_lhs = example_root.getElementsByClassName("button_"+"find_by_heap_predicate_generator_lhs")[0]; create_ring_init(button_find_by_heap_predicate_generator_lhs);
+							input_find_by_heap_predicate_generator_lhs = example_root.getElementsByClassName("input_"+"find_by_heap_predicate_generator_lhs")[0]; create_ring_init(input_find_by_heap_predicate_generator_lhs);
+							button_find_by_heap_predicate_generator_rhs = example_root.getElementsByClassName("button_"+"find_by_heap_predicate_generator_rhs")[0]; create_ring_init(button_find_by_heap_predicate_generator_rhs);
+							input_find_by_heap_predicate_generator_rhs = example_root.getElementsByClassName("input_"+"find_by_heap_predicate_generator_rhs")[0]; create_ring_init(input_find_by_heap_predicate_generator_rhs);
+						}
+						
+						let count_lhs = 0, count_rhs = 0, count_init = 16, count_min = 8, count_max = 24;
+						for(let i=0; i!=count_init;++i)
+						{
+							Module[example_prefix_possibly_interactive + "iterator_insert"](0);
+							++count_lhs;
+						}
+						while(true)
+						{
+							while(!isElementInViewportAndVisible(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+							
+							Module[example_prefix_possibly_interactive + "iterator_set_index"](0, 0, 0); create_ring(button_iterator0_set_index_lhs);
+							Module[example_prefix_possibly_interactive + "iterator_set_index"](1, 0, count_lhs); create_ring(button_iterator1_set_index_lhs);
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+
+							let modifier_round_count = 3 + Math.floor(Math.random() * 2);
+							for(let i=0; i!=modifier_round_count; ++i)
+							{
+								while(!isElementInViewportAndVisible(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+								
+								let modifier_count = Math.floor(4 + Math.random() * 2), push_back_count = 0, pop_front_count = 0;
+								for(let i=0; i!=modifier_count; ++i)
+								{
+									if(Math.random() > (count_lhs-count_min)/(count_max-count_min))
+										++push_back_count;
+									else
+										++pop_front_count;
+								}
+								for(let i=0;i!=push_back_count;++i)
+								{
+									++count_lhs;
+									Module[example_prefix_possibly_interactive + "iterator_insert"](1); create_ring(button_iterator1_insert);
+									
+								}
+								for(let i=0;i!=pop_front_count;++i)
+								{
+									--count_lhs;
+									Module[example_prefix_possibly_interactive + "iterator_erase"](0); create_ring(button_iterator0_erase);
+								}
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							}
+							
+							let split_position_lhs = Math.floor(count_lhs / 3 + count_lhs / 3 * Math.random());
+							Module[example_prefix_possibly_interactive + "iterator_set_index"](0, 0, split_position_lhs); create_ring(button_iterator0_set_index_lhs);
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							
+							[count_lhs, count_rhs] = [split_position_lhs, count_lhs - split_position_lhs];
+							Module[example_prefix_possibly_interactive + "iterator_split"](0); create_ring(button_iterator0_split);
+							refresh_buttons_text();
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							
+							[count_lhs, count_rhs] = [0, count_lhs + count_rhs];
+							Module[example_prefix_possibly_interactive + "concat"](1); create_ring(button_concat_rhs);
+							refresh_buttons_text();
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							
+							
+							let iterator_element_output_count = 3 + Math.floor(Math.random() * 2), dirty_index_begin = count_rhs, dirty_index_end = 0;
+							for(let i=0; i!=iterator_element_output_count; ++i)
+							{
+								while(!isElementInViewportAndVisible(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+
+								let dirty_index = Math.floor(Math.random() * count_rhs);
+								dirty_index_begin = Math.min(dirty_index_begin, dirty_index);
+								dirty_index_end = Math.max(dirty_index_end, dirty_index + 1);
+								Module[example_prefix_possibly_interactive + "iterator_set_index"](2, 1, dirty_index); create_ring(button_iterator2_set_index_rhs);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								
+								Module[example_prefix_possibly_interactive + "iterator_output"](2, (function(){
+									if(example_name == "find_by_monotonic_predicate_")
+										return generate_random_string(Math.floor(Math.random() * 6));
+									else
+										return '' + Math.floor(Math.random() * 100);
+								})()); create_ring(button_iterator2_output);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							}
+							if(example_name != "empty_")
+							{
+								Module[example_prefix_possibly_interactive + "iterator_set_index"](2, 1, dirty_index_begin); create_ring(button_iterator2_set_index_rhs);
+								Module[example_prefix_possibly_interactive + "iterator_set_index"](3, 1, dirty_index_end); create_ring(button_iterator3_set_index_rhs);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								
+								Module[example_prefix_possibly_interactive + "update_range"](1); create_ring(button_update_range_rhs);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							}
+							
+							if(example_name == "find_by_monotonic_predicate_")
+							{
+								let find_count = 3 + Math.floor(Math.random() * 2);
+								for(let i=0; i!=find_count; ++i)
+								{
+									let index = Math.floor(Math.random() * 60);
+									input_find_by_monotonic_predicate_rhs.value = ''+index; create_ring(input_find_by_monotonic_predicate_rhs);
+									await new Promise(resolve => setTimeout(resolve, 500)); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									Module[example_prefix_possibly_interactive + "find_by_monotonic_predicate"](1, ''+index); create_ring(button_find_by_monotonic_predicate_rhs);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								}
+							}
+							if(example_name == "find_by_heap_predicate_")
+							{
+								let find_count = 3 + Math.floor(Math.random() * 2);
+								for(let i=0; i!=find_count; ++i)
+								{
+									let threshold = Math.floor(Math.random() * 100);
+									input_find_by_heap_predicate_rhs.value = ''+threshold; create_ring(input_find_by_heap_predicate_rhs);
+									await new Promise(resolve => setTimeout(resolve, 500)); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									Module[example_prefix_possibly_interactive + "find_by_heap_predicate"](1, ''+threshold); create_ring(button_find_by_heap_predicate_rhs);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								}
+							}
+							if(example_name == "find_by_heap_predicate_generator_")
+							{
+								let find_count = 3 + Math.floor(Math.random() * 2);
+								for(let i=0; i!=find_count; ++i)
+								{
+									let threshold = Math.floor(Math.random() * 100), denominator = 10 + Math.floor(Math.random() * 10);
+									input_find_by_heap_predicate_generator_rhs.value = '' + threshold + "," + denominator; create_ring(input_find_by_heap_predicate_generator_rhs);
+									await new Promise(resolve => setTimeout(resolve, 500)); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									Module[example_prefix_possibly_interactive + "find_by_heap_predicate_generator"](1, '' + threshold + "," + denominator); create_ring(button_find_by_heap_predicate_generator_rhs);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								}
+							}
+							
+							
+							let split_position_rhs = Math.floor(count_rhs / 3 + count_rhs / 3 * Math.random());
+							Module[example_prefix_possibly_interactive + "iterator_set_index"](2, 1, split_position_rhs); create_ring(button_iterator2_set_index_rhs);
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							
+							[count_lhs, count_rhs] = [split_position_rhs, count_rhs - split_position_rhs];
+							Module[example_prefix_possibly_interactive + "iterator_split"](2); create_ring(button_iterator2_split);
+							refresh_buttons_text();
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							
+							[count_lhs, count_rhs] = [count_lhs + count_rhs, 0];
+							Module[example_prefix_possibly_interactive + "concat"](0); create_ring(button_concat_lhs);
+							refresh_buttons_text();
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+						}
+					})();
+				}
+			})(example_name + example_physical_representation + example_size_management + (is_interactive ? "interactive_" : ""),
+				example_name + example_physical_representation + example_size_management,
+				example_name, example_physical_representation, example_size_management, is_interactive);
+		}
+	}
+}
+		</script>
+		
+		<script type='text/javascript'>
+		  var statusElement = document.getElementById('status');
+		  var progressElement = document.getElementById('progress');
+		  var spinnerElement = document.getElementById('spinner');
+
+		  var Module = {
+			preRun: [],
+			postRun: [
+				function(){
+					Array.from(document.getElementsByClassName("example")).forEach(function(e){e.classList.remove("hidden")});
+					initialize_examples();
+					/*(async function()
+					{
+						for(let i=0; i!=10;++i)
+						{
+							Module["push_back"]();
+						}
+						while(true)
+						{
+							await new Promise(function(resolve)
+							{
+								Module["push_back"]();
+								Module["pop_front"]();
+								const result = Module["to_graphs_string"]();
+								for(let i = 0; i < result.size(); ++i)
+								{
+									//console.log(d3.select("#sequence2"+i).graphviz().active("sequences2"));
+									d3.select("#sequence2"+i).graphviz().keyMode("id")
+										.transition(
+											function(){return d3.transition("sequences2")
+												.duration(500)
+												.ease(d3.easeLinear).on("end", resolve);}
+										)
+										.renderDot(result.get(i));
+								}
+							});
+							await new Promise(resolve => setTimeout(resolve, 200));
+						}
+					})();*/
+				},
+			],
+			print: (function() {
+			  var element = document.getElementById('output');
+			  if (element) element.value = ''; // clear browser cache
+			  return function(text) {
+				if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+				// These replacements are necessary if you render to raw HTML
+				//text = text.replace(/&/g, "&amp;");
+				//text = text.replace(/</g, "&lt;");
+				//text = text.replace(/>/g, "&gt;");
+				//text = text.replace('\n', '<br>', 'g');
+				console.log(text);
+				if (element) {
+				  element.value += text + "\n";
+				  element.scrollTop = element.scrollHeight; // focus on bottom
+				}
+			  };
+			})(),
+			canvas: (function() {
+			  var canvas = document.getElementById('canvas');
+
+			  // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+			  // application robust, you may want to override this behavior before shipping!
+			  // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+			  canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+			  return canvas;
+			})(),
+			setStatus: function(text) {
+			  if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+			  if (text === Module.setStatus.last.text) return;
+			  var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+			  var now = Date.now();
+			  if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+			  Module.setStatus.last.time = now;
+			  Module.setStatus.last.text = text;
+			  if (m) {
+				text = m[1];
+				progressElement.value = parseInt(m[2])*100;
+				progressElement.max = parseInt(m[4])*100;
+				progressElement.hidden = false;
+				spinnerElement.hidden = false;
+			  } else {
+				progressElement.value = null;
+				progressElement.max = null;
+				progressElement.hidden = true;
+				if (!text) spinnerElement.hidden = true;
+			  }
+			  statusElement.innerHTML = text;
+			},
+			totalDependencies: 0,
+			monitorRunDependencies: function(left) {
+			  this.totalDependencies = Math.max(this.totalDependencies, left);
+			  Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+			}
+		  };
+		  Module.setStatus('Downloading...');
+		  window.onerror = function() {
+			Module.setStatus('Exception thrown, see JavaScript console');
+			spinnerElement.style.display = 'none';
+			Module.setStatus = function(text) {
+			  if (text) console.error('[post-exception status] ' + text);
+			};
+		  };
+		</script>
+	{{{ SCRIPT }}}
+	
+	</body>
+</html>
