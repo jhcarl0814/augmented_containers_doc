@@ -217,65 +217,24 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
 {
     std::vector<std::string> result;
     using namespace dot;
+    using namespace augmented_containers::detail::visualization::augmented_deque;
     for(dot::graph_t &graph : to_graphs(
             AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque),
-            augmented_containers::to_graphs_parameters_t{
+            to_graphs_parameters_t{
 #ifndef __EMSCRIPTEN__
                 .element_to_string_converter =
 #endif
                     [](auto parameters) -> html_label_t
-                {
-                    if(true)
-                        return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << std::quoted(parameters.datum)).str().data()))}}}};
-                    else if(true)
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data()) << ':' << std::quoted(parameters.datum)).str().data()))},
-                        }}};
-                    else
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data())).str().data()))},
-                            {br_t{.ALIGN = LEFT}},
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << std::quoted(parameters.datum)).str().data()))},
-                            {br_t{.ALIGN = LEFT}},
-                        }}};
-                },
+                { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << std::quoted(parameters.datum)).str().data()))}}}}; },
 #ifndef __EMSCRIPTEN__
                .projected_and_accumulated_storage_to_string_converter_per_sequence =
 #endif
                     std::make_tuple(
                         std::make_pair(
                             [](auto parameters) -> html_label_t
-                            {
-                                if(true)
-                                    return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}};
-                                else if(true)
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data()) << ':' << parameters.datum).str().data()))},
-                                    }}};
-                                else
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data())).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                    }}};
-                            },
+                            { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; },
                             [](auto parameters) -> html_label_t
-                            {
-                                if(true)
-                                    return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}};
-                                else if(true)
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data()) << ':' << parameters.datum).str().data()))},
-                                    }}};
-                                else
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data())).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                    }}};
-                            })),
+                            { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; })),
 #ifndef __EMSCRIPTEN__
                .iterators_element =
 #endif

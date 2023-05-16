@@ -88,9 +88,9 @@
 		<span class="font-bold text-[120%]">Sequence</span>
 			augmented_*****_t
 <div class="bg-[#00FFFF20]">			<a href="/augmented_containers_doc/augmented_deque.html">augmented_deque_t</a>
-</div>			augmented_********_t
+</div>			<a href="/augmented_containers_doc/augmented_sequence.html">augmented_sequence_t</a>
 		<span class="font-bold text-[120%]">Associative</span>
-			augmented_***&ZeroWidthSpace;/&ZeroWidthSpace;***&ZeroWidthSpace;/&ZeroWidthSpace;********&ZeroWidthSpace;/&ZeroWidthSpace;********_t
+			augmented_***&ZeroWidthSpace;/&ZeroWidthSpace;***&ZeroWidthSpace;/&ZeroWidthSpace;********&ZeroWidthSpace;/&ZeroWidthSpace;********_t (has-a <span class="inline-code">augmented_sequence_t</span>)
 		<span class="font-bold text-[120%]">*****</span>
 			augmented_*****_t
 </pre>
@@ -110,17 +110,19 @@
 </div>
 
 <div class="container mx-auto">
-	<p class="paragraph"><span class="struct_in_question">augmented_deque_t</span> is an augmented, strictly double-ended queue. It's part of the augmented containers library, providing a stronger version of <span class="inline-code">sequence containers</span> (let containers (and possibly its subranges) always have several accompanying results of algorithms/views), as well as <span class="inline-code">&lt;algorithm&gt;</span> and <span class="inline-code">&lt;ranges&gt;</span> (when the input sequence changes, refresh output values/ranges in logarithmic time complexity).</p>
+	<p class="paragraph"><span class="struct_in_question">augmented_deque_t</span> is an augmented, strictly double-ended queue. It's part of the augmented containers library, providing a more powerful version of <span class="inline-code">sequence containers</span> (let containers (and possibly its subranges) always have several accompanying results of algorithms/views), as well as <span class="inline-code">&lt;algorithm&gt;</span> and <span class="inline-code">&lt;ranges&gt;</span> (when the input sequence changes, refresh output values/ranges in logarithmic time complexity). To help understand what kind of problems the library solves: <a href="https://en.wikipedia.org/wiki/Dynamic_problem_(algorithms)">Dynamic problem (algorithms) - Wikipedia</a>, <a href="https://en.wikipedia.org/wiki/Augmented_map">Augmented map - Wikipedia</a>.</p>
 	<ul class="list-disc list-inside">
 		<li class="paragraph">An <span class="struct_in_question">augmented_deque_t</span> has at least one sub-sequences, each having a compile-time or run-time specified <span class="inline-code">stride</span> (if run-time specified, can be adjusted at any time, although does not affect grouping of already enququed elements), an optional projector and an optional accumulator. Container elements are shared between all sub-sequences and are stored in sub-sequence 0. In every subsequence, every neighboring <span class="inline-code">stride</span> elements are projected into a projected result (if <span class="inline-code">stride</span> is compile-time specified and equals to 1, this step can be skipped), then accumulated into an accumulated result (this step can also be skipped if you only need the projected result; on sub-sequences other than sub-sequence 0 whose <span class="inline-code">stride</span> is compile-time specified and equals to 1, it's meaningless to skip both projection and accumulation steps and thus is not allowed).</li>
-		<li class="paragraph"><span class="struct_in_question">augmented_deque_t</span> allows range update: first modify some elements, then call <span class="inline-code">update_range</span> to refresh the projected results and accumulated results that covers those elements in <span class="math_formula">O(distance(range)+lg(N))</span> time (as elements are organized in prefect binary trees, the number of most of the internal nodes to be updated is <span class="math_formula">O(distance(range))</span>). A common mistake would be to forget to call <span class="inline-code">update_range</span>.</li>
-		<li class="paragraph"><span class="struct_in_question">augmented_deque_t</span> allows subrange query: call <span class="inline-code">read_range</span> to collect projected results and accumulated results that covers the range in <span class="math_formula">O(lg(distance(range)))</span> time. If the accumulated result is a range instead of a single value, the result is probably formed by projected results linking to each other, in this case you should not call <span class="inline-code">read_range</span> because there are no more pointers left for you to form another range (see examples below for an intuitive feel).</li>
-		<li class="paragraph"><span class="struct_in_question">augmented_deque_t</span> does not allow inserting or removing elements in the middle. Having this restriction allows it to privide the striding functionality (which the more general <span class="inline-code">augmented_sequence_t</span> can not provide.)</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_deque_t</span> allows subrange update: first modify some elements, then call <span class="inline-code">update_range</span> to refresh the projected results and accumulated results that cover those elements in <span class="math_formula">O(distance(range)+lg(N))</span> time (as elements are organized in prefect binary trees, the number of most of the internal nodes to be updated is <span class="math_formula">O(distance(range))</span>). A common mistake would be to forget to call <span class="inline-code">update_range</span>.</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_deque_t</span> allows subrange query: call <span class="inline-code">read_range</span> to collect projected results and accumulated results that cover the range in <span class="math_formula">O(lg(distance(range)))</span> time. If the accumulated result is a range instead of a single value, the result is probably formed by projected results linking to each other, in this case you should not call <span class="inline-code">read_range</span> because there are no more pointers left for you to form another range (see examples below for an intuitive feel).</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_deque_t</span> allows push and pop at front and back of the queue in <span class="math_formula">O(lg(N))</span> time (amortized <span class="math_formula">O(1)</span> time because it's based on positional numeral system), does not allow inserting or removing elements in the middle. Having this restriction allows it to privide the striding functionality (which the more general <span class="inline-code">augmented_sequence_t</span> can not provide).</li>
+		<li class="paragraph">⚠Push and pop operations automatically update projected results and accumulated results of the affected nodes. <span class="inline-code">update_range</span> is needed only after modification of elements through dereferencing iterators.</li>
+		<li class="paragraph">Iterator can calculate its <span class="inline-code">index</span> and provides all operations syntactically required by <span class="inline-code">std::<span class="concept">random_access_iterator</span></span>, all take <span class="math_formula">O(lg(N))</span> time. ⚠<span class="inline-code"><span class="struct">iterator</span>::<span class="struct">iterator_concept</span></span> is still <span class="inline-code">std::<span class="struct">bidirectional_iterator_tag</span></span> because of time complexity requirements.</li>
 	</ul>
 </div>
 
 <div class="container mx-auto">
-	<h2 class="heading2">Complexity Table</h2>
+	<h2 class="heading2">Difference between possible implementations</h2>
 	<table class="mx-[12px] my-[6px] bg-[#f2f2f2] table-default-border table-default-align">
 		<thead class="border-b-[2px] border-b-[#000000]">
 			<tr>
@@ -136,34 +138,34 @@
 		<tbody>
 			<tr>
 				<td rowspan="5" class="[writing-mode:vertical-rl] text-center">operations</td>
-				<td class="!border-r-[2px] !border-r-[#000000]">range update</td>
+				<td class="!border-r-[2px] !border-r-[#000000]">subrange update</td>
 				<td class="td_red"><span class="math_formula">O(N)</span>, <span class="math_formula">O(distance(range))</span> if range's begin/end is at accumulation end</td>
 				<td><span class="math_formula">O(distance(range)+lg(N))</span></td>
 				<td><span class="math_formula">O(distance(range)+lg(N))</span></td>
 			</tr>
 			<tr>
 				<td class="!border-r-[2px] !border-r-[#000000]">subrange query</td>
-				<td class="td_red"><span class="math_formula">O(distance(range))</span>, <span class="math_formula">O(1)</span> if range's begin/end is at accumulation begin</td>
+				<td class="td_red"><span class="math_formula">O(1)</span> if type of accumulated result supports subtract operation; otherwise, <span class="math_formula">O(distance(range))</span>, <span class="math_formula">O(1)</span> if range's begin/end is at accumulation begin</td>
 				<td><span class="math_formula">O(lg(distance(range)))</span></td>
 				<td><span class="math_formula">O(lg(distance(range)))</span></td>
 			</tr>
 			<tr>
-				<td class="!border-r-[2px] !border-r-[#000000]">enqueue</td>
-				<td><span class="math_formula">O(1)</span></td>
-				<td class="td_red"><span class="math_formula">O(lg(N))</span></td>
-				<td><span class="math_formula">O(1)</span></td>
+				<td class="!border-r-[2px] !border-r-[#000000]">push/pop at front/back</td>
+				<td class="td_red"><span class="math_formula">O(N)</span>, <span class="math_formula">O(1)</span> if push/pop at accumulation end</td>
+				<td class="td_red"><span class="math_formula">O(lg(N))</span> (Has to update accumulated results of affected nodes from leaf to tree root, right now, because the necessary information (about which nodes need to be updated) is gone when the modifier operation is over.)</td>
+				<td><span class="math_formula">O(lg(N))</span> (amortized <span class="math_formula">O(1)</span>) (The accumulation direction is from the middle digit to both ends. To help understand by looking at a full-fledged physical data structure used by <span class="inline-code">augmented_sequence_t</span>: <a href="https://en.wikipedia.org/wiki/Finger_tree">Finger tree - Wikipedia</a>.)</td>
 			</tr>
 			<tr>
-				<td class="!border-r-[2px] !border-r-[#000000]">dequeue</td>
-				<td><span class="math_formula">O(1)</span></td>
-				<td class="td_red"><span class="math_formula">O(lg(N))</span></td>
-				<td><span class="math_formula">O(1)</span></td>
+				<td class="!border-r-[2px] !border-r-[#000000]">push/pop at front/back, accumulator side</td>
+				<td class="td_red">Can not construct an iterator from address of an element because it's not node-based container, so can not peek adjacent elements.</td>
+				<td class="td_red">Can construct an iterator from address of an element because it's node-based container, but can not peek adjacent elements using <span class="inline-code"><span class="struct">iterator</span>::operator++</span> or <span class="inline-code"><span class="struct">iterator</span>::operator--</span> because during the modifier operation the tree is not traversable.</td>
+				<td>Can construct an iterator from address of an element because it's node-based container. Can peek adjacent elements using <span class="inline-code"><span class="struct">iterator</span>::operator++</span> or <span class="inline-code"><span class="struct">iterator</span>::operator--</span> (see the <span class="inline-code">std::ranges::chunk_by_view</span> example below for an intuitive feel), but can not use <span class="inline-code"><span class="struct">iterator</span>::operator+=</span>, <span class="inline-code"><span class="struct">iterator</span>::operator-=</span> etc., because during the modifier operation the trees are not traversable.</td>
 			</tr>
 			<tr>
 				<td class="!border-r-[2px] !border-r-[#000000]">modify element at either end, then update</td>
-				<td class="td_red"><span class="math_formula">O(N)</span>, <span class="math_formula">O(1)</span> if at the accumulation end</td>
+				<td class="td_red"><span class="math_formula">O(N)</span>, <span class="math_formula">O(1)</span> if update at accumulation end</td>
 				<td class="td_red"><span class="math_formula">O(lg(N))</span></td>
-				<td><span class="math_formula">O(1)</span></td>
+				<td><span class="math_formula">O(1)</span> (The accumulation direction is from the middle digit to both ends.)</td>
 			</tr>
 		</tbody>
 	</table>
@@ -1317,7 +1319,7 @@ function initialize_examples()
 								})()); create_ring(button_iterator_element0_output);
 								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
 							}
-							if(example_prefix_possibly_interactive!="empty_")
+							if(example_prefix_possibly_interactive != "empty_")
 							{
 								Module[example_prefix_possibly_interactive + "iterator_element_set_index"](0, dirty_index_begin); create_ring(button_iterator_element0_set_index);
 								Module[example_prefix_possibly_interactive + "iterator_element_set_index"](1, dirty_index_end); create_ring(button_iterator_element1_set_index);

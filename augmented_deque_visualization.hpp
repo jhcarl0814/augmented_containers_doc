@@ -12,6 +12,8 @@ namespace augmented_containers
     {
         namespace visualization
         {
+#ifndef AUGMENTED_CONTAINERS_VISUALIZATION_COMMON
+    #define AUGMENTED_CONTAINERS_VISUALIZATION_COMMON
             template<typename T>
             struct print_function_pointer_t
             {
@@ -20,14 +22,14 @@ namespace augmented_containers
             template<typename OutputStream, typename T>
             OutputStream &&operator<<(OutputStream &&os, print_function_pointer_t<T> print_pointer)
             {
-#ifdef __EMSCRIPTEN__
+    #ifdef __EMSCRIPTEN__
                 std::byte const(&r)[sizeof(T)] = reinterpret_cast<std::byte const(&)[sizeof(T)]>(print_pointer.p);
                 std::for_each(std::begin(r), std::end(r), [&](std::byte const &b)
                     { os << "0x" << std::hex << std::setw(2) << std::setfill('0') << (int)b << std::dec << std::setw(0) << std::setfill(' '); });
-#else
+    #else
                 std::ranges::for_each(reinterpret_cast<std::byte const(&)[sizeof(T)]>(print_pointer.p), [&](std::byte const &b)
                     { os << "0x" << std::hex << std::setw(2) << std::setfill('0') << (int)b << std::dec << std::setw(0) << std::setfill(' '); });
-#endif
+    #endif
                 return std::forward<OutputStream>(os);
             }
             template<typename T>
@@ -35,11 +37,11 @@ namespace augmented_containers
             {
                 T p;
             };
-#if __cpp_deduction_guides >= 201907L
-#else
+    #if __cpp_deduction_guides >= 201907L
+    #else
             template<typename T>
             print_object_pointer_t(T) -> print_object_pointer_t<T>;
-#endif
+    #endif
             template<typename OutputStream, typename T>
             OutputStream &&operator<<(OutputStream &&os, print_object_pointer_t<T> print_pointer)
             {
@@ -104,7 +106,7 @@ namespace augmented_containers
                 else
                     return text;
             };
-            dot::text_t pointer_title_text_to_title_only(std::u8string title, auto text)
+            dot::text_t pointer_title_text_to_title_only(std::u8string title, std::u8string text)
             {
                 using namespace dot;
                 if(true)
@@ -112,53 +114,59 @@ namespace augmented_containers
                 else
                     return text_t{{{title + u8' '}, {text}}};
             };
+#endif // AUGMENTED_CONTAINERS_VISUALIZATION_COMMON
 
-            enum class accumulated_storage_node_type_t { uninitialized,
-                digit_node,
-                tree_node,
-                digit_node_end_accumulated_storage,
-                read_range };
-            template<typename datum_t, typename converter_generated_statements_back_inserter_t>
-            struct to_string_converter_parameters_t
+            namespace augmented_deque
             {
-                std::u8string const &member_name;
-                datum_t const &datum;
-                converter_generated_statements_back_inserter_t converter_generated_statements_back_inserter;
-                accumulated_storage_node_type_t accumulated_storage_node_type;
-            };
+                enum class accumulated_storage_node_type_e { uninitialized,
+                    digit_node,
+                    tree_node,
+                    digit_node_end_accumulated_storage,
+                    read_range };
+
+                template<typename datum_t, typename converter_generated_statements_back_inserter_t>
+                struct to_string_converter_parameters_t
+                {
+                    std::u8string const &member_name;
+                    datum_t const &datum;
+                    converter_generated_statements_back_inserter_t converter_generated_statements_back_inserter;
+                    accumulated_storage_node_type_e accumulated_storage_node_type;
+                };
 #if __cpp_deduction_guides >= 201907L
 #else
-            template<typename datum_t, typename converter_generated_statements_back_inserter_t>
-            to_string_converter_parameters_t(std::u8string const &, datum_t const &, converter_generated_statements_back_inserter_t, accumulated_storage_node_type_t) -> to_string_converter_parameters_t<datum_t, converter_generated_statements_back_inserter_t>;
-            template<typename datum_t, typename converter_generated_statements_back_inserter_t>
-            to_string_converter_parameters_t(std::u8string const &, datum_t const &, converter_generated_statements_back_inserter_t) -> to_string_converter_parameters_t<datum_t, converter_generated_statements_back_inserter_t>;
+                template<typename datum_t, typename converter_generated_statements_back_inserter_t>
+                to_string_converter_parameters_t(std::u8string const &, datum_t const &, converter_generated_statements_back_inserter_t, accumulated_storage_node_type_e) -> to_string_converter_parameters_t<datum_t, converter_generated_statements_back_inserter_t>;
+                template<typename datum_t, typename converter_generated_statements_back_inserter_t>
+                to_string_converter_parameters_t(std::u8string const &, datum_t const &, converter_generated_statements_back_inserter_t) -> to_string_converter_parameters_t<datum_t, converter_generated_statements_back_inserter_t>;
 #endif
+
+                template<typename element_to_string_converter_t, typename projected_and_accumulated_storage_to_string_converter_per_sequence_t, typename iterators_element_t, typename read_range_per_sequence_t, typename iterators_projected_storage_per_sequence_t = std::nullopt_t>
+                struct to_graphs_parameters_t
+                {
+                    element_to_string_converter_t element_to_string_converter;
+                    projected_and_accumulated_storage_to_string_converter_per_sequence_t projected_and_accumulated_storage_to_string_converter_per_sequence;
+                    iterators_element_t iterators_element;
+                    read_range_per_sequence_t read_range_per_sequence;
+                    iterators_projected_storage_per_sequence_t iterators_projected_storage_per_sequence = std::nullopt;
+                };
+#if __cpp_deduction_guides >= 201907L
+#else
+                template<typename... T>
+                to_graphs_parameters_t(T...) -> to_graphs_parameters_t<T...>;
+#endif
+            } // namespace augmented_deque
         } // namespace visualization
     } // namespace detail
 
-    template<typename element_to_string_converter_t, typename projected_and_accumulated_storage_to_string_converter_per_sequence_t, typename iterators_element_t, typename read_range_per_sequence_t, typename iterators_projected_storage_per_sequence_t = std::nullopt_t>
-    struct to_graphs_parameters_t
-    {
-        element_to_string_converter_t element_to_string_converter;
-        projected_and_accumulated_storage_to_string_converter_per_sequence_t projected_and_accumulated_storage_to_string_converter_per_sequence;
-        iterators_element_t iterators_element;
-        read_range_per_sequence_t read_range_per_sequence;
-        iterators_projected_storage_per_sequence_t iterators_projected_storage_per_sequence = std::nullopt;
-    };
-#if __cpp_deduction_guides >= 201907L
-#else
-    template<typename... T>
-    to_graphs_parameters_t(T...) -> to_graphs_parameters_t<T...>;
-#endif
-
-    template<typename T, typename Allocator, typename config_t, typename... to_graphs_parameters_t_parameters_t>
+    template<typename element_t, typename allocator_element_t, typename config_t, typename... to_graphs_parameters_t_parameters_t>
     std::vector<dot::graph_t> to_graphs(
-        augmented_deque_t<T, Allocator, config_t> const &augmented_deque,
-        to_graphs_parameters_t<to_graphs_parameters_t_parameters_t...> to_graphs_parameters)
+        augmented_deque_t<element_t, allocator_element_t, config_t> const &augmented_deque,
+        detail::visualization::augmented_deque::to_graphs_parameters_t<to_graphs_parameters_t_parameters_t...> to_graphs_parameters)
     {
         using namespace dot;
         using namespace detail::language;
         using namespace detail::visualization;
+        using namespace detail::visualization::augmented_deque;
 
         return [&]<std::size_t... I>(std::index_sequence<I...>)
         {
@@ -403,7 +411,7 @@ namespace augmented_containers
 #ifndef __EMSCRIPTEN__
                                                                   .accumulated_storage_node_type =
 #endif
-                                                                      accumulated_storage_node_type_t::digit_node_end_accumulated_storage,
+                                                                      accumulated_storage_node_type_e::digit_node_end_accumulated_storage,
                                                               }),
                                                           },
                                                       }},
@@ -431,7 +439,7 @@ namespace augmented_containers
 #ifndef __EMSCRIPTEN__
                                                     .accumulated_storage_node_type =
 #endif
-                                                        accumulated_storage_node_type_t::read_range,
+                                                        accumulated_storage_node_type_e::read_range,
                                                 })},
                                 }}});
                         }
@@ -456,7 +464,7 @@ namespace augmented_containers
                                                                           }},
                             {{
                                 {u8"id", u8"sequence->digit_front"},
-                                {u8"style", tagged_ptr_bit0_is_set(tagged_ptr_bit0_unsetted(sequence.digit_node_end)->next) ? u8"dashed" : u8"solid"},
+                                {u8"style", tagged_ptr_bit0_is_setted(tagged_ptr_bit0_unsetted(sequence.digit_node_end)->next) ? u8"dashed" : u8"solid"},
                                 {u8"constraint", u8"true"},
                                 {u8"tailclip", u8"false"},
                             }}});
@@ -467,7 +475,7 @@ namespace augmented_containers
                                                                           }},
                             {{
                                 {u8"id", u8"sequence->digit_back"},
-                                {u8"style", tagged_ptr_bit0_is_set(tagged_ptr_bit0_unsetted(sequence.digit_node_end)->prev) ? u8"dashed" : u8"solid"},
+                                {u8"style", tagged_ptr_bit0_is_setted(tagged_ptr_bit0_unsetted(sequence.digit_node_end)->prev) ? u8"dashed" : u8"solid"},
                                 {u8"constraint", u8"true"},
                                 {u8"tailclip", u8"false"},
                             }}});
@@ -511,33 +519,33 @@ namespace augmented_containers
                         assert(p_tree_node->parent != nullptr);
                         tree_node_edges.push_back(edge_statement_t{{{
                                                                        node_id_t{u8"tree_node_" + object_pointer_to_string(p_tree_node), u8"parent", c},
-                                                                       node_id_t{(tagged_ptr_bit0_is_set(p_tree_node->parent) ? u8"digit_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->parent))},
+                                                                       node_id_t{(tagged_ptr_bit0_is_setted(p_tree_node->parent) ? u8"digit_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->parent))},
                                                                    }},
                             {{
                                 {u8"id", u8"tree_node_" + object_pointer_to_string(p_tree_node) + u8"->parent"},
-                                {u8"style", tagged_ptr_bit0_is_set(p_tree_node->parent) ? u8"dashed" : u8"solid"},
+                                {u8"style", tagged_ptr_bit0_is_setted(p_tree_node->parent) ? u8"dashed" : u8"solid"},
                                 {u8"constraint", u8"false"},
                                 {u8"tailclip", u8"false"},
                             }}});
                         assert(p_tree_node->child_left != nullptr);
                         tree_node_edges.push_back(edge_statement_t{{{
                                                                        node_id_t{u8"tree_node_" + object_pointer_to_string(p_tree_node), u8"child_left", c},
-                                                                       node_id_t{(tagged_ptr_bit0_is_set(p_tree_node->child_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_left))},
+                                                                       node_id_t{(tagged_ptr_bit0_is_setted(p_tree_node->child_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_left))},
                                                                    }},
                             {{
-                                {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_set(p_tree_node->child_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_left)))},
-                                {u8"style", tagged_ptr_bit0_is_set(p_tree_node->child_left) ? u8"dashed" : u8"solid"},
+                                {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_setted(p_tree_node->child_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_left)))},
+                                {u8"style", tagged_ptr_bit0_is_setted(p_tree_node->child_left) ? u8"dashed" : u8"solid"},
                                 {u8"constraint", u8"true"},
                                 {u8"tailclip", u8"false"},
                             }}});
                         assert(p_tree_node->child_right != nullptr);
                         tree_node_edges.push_back(edge_statement_t{{{
                                                                        node_id_t{u8"tree_node_" + object_pointer_to_string(p_tree_node), u8"child_right", c},
-                                                                       node_id_t{(tagged_ptr_bit0_is_set(p_tree_node->child_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_right))},
+                                                                       node_id_t{(tagged_ptr_bit0_is_setted(p_tree_node->child_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_right))},
                                                                    }},
                             {{
-                                {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_set(p_tree_node->child_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_right)))},
-                                {u8"style", tagged_ptr_bit0_is_set(p_tree_node->child_right) ? u8"dashed" : u8"solid"},
+                                {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_setted(p_tree_node->child_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_tree_node->child_right)))},
+                                {u8"style", tagged_ptr_bit0_is_setted(p_tree_node->child_right) ? u8"dashed" : u8"solid"},
                                 {u8"constraint", u8"true"},
                                 {u8"tailclip", u8"false"},
                             }}});
@@ -596,7 +604,7 @@ namespace augmented_containers
 #ifndef __EMSCRIPTEN__
                                                                     .accumulated_storage_node_type =
 #endif
-                                                                        accumulated_storage_node_type_t::tree_node,
+                                                                        accumulated_storage_node_type_e::tree_node,
                                                                 }),
                                                             },
                                                         }});
@@ -619,9 +627,9 @@ namespace augmented_containers
                                             }}}},
                             }}});
 
-                        if(assert(p_tree_node->child_left != nullptr), !tagged_ptr_bit0_is_set(p_tree_node->child_left))
+                        if(assert(p_tree_node->child_left != nullptr), !tagged_ptr_bit0_is_setted(p_tree_node->child_left))
                             tree_node_recursive(p_tree_node->child_left);
-                        if(assert(p_tree_node->child_right != nullptr), !tagged_ptr_bit0_is_set(p_tree_node->child_right))
+                        if(assert(p_tree_node->child_right != nullptr), !tagged_ptr_bit0_is_setted(p_tree_node->child_right))
                             tree_node_recursive(p_tree_node->child_right);
                     };
 
@@ -655,22 +663,22 @@ namespace augmented_containers
                         if(p_digit_node->tree_left != nullptr)
                             digit_node_edges.push_back(edge_statement_t{{{
                                                                             node_id_t{u8"digit_node_" + object_pointer_to_string(p_digit_node), u8"tree_left", c},
-                                                                            node_id_t{(tagged_ptr_bit0_is_set(p_digit_node->tree_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_left))},
+                                                                            node_id_t{(tagged_ptr_bit0_is_setted(p_digit_node->tree_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_left))},
                                                                         }},
                                 {{
-                                    {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_set(p_digit_node->tree_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_left)))},
-                                    {u8"style", tagged_ptr_bit0_is_set(p_digit_node->tree_left) ? u8"dashed" : u8"solid"},
+                                    {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_setted(p_digit_node->tree_left) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_left)))},
+                                    {u8"style", tagged_ptr_bit0_is_setted(p_digit_node->tree_left) ? u8"dashed" : u8"solid"},
                                     {u8"constraint", u8"true"},
                                     {u8"tailclip", u8"false"},
                                 }}});
                         if(p_digit_node->tree_right != nullptr)
                             digit_node_edges.push_back(edge_statement_t{{{
                                                                             node_id_t{u8"digit_node_" + object_pointer_to_string(p_digit_node), u8"tree_right", c},
-                                                                            node_id_t{(tagged_ptr_bit0_is_set(p_digit_node->tree_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_right))},
+                                                                            node_id_t{(tagged_ptr_bit0_is_setted(p_digit_node->tree_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_right))},
                                                                         }},
                                 {{
-                                    {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_set(p_digit_node->tree_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_right)))},
-                                    {u8"style", tagged_ptr_bit0_is_set(p_digit_node->tree_right) ? u8"dashed" : u8"solid"},
+                                    {u8"id", u8"parent->" + ((tagged_ptr_bit0_is_setted(p_digit_node->tree_right) ? u8"list_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_digit_node->tree_right)))},
+                                    {u8"style", tagged_ptr_bit0_is_setted(p_digit_node->tree_right) ? u8"dashed" : u8"solid"},
                                     {u8"constraint", u8"true"},
                                     {u8"tailclip", u8"false"},
                                 }}});
@@ -692,7 +700,7 @@ namespace augmented_containers
                         else
                         {
                             sequence_members_edges.back().attributes.back().push_back({u8"id", u8"sequence->digit_middle"});
-                            sequence_members_edges.back().attributes.back().push_back({u8"style", tagged_ptr_bit0_is_set(tagged_ptr_bit0_unsetted(sequence.digit_node_end)->middle) ? u8"dashed" : u8"solid"});
+                            sequence_members_edges.back().attributes.back().push_back({u8"style", tagged_ptr_bit0_is_setted(tagged_ptr_bit0_unsetted(sequence.digit_node_end)->middle) ? u8"dashed" : u8"solid"});
                         }
 
                         digit_nodes_same_rank.statements.push_back(node_statement_t{{u8"digit_node_" + object_pointer_to_string(p_digit_node)}});
@@ -763,7 +771,7 @@ namespace augmented_containers
 #ifndef __EMSCRIPTEN__
                                                                         .accumulated_storage_node_type =
 #endif
-                                                                            accumulated_storage_node_type_t::digit_node,
+                                                                            accumulated_storage_node_type_e::digit_node,
                                                                     }),
                                                                 },
                                                             }});
@@ -802,9 +810,9 @@ namespace augmented_containers
                                             }}}},
                             }}});
 
-                        if(p_digit_node->tree_left != nullptr && !tagged_ptr_bit0_is_set(p_digit_node->tree_left))
+                        if(p_digit_node->tree_left != nullptr && !tagged_ptr_bit0_is_setted(p_digit_node->tree_left))
                             tree_node_recursive(p_digit_node->tree_left);
-                        if(p_digit_node->tree_right != nullptr && !tagged_ptr_bit0_is_set(p_digit_node->tree_right))
+                        if(p_digit_node->tree_right != nullptr && !tagged_ptr_bit0_is_setted(p_digit_node->tree_right))
                             tree_node_recursive(p_digit_node->tree_right);
                     }
 
@@ -817,11 +825,11 @@ namespace augmented_containers
                             assert(p_list_node->parent != nullptr);
                             list_node_edges.push_back(edge_statement_t{{{
                                                                            node_id_t{u8"list_node_" + object_pointer_to_string(p_list_node), u8"parent", c},
-                                                                           node_id_t{(tagged_ptr_bit0_is_set(p_list_node->parent) ? u8"digit_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_list_node->parent))},
+                                                                           node_id_t{(tagged_ptr_bit0_is_setted(p_list_node->parent) ? u8"digit_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_list_node->parent))},
                                                                        }},
                                 {{
                                     {u8"id", u8"list_node_" + object_pointer_to_string(p_list_node) + u8"->parent"},
-                                    {u8"style", tagged_ptr_bit0_is_set(p_list_node->parent) ? u8"dashed" : u8"solid"},
+                                    {u8"style", tagged_ptr_bit0_is_setted(p_list_node->parent) ? u8"dashed" : u8"solid"},
                                     {u8"constraint", u8"false"},
                                     {u8"tailclip", u8"false"},
                                 }}});
@@ -1043,11 +1051,11 @@ namespace augmented_containers
                             assert(p_list_node->parent != nullptr);
                             list_node_edges.push_back(edge_statement_t{{{
                                                                            node_id_t{u8"list_node_" + object_pointer_to_string(p_list_node), u8"parent", c},
-                                                                           node_id_t{(tagged_ptr_bit0_is_set(p_list_node->parent) ? u8"digit_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_list_node->parent))},
+                                                                           node_id_t{(tagged_ptr_bit0_is_setted(p_list_node->parent) ? u8"digit_node_" : u8"tree_node_") + object_pointer_to_string(tagged_ptr_bit0_unsetted_relaxed(p_list_node->parent))},
                                                                        }},
                                 {{
                                     {u8"id", u8"list_node_" + object_pointer_to_string(p_list_node) + u8"->parent"},
-                                    {u8"style", tagged_ptr_bit0_is_set(p_list_node->parent) ? u8"dashed" : u8"solid"},
+                                    {u8"style", tagged_ptr_bit0_is_setted(p_list_node->parent) ? u8"dashed" : u8"solid"},
                                     {u8"constraint", u8"false"},
                                     {u8"tailclip", u8"false"},
                                 }}});
@@ -1470,7 +1478,7 @@ namespace augmented_containers
                     return g; //
                 }()...};
         }
-        (std::make_index_sequence<augmented_deque_t<T, Allocator, config_t>::sequences_count>());
+        (std::make_index_sequence<augmented_deque_t<element_t, allocator_element_t, config_t>::sequences_count>());
     }
 } // namespace augmented_containers
 

@@ -62,6 +62,8 @@ struct alignas(std::max({alignof(void *), static_cast<std::size_t>(0b10)})) AUGM
     {}
     AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t) &operator=(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t) const &other) &
     {
+        if(this == &other)
+            return *this;
         using namespace augmented_containers::detail::language;
         if((front = other.front) != nullptr)
             tagged_ptr_bit0_unsetted(front)->prev = reinterpret_cast<AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_node_t) *>(tagged_ptr_bit0_setted(this));
@@ -190,7 +192,7 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(iterator_element_advance)(std::size_t ite
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(iterator_element_output)(std::size_t iterator_index, std::string value)
 {
     if(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[iterator_index] != AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element())
-        *AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[iterator_index] = [value]()
+        *AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[iterator_index] = [&value]()
         {
             int value_int;
             std::istringstream(value) >> value_int;
@@ -268,28 +270,15 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
 {
     std::vector<std::string> result;
     using namespace dot;
+    using namespace augmented_containers::detail::visualization::augmented_deque;
     for(dot::graph_t &graph : to_graphs(
             AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque),
-            augmented_containers::to_graphs_parameters_t{
+            to_graphs_parameters_t{
 #ifndef __EMSCRIPTEN__
                 .element_to_string_converter =
 #endif
                     [](auto parameters) -> html_label_t
-                {
-                    if(true)
-                        return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}};
-                    else if(true)
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data()) << ':' << parameters.datum).str().data()))},
-                        }}};
-                    else
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data())).str().data()))},
-                            {br_t{.ALIGN = LEFT}},
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))},
-                            {br_t{.ALIGN = LEFT}},
-                        }}};
-                },
+                { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; },
 #ifndef __EMSCRIPTEN__
                .projected_and_accumulated_storage_to_string_converter_per_sequence =
 #endif
@@ -301,14 +290,12 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                             auto iterator_projected_storage = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_projected_storage_t::from_projected_storage_pointer(&const_cast<AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_diffing_adjacent_element_node_t) &>(parameters.datum));
                             if(iterator_projected_storage->prev != nullptr)
                             {
-                                if(tagged_ptr_bit0_is_set(iterator_projected_storage->prev))
+                                if(tagged_ptr_bit0_is_setted(iterator_projected_storage->prev))
                                 {
                                     parameters.converter_generated_statements_back_inserter++ = edge_statement_t{
                                         {{
                                             node_id_t{u8"list_node_" + object_pointer_to_string(iterator_projected_storage.current_list_node), u8"projected_storage.prev", c},
-                                            node_id_t{u8"digit_node_end."
-                                                      u8"accumulated_storage",
-                                                u8"accumulated_storage"},
+                                            node_id_t{u8"digit_node_end.accumulated_storage", u8"accumulated_storage"},
                                         }},
                                         {{
                                             {u8"id", u8"list_node_" + object_pointer_to_string(iterator_projected_storage.current_list_node) + u8"->projected_storage.prev"},
@@ -336,14 +323,12 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                             }
                             if(iterator_projected_storage->next != nullptr)
                             {
-                                if(tagged_ptr_bit0_is_set(iterator_projected_storage->next))
+                                if(tagged_ptr_bit0_is_setted(iterator_projected_storage->next))
                                 {
                                     parameters.converter_generated_statements_back_inserter++ = edge_statement_t{
                                         {{
                                             node_id_t{u8"list_node_" + object_pointer_to_string(iterator_projected_storage.current_list_node), u8"projected_storage.next", c},
-                                            node_id_t{u8"digit_node_end."
-                                                      u8"accumulated_storage",
-                                                u8"accumulated_storage"},
+                                            node_id_t{u8"digit_node_end.accumulated_storage", u8"accumulated_storage"},
                                         }},
                                         {{
                                             {u8"id", u8"list_node_" + object_pointer_to_string(iterator_projected_storage.current_list_node) + u8"->projected_storage.next"},
@@ -399,21 +384,20 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                             using namespace augmented_containers::detail::visualization;
                             switch(parameters.accumulated_storage_node_type)
                             {
-                            case accumulated_storage_node_type_t::digit_node_end_accumulated_storage:
+                            case accumulated_storage_node_type_e::uninitialized: std::unreachable(); break;
+                            case accumulated_storage_node_type_e::read_range: std::unreachable(); break;
+                            case accumulated_storage_node_type_e::digit_node_end_accumulated_storage:
                             {
                                 if(parameters.datum.front != nullptr)
                                 {
                                     auto iterator_projected_storage_front = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_projected_storage_t::from_projected_storage_pointer(tagged_ptr_bit0_unsetted(parameters.datum.front));
                                     parameters.converter_generated_statements_back_inserter++ = edge_statement_t{
                                         {{
-                                            node_id_t{u8"digit_node_end."
-                                                      u8"accumulated_storage",
-                                                u8"accumulated_storage.front", c},
+                                            node_id_t{u8"digit_node_end.accumulated_storage", u8"accumulated_storage.front", c},
                                             node_id_t{u8"list_node_" + object_pointer_to_string(iterator_projected_storage_front.current_list_node), u8"projected_storage"},
                                         }},
                                         {{
-                                            {u8"id", u8"digit_node_end.accumulated_"
-                                                     u8"storage.front"},
+                                            {u8"id", u8"digit_node_end.accumulated_storage.front"},
                                             {u8"constraint", u8"false"},
                                             {u8"tailclip", u8"false"},
                                             {u8"color", u8"#0000FF"},
@@ -425,14 +409,11 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                     auto iterator_projected_storage_back = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_projected_storage_t::from_projected_storage_pointer(tagged_ptr_bit0_unsetted(parameters.datum.back));
                                     parameters.converter_generated_statements_back_inserter++ = edge_statement_t{
                                         {{
-                                            node_id_t{u8"digit_node_end."
-                                                      u8"accumulated_storage",
-                                                u8"accumulated_storage.back", c},
+                                            node_id_t{u8"digit_node_end.accumulated_storage", u8"accumulated_storage.back", c},
                                             node_id_t{u8"list_node_" + object_pointer_to_string(iterator_projected_storage_back.current_list_node), u8"projected_storage"},
                                         }},
                                         {{
-                                            {u8"id", u8"digit_node_end.accumulated_"
-                                                     u8"storage.back"},
+                                            {u8"id", u8"digit_node_end.accumulated_storage.back"},
                                             {u8"constraint", u8"false"},
                                             {u8"tailclip", u8"false"},
                                             {u8"color", u8"#0000FF"},
@@ -440,7 +421,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                         }}};
                                 }
                             } break;
-                            case accumulated_storage_node_type_t::digit_node:
+                            case accumulated_storage_node_type_e::digit_node:
                             {
                                 auto digit_node = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::digit_node_t::from_accumulated_storage_pointer(&const_cast<AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t) &>(parameters.datum));
                                 if(digit_node->p_accumulated_storage()->front != nullptr)
@@ -476,7 +457,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                         }}};
                                 }
                             } break;
-                            case accumulated_storage_node_type_t::tree_node:
+                            case accumulated_storage_node_type_e::tree_node:
                             {
                                 auto tree_node = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::tree_node_t::from_accumulated_storage_pointer(&const_cast<AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulator_diffing_adjacent_element_node_t) &>(parameters.datum));
                                 if(tree_node->p_accumulated_storage()->front != nullptr)
