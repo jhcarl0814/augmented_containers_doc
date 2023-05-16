@@ -142,8 +142,8 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(find_by_heap_predicate_generator)(std::si
         {
 #ifdef __EMSCRIPTEN__
             std::get<0>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence)).clear();
-            for(decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_projected_storage_t itp : AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).find_by_heap_predicate_generator<0>([&](decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::accumulated_storage_t const &accumulated_string_size)
-                    { return static_cast<int>(accumulated_string_size) >= interval->first; }))
+            for(decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_projected_storage_t itp : AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).find_by_heap_predicate_generator<0>([&](decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::accumulated_storage_t const &element_upper_endpoint_or_max_upper_endpoint_in_tree)
+                    { return static_cast<int>(element_upper_endpoint_or_max_upper_endpoint_in_tree) >= interval->first; }))
             {
                 decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_element_t ite = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::to_iterator_element(itp);
                 if(ite->first > interval->second)
@@ -151,8 +151,8 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(find_by_heap_predicate_generator)(std::si
                 std::get<0>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence)).push_back(itp);
             }
 #else
-            std::get<0>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence)) = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).find_by_heap_predicate_generator<0>([&](decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::accumulated_storage_t const &accumulated_string_size)
-                                                                                                                           { return static_cast<int>(accumulated_string_size) >= interval->first; }) |
+            std::get<0>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence)) = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).find_by_heap_predicate_generator<0>([&](decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::accumulated_storage_t const &element_upper_endpoint_or_max_upper_endpoint_in_tree)
+                                                                                                                           { return static_cast<int>(element_upper_endpoint_or_max_upper_endpoint_in_tree) >= interval->first; }) |
                 std::views::take_while([&](decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_projected_storage_t itp)
                     { decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<0>::iterator_element_t ite = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::to_iterator_element(itp); return ite->first <= interval->second; }) |
                 std::ranges::to<std::vector>();
@@ -285,65 +285,24 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
 {
     std::vector<std::string> result;
     using namespace dot;
+    using namespace augmented_containers::detail::visualization::augmented_deque;
     for(dot::graph_t &graph : to_graphs(
             AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque),
-            augmented_containers::to_graphs_parameters_t{
+            to_graphs_parameters_t{
 #ifndef __EMSCRIPTEN__
                 .element_to_string_converter =
 #endif
                     [](auto parameters) -> html_label_t
-                {
-                    if(true)
-                        return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << '[' << parameters.datum.first << ',' << parameters.datum.second << ']').str().data()))}}}};
-                    else if(true)
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data()) << ':' << '[' << parameters.datum.first << ',' << parameters.datum.second << ']').str().data()))},
-                        }}};
-                    else
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data())).str().data()))},
-                            {br_t{.ALIGN = LEFT}},
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << '[' << parameters.datum.first << ',' << parameters.datum.second << ']').str().data()))},
-                            {br_t{.ALIGN = LEFT}},
-                        }}};
-                },
+                { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << '[' << parameters.datum.first << ',' << parameters.datum.second << ']').str().data()))}}}}; },
 #ifndef __EMSCRIPTEN__
                .projected_and_accumulated_storage_to_string_converter_per_sequence =
 #endif
                     std::make_tuple(
                         std::make_pair(
                             [](auto parameters) -> html_label_t
-                            {
-                                if(true)
-                                    return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}};
-                                else if(true)
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data()) << ':' << parameters.datum).str().data()))},
-                                    }}};
-                                else
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data())).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                    }}};
-                            },
+                            { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; },
                             [](auto parameters) -> html_label_t
-                            {
-                                if(true)
-                                    return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}};
-                                else if(true)
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data()) << ':' << parameters.datum).str().data()))},
-                                    }}};
-                                else
-                                    return html_label_t{text_t{{
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << reinterpret_cast<char const *>(parameters.member_name.data())).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                        {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))},
-                                        {br_t{.ALIGN = LEFT}},
-                                    }}};
-                            })),
+                            { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; })),
 #ifndef __EMSCRIPTEN__
                .iterators_element =
 #endif
