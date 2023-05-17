@@ -1145,33 +1145,11 @@ a:hover
 
 .td_red
 {
-  position:relative;
-}
-
-.td_red::before
-{
-  position:absolute;
-  content: "\200B";
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
   background-color:#FF000020;
 }
 
 .td_green
 {
-  position:relative;
-}
-
-.td_green::before
-{
-  position:absolute;
-  content: "\200B";
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
   background-color:#00FF0020;
 }
 
