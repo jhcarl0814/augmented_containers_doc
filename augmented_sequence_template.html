@@ -1241,6 +1241,7 @@ function initialize_examples()
 								if(isFinite(valueInt))
 								{
 									Module[example_prefix_possibly_interactive + "iterator_set_index"](i, 0, valueInt);
+									refresh_buttons_text();
 									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
 								}
 							});
@@ -1249,6 +1250,7 @@ function initialize_examples()
 								if(isFinite(valueInt))
 								{
 									Module[example_prefix_possibly_interactive + "iterator_set_index"](i, 1, valueInt);
+									refresh_buttons_text();
 									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
 								}
 							});
