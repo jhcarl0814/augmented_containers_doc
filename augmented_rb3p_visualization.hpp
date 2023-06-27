@@ -24,14 +24,8 @@ namespace augmented_containers
             template<typename OutputStream, typename T>
             OutputStream &&operator<<(OutputStream &&os, print_function_pointer_t<T> print_pointer)
             {
-    #ifdef __EMSCRIPTEN__
-                std::byte const(&r)[sizeof(T)] = reinterpret_cast<std::byte const(&)[sizeof(T)]>(print_pointer.p);
-                std::for_each(std::begin(r), std::end(r), [&](std::byte const &b)
-                    { os << "0x" << std::hex << std::setw(2) << std::setfill('0') << (int)b << std::dec << std::setw(0) << std::setfill(' '); });
-    #else
                 std::ranges::for_each(reinterpret_cast<std::byte const(&)[sizeof(T)]>(print_pointer.p), [&](std::byte const &b)
                     { os << "0x" << std::hex << std::setw(2) << std::setfill('0') << (int)b << std::dec << std::setw(0) << std::setfill(' '); });
-    #endif
                 return std::forward<OutputStream>(os);
             }
             template<typename T>
@@ -605,15 +599,6 @@ namespace augmented_containers
             if(auto node_root_navigator = container_t::navigator_t::untagged_root_or_tagged_end(augmented_sequence_rb3p.node_end); !tagged_ptr_bit0_is_setted(node_root_navigator))
                 tree_node_recursive(static_cast<typename container_t::node_t *>(node_root_navigator), std::nullopt);
 
-#ifdef __EMSCRIPTEN__
-            //        std::copy(tree_nodes.begin(), tree_nodes.end(), std::back_inserter(g.statements));
-            std::copy(tree_node_clusters.begin(), tree_node_clusters.end(), std::back_inserter(g.statements));
-            //g.statements.push_back(tree_node_end);
-            g.statements.push_back(tree_node_end_members_render_from_left_to_right_node);
-            g.statements.push_back(tree_node_end_subgraph);
-            std::copy(tree_node_edges.begin(), tree_node_edges.end(), std::back_inserter(g.statements));
-            std::copy(tree_node_end_edges.begin(), tree_node_end_edges.end(), std::back_inserter(g.statements));
-#else
             //        std::ranges::copy(tree_nodes, std::back_inserter(g.statements));
             std::ranges::copy(tree_node_clusters, std::back_inserter(g.statements));
             //g.statements.push_back(tree_node_end);
@@ -621,7 +606,6 @@ namespace augmented_containers
             g.statements.push_back(tree_node_end_subgraph);
             std::ranges::copy(tree_node_edges, std::back_inserter(g.statements));
             std::ranges::copy(tree_node_end_edges, std::back_inserter(g.statements));
-#endif
 
             if constexpr(!std::is_same_v<typename container_t::accumulated_storage_t, void>)
             {
@@ -664,30 +648,6 @@ namespace augmented_containers
 
         std::vector<node_statement_t> iterator_nodes;
         std::vector<edge_statement_t> iterator_edges;
-#ifdef __EMSCRIPTEN__
-        std::for_each(to_graphs_parameters.iterators.begin(), to_graphs_parameters.iterators.end(), [&, index = 0](auto iterator) mutable
-            {
-                if(std::none_of(augmented_sequence_rb3p_s.begin(), augmented_sequence_rb3p_s.end(), [&](container_t const &augmented_sequence_rb3p)
-                       { return iterator.current_node == augmented_sequence_rb3p.end(); }))
-                {
-                    iterator_nodes.push_back(node_statement_t{{u8"it[" + index_to_string(index) + u8"]"},
-                        {{
-                            {u8"id", u8"it[" + index_to_string(index) + u8"]"},
-                            {u8"label", u8"it[" + index_to_string(index) + u8"]" + [&]() -> std::u8string
-                                {if constexpr(container_t::iterator_t::support_random_access)return u8"\\l.index():"+index_to_string(iterator.index());else return u8""; }()},
-                        }}});
-                    iterator_edges.push_back(edge_statement_t{{{
-                                                                  node_id_t{u8"tree_node_" + object_pointer_to_string(iterator.current_node)},
-                                                                  node_id_t{u8"it[" + index_to_string(index) + u8"]", std::nullopt, c},
-                                                              }},
-                        {{
-                            {u8"id", u8"it[" + index_to_string(index) + u8"]" + u8"->tree_node"},
-                            {u8"dir", u8"back"},
-                        }}});
-                }
-                ++index; //
-            });
-#else
         std::ranges::for_each(to_graphs_parameters.iterators, [&, index = 0](auto iterator) mutable
             {
                 if(std::ranges::none_of(augmented_sequence_rb3p_s, [&](container_t const &augmented_sequence_rb3p)
@@ -710,32 +670,8 @@ namespace augmented_containers
                 }
                 ++index; //
             });
-#endif
         if constexpr(!std::is_same_v<decltype(to_graphs_parameters.iterators_output), std::nullopt_t>)
         {
-#ifdef __EMSCRIPTEN__
-            std::for_each(to_graphs_parameters.iterators_output.begin(), to_graphs_parameters.iterators_output.end(), [&, index = 0](auto iterator) mutable
-                {
-                    if(std::ranges::none_of(augmented_sequence_rb3p_s, [&](container_t const &augmented_sequence_rb3p)
-                           { return iterator.current_node == augmented_sequence_rb3p.end(); }))
-                    {
-                        iterator_nodes.push_back(node_statement_t{{u8"jt[" + index_to_string(index) + u8"]"},
-                            {{
-                                {u8"id", u8"jt[" + index_to_string(index) + u8"]"},
-                                {u8"label", u8"jt[" + index_to_string(index) + u8"]"},
-                            }}});
-                        iterator_edges.push_back(edge_statement_t{{{
-                                                                      node_id_t{u8"tree_node_" + object_pointer_to_string(iterator.current_node)},
-                                                                      node_id_t{u8"jt[" + index_to_string(index) + u8"]", std::nullopt, c},
-                                                                  }},
-                            {{
-                                {u8"id", u8"jt[" + index_to_string(index) + u8"]" + u8"->tree_node"},
-                                {u8"dir", u8"back"},
-                            }}});
-                    }
-                    ++index; //
-                });
-#else
             std::ranges::for_each(to_graphs_parameters.iterators_output, [&, index = 0](auto iterator) mutable
                 {
                     if(std::ranges::none_of(augmented_sequence_rb3p_s, [&](container_t const &augmented_sequence_rb3p)
@@ -757,22 +693,12 @@ namespace augmented_containers
                     }
                     ++index; //
                 });
-#endif
         }
 
-#ifdef __EMSCRIPTEN__
-        std::copy(iterator_nodes.begin(), iterator_nodes.end(), std::back_inserter(g.statements));
-        std::copy(iterator_edges.begin(), iterator_edges.end(), std::back_inserter(g.statements));
-#else
         std::ranges::copy(iterator_nodes, std::back_inserter(g.statements));
         std::ranges::copy(iterator_edges, std::back_inserter(g.statements));
-#endif
 
-#ifdef __EMSCRIPTEN__
-        std::copy(converter_generated_statements.begin(), converter_generated_statements.end(), std::back_inserter(g.statements));
-#else
         std::ranges::copy(converter_generated_statements, std::back_inserter(g.statements));
-#endif
 
         return {g};
     }
