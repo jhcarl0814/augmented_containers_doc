@@ -108,17 +108,6 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_front)()
         (std::make_index_sequence<decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequences_count>());
 #endif
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).pop_front();
-#ifdef __EMSCRIPTEN__
-        std::for_each(iterator_element_is_front_list.begin(), iterator_element_is_front_list.end(), [index = 0](bool iterator_element_is_front) mutable
-            {if(iterator_element_is_front)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index]=AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().begin_element();++index; });
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (std::for_each(std::get<I>(iterator_projected_storage_is_front_list_per_sequence).begin(), std::get<I>(iterator_projected_storage_is_front_list_per_sequence).end(), [index = 0](bool iterator_projected_storage_is_front) mutable
-                 {if(iterator_projected_storage_is_front)std::get<I>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence))[index]=AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<I>().begin_projected_storage();++index; }),
-                ...);
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequences_count>());
-#else
         std::ranges::for_each(iterator_element_is_front_list, [index = 0](bool iterator_element_is_front) mutable
             {if(iterator_element_is_front)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index]=AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().begin_element();++index; });
         [&]<std::size_t... I>(std::index_sequence<I...>)
@@ -128,7 +117,6 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_front)()
                 ...);
         }
         (std::make_index_sequence<decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequences_count>());
-#endif
     }
 }
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_back)()
@@ -160,17 +148,6 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_back)()
         (std::make_index_sequence<decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequences_count>());
 #endif
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).pop_back();
-#ifdef __EMSCRIPTEN__
-        std::for_each(iterator_element_is_back_list.begin(), iterator_element_is_back_list.end(), [index = 0](bool iterator_element_is_back) mutable
-            {if(iterator_element_is_back)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index]=AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element();++index; });
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (std::for_each(std::get<I>(iterator_projected_storage_is_back_list_per_sequence).begin(), std::get<I>(iterator_projected_storage_is_back_list_per_sequence).end(), [index = 0](bool iterator_projected_storage_is_back) mutable
-                 {if(iterator_projected_storage_is_back)std::get<I>(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence))[index]=AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<I>().end_projected_storage();++index; }),
-                ...);
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequences_count>());
-#else
         std::ranges::for_each(iterator_element_is_back_list, [index = 0](bool iterator_element_is_back) mutable
             {if(iterator_element_is_back)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index]=AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element();++index; });
         [&]<std::size_t... I>(std::index_sequence<I...>)
@@ -180,7 +157,6 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_back)()
                 ...);
         }
         (std::make_index_sequence<decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequences_count>());
-#endif
     }
 }
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(update_range)()
@@ -232,14 +208,8 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
 std::string AUGMENTED_DEQUE_EXAMPLE_PREFIXING(additional_info)()
 {
     std::ostringstream oss;
-
-#ifdef __EMSCRIPTEN__
-    std::for_each(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).begin(), AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).end(), [&, index = 0](auto iterator_element) mutable
-        { oss << "it["<<index<<"].index(): " << iterator_element.index()<<"; "<< "it["<<index<<"].is_end(): " <<std::boolalpha<< iterator_element.is_end() <<";"<< /*R"(\l)"*/ "\n"; ++index; });
-#else
     std::ranges::for_each(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element), [&, index = 0](auto iterator_element) mutable
         { oss << "it["<<index<<"].index(): " << iterator_element.index()<<"; "<< "it["<<index<<"].is_end(): " <<std::boolalpha<< iterator_element.is_end() <<";"<< /*R"(\l)"*/ "\n"; ++index; });
-#endif
     if(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).size() >= 2)
     {
         oss << "it[0] <=> it[1]: " << [](std::weak_ordering cmp)

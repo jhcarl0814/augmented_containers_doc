@@ -79,14 +79,7 @@ std::vector<augmented_containers::augmented_sequence_t<
 
 bool AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(is_front_of_chunk)(decltype(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s))::value_type::iterator_t iterator)
 {
-    if(auto iterator_prev =
-#ifdef __EMSCRIPTEN__
-            std::prev
-#else
-            std::ranges::prev
-#endif
-        (iterator);
-        iterator_prev.is_end())
+    if(auto iterator_prev = std::ranges::prev(iterator); iterator_prev.is_end())
         return true;
     else
         return (*iterator_prev < 50) != (*iterator < 50);

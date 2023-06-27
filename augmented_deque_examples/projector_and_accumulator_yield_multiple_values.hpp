@@ -22,31 +22,14 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_min_n_element_t)
     {
         assert(chunk_size <= N);
         projected_storage_t result{};
-#ifdef __EMSCRIPTEN__
-        std::transform(it_chunk_begin, it_chunk_end, result.begin(),
-            [](element_t const &element)
-            {
-                return &const_cast<element_t &>(element);
-            });
-#else
         std::ranges::transform(std::ranges::subrange(it_chunk_begin, it_chunk_end), result.begin(), [](element_t const &element)
             { return &const_cast<element_t &>(element); });
-#endif
-#ifdef __EMSCRIPTEN__
-        std::stable_sort(result.begin(), result.begin() + chunk_size, [](element_t * const &lhs, element_t * const &rhs)
-            {
-                if constexpr(!reverse)
-                    return (*lhs <=> *rhs) != std::strong_ordering::greater;
-                else
-                    return !((*lhs <=> *rhs) != std::strong_ordering::greater); });
-#else
         std::ranges::stable_sort(result | std::views::take(chunk_size), [](element_t * const &lhs, element_t * const &rhs)
             {
                 if constexpr(!reverse)
                     return (*lhs <=> *rhs) != std::strong_ordering::greater;
                 else
                     return !((*lhs <=> *rhs) != std::strong_ordering::greater); });
-#endif
         return result;
     }
 
@@ -184,19 +167,8 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_front)()
             std::ranges::to<std::vector>();
 #endif
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).pop_front();
-#ifdef __EMSCRIPTEN__
-        std::for_each(iterator_element_is_front_list.begin(), iterator_element_is_front_list.end(), [index = 0](bool iterator_element_is_front) mutable
-            {
-                if(iterator_element_is_front)
-                    AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>().begin_element();
-                ++index; });
-#else
         std::ranges::for_each(iterator_element_is_front_list, [index = 0](bool iterator_element_is_front) mutable
-            {
-                if(iterator_element_is_front)
-                    AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .begin_element();
-                ++index; });
-#endif
+            {if(iterator_element_is_front)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .begin_element();++index; });
     }
 }
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_back)()
@@ -213,19 +185,8 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_back)()
             std::ranges::to<std::vector>();
 #endif
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).pop_back();
-#ifdef __EMSCRIPTEN__
-        std::for_each(iterator_element_is_back_list.begin(), iterator_element_is_back_list.end(), [index = 0](bool iterator_element_is_back) mutable
-            {
-                if(iterator_element_is_back)
-                    AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .end_element();
-                ++index; });
-#else
         std::ranges::for_each(iterator_element_is_back_list, [index = 0](bool iterator_element_is_back) mutable
-            {
-                if(iterator_element_is_back)
-                    AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .end_element();
-                ++index; });
-#endif
+            {if(iterator_element_is_back)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .end_element();++index; });
     }
 }
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(update_range)()
@@ -615,27 +576,8 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
 std::string AUGMENTED_DEQUE_EXAMPLE_PREFIXING(additional_info)()
 {
     std::ostringstream oss;
-
-#ifdef __EMSCRIPTEN__
-    std::for_each(
-        AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).begin(),
-        AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).end(),
-        [&, index = 0](auto iterator_element) mutable
-        {
-            oss << "it[" << index << "].index(): " << iterator_element.index() << "; "
-                << "it[" << index << "].is_end(): " << std::boolalpha << iterator_element.is_end() << ";" << /*R"(\l)"*/ "\n";
-            ++index;
-        });
-#else
-    std::ranges::for_each(
-        AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
-        [&, index = 0](auto iterator_element) mutable
-        {
-            oss << "it[" << index << "].index(): " << iterator_element.index() << "; "
-                << "it[" << index << "].is_end(): " << std::boolalpha << iterator_element.is_end() << ";" << /*R"(\l)"*/ "\n";
-            ++index;
-        });
-#endif
+    std::ranges::for_each(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element), [&, index = 0](auto iterator_element) mutable
+        {  oss << "it[" << index << "].index(): " << iterator_element.index() << "; " << "it[" << index << "].is_end(): " << std::boolalpha << iterator_element.is_end() << ";" << /*R"(\l)"*/ "\n"; ++index; });
     if(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).size() >= 2)
     {
         oss << "it[0] <=> it[1]: " << [](std::weak_ordering cmp)
