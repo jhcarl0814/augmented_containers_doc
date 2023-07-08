@@ -15,6 +15,11 @@
     emsdk activate tot && ^
     cd C:/Users/jhcar/Documents/GitHub/augmented_containers_doc && ^
     em++ -std=c++2b -O3 -IC:/Users/jhcar/Documents/GitHub/augmented_containers -IC:/Users/jhcar/Documents/GitHub/augmented_containers_doc -IC:/cpp/ext -lembind -o docs/augmented_sequence.html augmented_sequence_template.cpp --shell-file augmented_sequence_template.html -s NO_EXIT_RUNTIME=1 -s USE_BOOST_HEADERS=1 -sALLOW_MEMORY_GROWTH -sASSERTIONS -s TOTAL_MEMORY=64MB -s TOTAL_STACK=1MB -sSINGLE_FILE -s MINIFY_HTML=0 -sNO_DISABLE_EXCEPTION_CATCHING -Wno-invalid-offsetof -fexperimental-library
+  
+  cd C:/cpp/windows/emsdk && ^
+    emsdk activate tot && ^
+    cd C:/Users/jhcar/Documents/GitHub/augmented_containers_doc && ^
+    em++ -std=c++2b -O3 -IC:/Users/jhcar/Documents/GitHub/augmented_containers -IC:/Users/jhcar/Documents/GitHub/augmented_containers_doc -IC:/cpp/ext -lembind -o docs/augmented_graph.html augmented_graph_template.cpp --shell-file augmented_graph_template.html -s NO_EXIT_RUNTIME=1 -s USE_BOOST_HEADERS=1 -sALLOW_MEMORY_GROWTH -sASSERTIONS -s TOTAL_MEMORY=64MB -s TOTAL_STACK=1MB -sSINGLE_FILE -s MINIFY_HTML=0 -sNO_DISABLE_EXCEPTION_CATCHING -Wno-invalid-offsetof -fexperimental-library
   ```
   ```winbatch
   cd C:/cpp/windows/emsdk && ^
@@ -26,4 +31,9 @@
     emsdk activate tot && ^
     cd C:/Users/jhcar/Documents/GitHub/augmented_containers_doc && ^
     em++ -std=c++2b -O3 -IC:/Users/jhcar/Desktop/augmented_containers/augmented_containers -IC:/cpp/ext -lembind -o docs/augmented_sequence.html augmented_sequence_template.cpp --shell-file augmented_sequence_template.html -s NO_EXIT_RUNTIME=1 -s USE_BOOST_HEADERS=1 -sALLOW_MEMORY_GROWTH -sASSERTIONS -s TOTAL_MEMORY=64MB -s TOTAL_STACK=1MB -sSINGLE_FILE -s MINIFY_HTML=0 -sNO_DISABLE_EXCEPTION_CATCHING -Wno-invalid-offsetof -fexperimental-library
+  
+  cd C:/cpp/windows/emsdk && ^
+    emsdk activate tot && ^
+    cd C:/Users/jhcar/Documents/GitHub/augmented_containers_doc && ^
+    em++ -std=c++2b -O3 -IC:/Users/jhcar/Desktop/augmented_containers/augmented_containers -IC:/cpp/ext -lembind -o docs/augmented_graph.html augmented_graph_template.cpp --shell-file augmented_graph_template.html -s NO_EXIT_RUNTIME=1 -s USE_BOOST_HEADERS=1 -sALLOW_MEMORY_GROWTH -sASSERTIONS -s TOTAL_MEMORY=64MB -s TOTAL_STACK=1MB -sSINGLE_FILE -s MINIFY_HTML=0 -sNO_DISABLE_EXCEPTION_CATCHING -Wno-invalid-offsetof -fexperimental-library
   ```
