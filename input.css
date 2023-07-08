@@ -7,14 +7,22 @@
 		@apply m-[9px];
 	}
 	.heading2 {
-		@apply whitespace-pre-wrap [margin-inline:12px] [margin-block-start:36px] [margin-block-end:12px] font-bold text-[140%];
+		@apply [margin-inline:12px] [margin-block-start:36px] [margin-block-end:12px] font-bold text-[140%];
 	}
 	.heading3 {
-		@apply whitespace-pre-wrap [margin-inline:12px] [margin-block-start:36px] [margin-block-end:12px] font-bold text-[120%];
+		@apply [margin-inline:12px] [margin-block-start:36px] [margin-block-end:12px] font-bold text-[120%];
 	}
 	.paragraph {
-		@apply whitespace-pre-wrap [margin-inline:12px] [margin-block:6px];
+		@apply [margin-inline:12px] [margin-block:6px];
 		@apply leading-[calc(var(--line-height-paragraph)*1em)];
+	}
+	.highlight_yellow
+	{
+		@apply bg-[#FFFF00]/[0.8];
+	}
+	.highlight_bold
+	{
+		@apply font-bold;
 	}
 	.block-code
 	{
