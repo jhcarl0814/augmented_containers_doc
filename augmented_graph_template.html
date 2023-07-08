@@ -1,0 +1,1415 @@
+<!doctype html>
+<html lang="en-us" class="overflow-y-hidden h-[100%]">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>augmented_graph_t</title>
+		<style>
+			.emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+			textarea.emscripten { font-family: monospace; width: 80%; }
+			div.emscripten { text-align: center; }
+			div.emscripten_border { border: 1px solid black; }
+			/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+			canvas.emscripten { border: 0px none; background-color: black; }
+
+			.spinner {
+				height: 50px;
+				width: 50px;
+				margin: 0px auto;
+				-webkit-animation: rotation .8s linear infinite;
+				-moz-animation: rotation .8s linear infinite;
+				-o-animation: rotation .8s linear infinite;
+				animation: rotation 0.8s linear infinite;
+				border-left: 10px solid rgb(0,150,240);
+				border-right: 10px solid rgb(0,150,240);
+				border-bottom: 10px solid rgb(0,150,240);
+				border-top: 10px solid rgb(100,0,200);
+				border-radius: 100%;
+				background-color: rgb(200,100,250);
+			}
+			@-webkit-keyframes rotation {
+				from {-webkit-transform: rotate(0deg);}
+				to {-webkit-transform: rotate(360deg);}
+			}
+			@-moz-keyframes rotation {
+				from {-moz-transform: rotate(0deg);}
+				to {-moz-transform: rotate(360deg);}
+			}
+			@-o-keyframes rotation {
+				from {-o-transform: rotate(0deg);}
+				to {-o-transform: rotate(360deg);}
+			}
+			@keyframes rotation {
+				from {transform: rotate(0deg);}
+				to {transform: rotate(360deg);}
+			}
+
+		</style>
+		
+		<link rel="shortcut icon" href="data:image/bmp;base64,Qk1+AAAAAAAAAD4AAAAoAAAAEAAAABAAAAABAAEAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+		<link rel="stylesheet" href="./app.css">
+		
+		<script src="./d3.v7.min.js" type='application/javascript'></script>
+		<script src="./graphviz.umd.js" type="javascript/worker"></script>
+		<script src="./d3-graphviz.js" type='application/javascript'></script>
+	</head>
+	<body class="overflow-x-hidden overflow-y-auto h-[100%] [--font-scale:1] [--line-height-paragraph:1.5] font-restore" style="perspective:100vw;">
+		<div style="display:none;">
+			<hr/>
+			<figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>emscripten</strong></center></figure>
+			<div class="emscripten" id="status">Downloading...</div>
+			<div class="emscripten">
+				<progress value="0" max="100" id="progress" hidden=1></progress>  
+			</div>
+			<div class="emscripten_border">
+				<canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+			</div>
+			<hr/>
+			<div class="emscripten">
+				<input type="checkbox" id="resize">Resize canvas
+				<input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer
+				&nbsp;&nbsp;&nbsp;
+				<input type="button" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, document.getElementById('resize').checked)">
+			</div>
+			
+			<hr/>
+			<textarea class="emscripten" id="output" rows="8"></textarea>
+			<hr>
+		</div>
+
+
+<div class="container mx-auto">
+	<details class="m-[9px] border-[1px] border-[#000000]">
+		<summary class="p-[9px] cursor-pointer">/ &gt;&gt; augmented_containers &gt;&gt; augmented_graph_t</summary>
+<pre class="whitespace-pre-wrap p-[9px] border-t-[1px] border-t-[#000000]">
+<a href="/">jhcarl0814.github.io</a>
+	<span class="">Augmented Containers</span>
+		<span class="font-bold text-[120%]">Sequence</span>
+			augmented_*****_t
+			<a href="/augmented_containers_doc/augmented_deque.html">augmented_deque_t</a>
+			<a href="/augmented_containers_doc/augmented_sequence.html">augmented_sequence_t</a>
+		<span class="font-bold text-[120%]">Associative</span>
+			augmented_***&ZeroWidthSpace;/&ZeroWidthSpace;***&ZeroWidthSpace;/&ZeroWidthSpace;********&ZeroWidthSpace;/&ZeroWidthSpace;********_t (has-a <span class="inline-code">augmented_sequence_t</span>)
+		<span class="font-bold text-[120%]">Graph</span>
+<div class="bg-[#00FFFF20]">			<a href="/augmented_containers_doc/augmented_graph.html">augmented_graph_t</a>
+</div></pre>
+	</details>
+</div>
+
+<div class="container mx-auto">
+	<h1 class="heading1"><span class="text-[112%]">augmented_containers::</span>&ZeroWidthSpace;<span class="text-[160%]">augmented_graph_t</span></h1>
+	<div class="mx-[12px]"><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/augmented_graph.hpp">augmented_graph.hpp</a>&gt; (one single header file library)</span></div>
+<pre class="mx-[12px] block-code mb-[18px]">
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="struct_in_question">augmented_graph_part_data_structure_e</span> {
+	top_tree,
+	<span style="color:transparent;">link_cut_tree,</span>
+	<span style="color:transparent;">a_new_approach_to_dynamic_all_pairs_shortest_paths,</span>
+	<span style="color:transparent;">fully_dynamic_planarity_testing_in_polylogarithmic_time,</span> };
+<span class="keyword">template</span>&lt;
+	<span class="keyword">typename</span> vertex_t,
+	<span class="keyword">typename</span> edge_t,
+	<span class="keyword">typename</span> parts_data_structure_and_parameters_t,
+	std::<span class="concept">strict_weak_order</span>&lt;<span class="struct">vertex_t</span>, <span class="struct">vertex_t</span>&gt; compartor_vertex_t = std::<span class="struct">less</span>&lt;vertex_t&gt;,
+	std::<span class="concept">strict_weak_order</span>&lt;<span class="struct">edge_t</span>, <span class="struct">edge_t</span>&gt; compartor_edge_t = std::<span class="struct">less</span>&lt;edge_t&gt;,
+	<span class="keyword">typename</span> allocator_vertex_t = std::<span class="struct">allocator</span>&lt;vertex_t&gt;
+&gt; <span class="keyword">struct</span> <span class="struct"><span class="struct_in_question">augmented_graph_t</span></span>;
+</pre>
+</div>
+
+<div class="container mx-auto">
+	<p class="paragraph"><span class="struct_in_question">augmented_graph_t</span> is an augmented, general-purpose graph. It's part of the augmented containers library, providing a more powerful version of <span class="inline-code">containers</span> (let containers (and possibly its subranges) always have several accompanying results of algorithms/views), as well as <span class="inline-code">&lt;algorithm&gt;</span> and <span class="inline-code">&lt;ranges&gt;</span> (when the input changes, refresh output values/ranges in logarithmic time complexity). To help understand what kind of problems the library solves: <a href="https://en.wikipedia.org/wiki/Dynamic_problem_(algorithms)">Dynamic problem (algorithms) - Wikipedia</a>, <a href="https://en.wikipedia.org/wiki/Augmented_map">Augmented map - Wikipedia</a>.</p>
+	<ul class="list-disc list-inside">
+		<li class="paragraph"><span class="struct_in_question">augmented_graph_t</span> logically treat vertex set and edge set as ordered multisets, thus the interface for iterating, searching, inserting and erasing vertices and edges is similar to <span class="inline-code">std::<span class="struct">multiset</span>/<span class="struct">multimap</span></span>. <span class="struct_in_question">augmented_graph_t</span> maintains each vertex's incident edge set and each vertex pair's edge set.</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_graph_t</span> allows updating vertices and edges using a user-supplied functor. For vertex set and edge set, this is just extracting the node, calling update functor on the value and inserting the node back to <span class="inline-code">std::<span class="struct">multiset</span>/<span class="struct">multimap</span></span>. The other data structures (e.g. each vertex's incident edge set, each vertex pair's edge set, top trees) stores vertex iterators and edge iterators <span class="highlight_yellow">order</span>ed by the addresses of the elements they point to when possible, so they are not affected by the update operation.</li>
+		<li class="paragraph"><span class="struct_in_question">augmented_graph_t</span> has at least zero parts. Each part efficiently maintains information about some property/invariant on the graph subject to dynamic changes (vertex&amp;edge insert&amp;erase&amp;update), processes queries on the property/invariant quickly and performs update operations faster than recomputing from scratch, as carried out by the fastest static algorithm.
+			<ul class="list-disc list-inside [margin-inline-start:12px]">
+				<li class="paragraph"><span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> implements the top tree in "Design and Analysis of Data Structures for Dynamic Trees", can be used to maintain some properties/invariants of graphs/trees.<br>
+				For each non-trivial tree in the original forest (or a induced forest of the original graph), top tree logically maintains a sequence of trees, the number of which is logarithmic with respect to tree size. The first tree is the original tree. Each subsequent tree is a contracted version of the previous tree. The last tree is an edge.<br>
+				A sequence of rake and compress operations transforms a tree into a contracted version. When v1 has degree 1 and v1 is the predecessor of v3 in v2's adjacent vertices' circular <span class="highlight_yellow">order</span>, cluster&lt;v1,v2&gt; can be raked onto cluster&lt;v2,v3&gt; resulting in cluster&lt;v2,v3&gt; (<span class="inline-code">v1v2⤻v2v3＝v2v3</span>). When v2 has degree 2, cluster&lt;v1,v2&gt; can be compressed with cluster&lt;v2,v3&gt; resulting in cluster&lt;v1,v3&gt; (<span class="inline-code">v1v2→←v2v3=v1v3</span>).<br>
+				Top tree logically allows to <span class="inline-code">link</span> two trees by an edge into one and <span class="inline-code">cut</span> one tree by an edge into two. <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> also physically maintains the set of vertices with no incident edges and the set of edges that do not belong to the forest. User-supplied <span class="inline-code">internal_operations_t</span> should provide 4 operations (<span class="inline-code">create</span>, <span class="inline-code">destroy</span>, <span class="inline-code">join</span>, <span class="inline-code">split</span>) to maintain <span class="inline-code">cluster_t</span> of each cluster. <span class="inline-code">internal_operations_t</span> can optionally provide <span class="inline-code">edge_to_be_replaced</span>, so that when <span class="inline-code">insert</span>ing an edge whose 2 vertices belong to the same tree, to select a tree edge to <span class="inline-code">cut</span> before <span class="inline-code">link</span> the edge as a tree edge, or to not select any edge and just put the edge to the set of edges that do not belong to the forest. <span class="inline-code">internal_operations_t</span> can optionally provide <span class="inline-code">comparator_it_edge_it_vertexes_t</span> to order the set of edges that do not belong to the forest, so that when <span class="inline-code">erase</span>ing a tree edge, to determine the order of examination of edges (if the edge's 2 vertices belong to 2 different trees, <span class="inline-code">link</span> the edge as a tree edge).</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="container mx-auto">
+	<h2 class="heading2">Examples</h2>
+	<p class="paragraph"></p>
+</div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">empty</h3>
+	<p class="paragraph">Each <span class="inline-code">vertex_t</span>/<span class="inline-code">edge_t</span>(<span class="inline-code">std::<span class="struct">monostate</span></span>) does not store any information. No parts are attached to the graph. Only structual information of the graph is maintained.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_graph_t</span></span>&lt;
+	std::<span class="struct">monostate</span>,
+	std::<span class="struct">monostate</span>,
+	std::<span class="struct">tuple</span>&lt;&gt;,
+	<span class="struct">monostate_comparator_t</span>,
+	<span class="struct">monostate_comparator_t</span>
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="empty_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="empty_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">arbitrary_spanning_forest</h3>
+	<p class="paragraph">A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span>(<span class="inline-code"><span class="keyword">void</span></span>) does not store any information. The internal operation does not suggest any tree edge to <span class="inline-code">cut</span> when <span class="inline-code">insert</span>ed edge's 2 vertices belong to same tree. An arbitrary spanning forest of the graph is maintained, so <a href="https://en.wikipedia.org/wiki/Circuit_rank">circuit rank (cyclomatic number)</a>, <a href="https://en.wikipedia.org/wiki/Cycle_basis">a cycle basis</a> and <a href="https://en.wikipedia.org/wiki/Feedback_arc_set">a feedback edge set</a> of the graph can be answered quickly. <a href="https://en.wikipedia.org/wiki/Component_(graph_theory)">Connected components</a> of the graph and whether 2 vertices belong to same component can also be answered quickly, but note that there are faster data structures dedicated to maintaining connectivity information of graphs.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::<span class="struct"><span class="struct_in_question">augmented_graph_t</span></span>&lt;
+    std::<span class="struct">monostate</span>,
+    std::<span class="struct">monostate</span>,
+    std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_empty_t</span>&lt;&gt;&gt;
+    &gt;,
+    <span class="struct">monostate_comparator_t</span>,
+    <span class="struct">monostate_comparator_t</span>
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="arbitrary_spanning_forest_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="arbitrary_spanning_forest_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">minimum_spanning_forest</h3>
+	<p class="paragraph">Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the weight of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span>(<span class="inline-code"><span class="struct">graph_t</span>::<span class="struct">it_edge_it_vertex_t</span></span>) points to the maximum-weight edge among the cluster's <span class="highlight_bold">path</span> descendant edges.</p>
+	<p class="paragraph">When <span class="inline-code">insert</span>ing an edge whose 2 vertices belong to same tree, <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> <span class="inline-code">expose</span>s the 2 vertices (so the iterator pointing to the maximum-weight edge among the <span class="highlight_bold">tree path</span>'s edges can be read from root cluster). <span class="inline-code"><span class="struct">get_top_tree_internal_operations_selecting_path_t</span></span> selects the old edge for <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> to <span class="inline-code">cut</span> before <span class="inline-code">link</span>ing the new edge, or doesn't select any edge and <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> just put the edge to the set of edges that do not belong to the forest.</p>
+	<p class="paragraph"><span class="inline-code"><span class="struct">get_top_tree_internal_operations_selecting_path_t</span></span> let <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> order the set of edges that do not belong to the forest in weight-increasing order, so that when <span class="inline-code">erase</span>ing a tree edge, <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> look for replacement among the edges in weight-increasing order.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::augmented_graph_t&lt;
+	std::<span class="struct">monostate</span>,
+	<span class="keyword">int</span>,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_selecting_path_t</span>&lt;std::<span class="struct">less</span>&lt;<span class="keyword">void</span>&gt;&gt;&gt;
+	&gt;,
+	<span class="struct">monostate_comparator_t</span>
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="minimum_spanning_forest_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="minimum_spanning_forest_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">minimum_spanning_forests</h3>
+	<p class="paragraph">Two <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span>s are attached to the graph. Part-0 and part-1 maintain minimum spanning forest and maximum spanning forest of the graph respectively. Negating the comparator of minimum spanning forest configuration results in maximum spanning forest configuration.</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::augmented_graph_t&lt;
+	std::<span class="struct">monostate</span>,
+	<span class="keyword">int</span>,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_selecting_path_t</span>&lt;std::<span class="struct">less</span>&lt;<span class="keyword">void</span>&gt;&gt;&gt;,
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_selecting_path_t</span>&lt;std::<span class="struct">greater</span>&lt;<span class="keyword">void</span>&gt;&gt;&gt;
+	&gt;,
+	<span class="struct">monostate_comparator_t</span>
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="minimum_spanning_forests_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="minimum_spanning_forests_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">tree_nearest_marked_vertexes</h3>
+	<p class="paragraph">Each <span class="inline-code">vertex_t</span>(<span class="inline-code"><span class="keyword">bool</span></span>) stores whether the vertex is marked. Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores: tree path length between its 2 boundary vertices, the nearest marked vertices (among the cluster's descendant edges' vertices excluding the 2 boundary vertices) and distance to them for each its 2 boundary vertices. Quickly answers the nearest marked vertices to any vertex and its distance to them by <span class="inline-code">expose</span>ing the vertex and adding the information excluded. Quickly mark/unmark any vertex by <span class="inline-code">expose</span>ing the vertex (so that no <span class="inline-code">cluster_t</span> has the vertex as non-boundary descendant vertex) and <span class="inline-code">update</span>ing it. Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::augmented_graph_t&lt;
+	<span class="keyword">bool</span>,
+	<span class="keyword">int</span>,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_nearest_marked_vertices_t</span>&lt;<span class="keyword">int</span>&gt;&gt;
+	&gt;
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="tree_nearest_marked_vertexes_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="tree_nearest_marked_vertexes_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">tree_diameter_and_centers</h3>
+	<p class="paragraph">Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">non-negative</span> length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores: tree path length between its 2 boundary vertices, eccentricity and 1 farthest vertex (through the cluster's descendant edges) for each its 2 boundary vertices, diameter and 2 farthest vertices (through the cluster's descendant edges). Quickly answers the eccentricity and 1 farthest vertex of any vertex by <span class="inline-code">expose</span>ing the vertex. Quickly answers the diameter and 2 farthest vertices of the graph because the information is stored in root cluster. Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::augmented_graph_t&lt;
+	std::<span class="struct">monostate</span>,
+	<span class="keyword">int</span>,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_diameter_t</span>&lt;<span class="keyword">int</span>&gt;&gt;
+	&gt;,
+	<span class="struct">monostate_comparator_t</span>
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="tree_diameter_and_centers_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="tree_diameter_and_centers_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">tree_medians</h3>
+	<p class="paragraph">Each <span class="inline-code">vertex_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">non-negative</span> weight of the vertex. Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">non-negative</span> length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores: tree path length between its 2 boundary vertices, distance-weighted weight sum of vertices (among the cluster's descendant edges' vertices excluding the 2 boundary vertices) for each its 2 boundary vertices, weight sum of vertices (among the cluster's descendant edges' vertices excluding the 2 boundary vertices). Quickly answers the median of the graph by <span class="inline-code">non_local_search</span>ing choosing sub-cluster having larger weight sum of vertices (including its 2 boundary vertices) each round, <span class="inline-code">expose</span>ing the 2 vertices of the result edge and adding the information excluded. Quickly change the weight of any vertex by <span class="inline-code">expose</span>ing the vertex (so that no <span class="inline-code">cluster_t</span> has the vertex as non-boundary descendant vertex) and <span class="inline-code">update</span>ing it. Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::augmented_graph_t&lt;
+	<span class="keyword">int</span>,
+	<span class="keyword">int</span>,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_median_t</span>&lt;<span class="keyword">int</span>&gt;&gt;
+	&gt;
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="tree_medians_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="tree_medians_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+<div class="container mx-auto">
+	<h3 class="heading3">tree_jump_and_meet</h3>
+	<p class="paragraph">Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">positive</span> length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores tree path length between its 2 boundary vertices. Quickly answers: along the tree path between any 2 vertices, edge including any number (each edge includes range <span class="math_formula">[0,l1)</span>, <span class="math_formula">[l1,l1+l2)</span>, ..., or each edge includes range <span class="math_formula">(0,l1]</span>, <span class="math_formula">(l1,l1+l2]</span>, ...) starting from one of the vertex, by exposing the 2 vertices and <span class="inline-code">search</span>ing among <span class="highlight_bold">path</span> descendant sub-clusters between the 2 vertices. Quickly answers the intersection vertex of any 3 vertices by exposing each of 3 vertex pairs and reading tree path length between each vertex pair from the root cluster, along the tree path between v1 and v2 calculating the 2 edges including number <span class="math_formula">(d12+d13-d23)/2</span> using left-inclusive-right-exclusive view and left-exclusive-right-inclusive view respectively (the intersection vertex is the common vertex of the 2 edges). Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
+<pre class="mx-[12px] block-code mb-[18px]">
+augmented_containers::augmented_graph_t&lt;
+	std::<span class="struct">monostate</span>,
+	<span class="keyword">int</span>,
+	std::<span class="struct">tuple</span>&lt;
+		std::<span class="struct">pair</span>&lt;std::<span class="struct">integral_constant</span>&lt;augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>, augmented_containers::<span class="struct">augmented_graph_part_data_structure_e</span>::top_tree&gt;, augmented_containers::augmented_graph_helpers::<span class="struct">get_top_tree_internal_operations_distance_t</span>&lt;<span class="keyword">int</span>&gt;&gt;
+	&gt;,
+	<span class="struct">monostate_comparator_t</span>
+&gt; augmented_graph;
+</pre>
+</div>
+<div id="tree_jump_and_meet_example" class="example flex flex-col lg:flex-row hidden"></div>
+<div id="tree_jump_and_meet_interactive_example" class="example flex flex-col lg:flex-row hidden"></div>
+
+		<script>
+function initialize_examples()
+{
+	for(let example_prefix of ["empty_", "arbitrary_spanning_forest_", "minimum_spanning_forest_", "minimum_spanning_forests_", "tree_nearest_marked_vertexes_", "tree_diameter_and_centers_", "tree_medians_", "tree_jump_and_meet_", ])
+	//for(let example_prefix of ["empty_", ])
+	{
+		for(let is_interactive of [false, true])
+		//for(let is_interactive of [true, ])
+		{
+			((example_prefix_possibly_interactive, example_prefix, is_interactive) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+			{
+				window[example_prefix_possibly_interactive + "animation_playing"] = false;
+				window[example_prefix_possibly_interactive + "pending_animations"] = [];
+				
+				let parts_count;
+				if(example_prefix == "empty_")
+					parts_count=0;
+				else if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_")
+					parts_count=1;
+				else if(example_prefix == "minimum_spanning_forests_")
+					parts_count=2;
+				else if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+					parts_count=1;
+					
+				let iterators_vertex_count = Module[example_prefix_possibly_interactive + "iterators_vertex_count"]();
+				let iterators_edge_count = Module[example_prefix_possibly_interactive + "iterators_edge_count"]();
+				
+				let example_root = document.getElementById(example_prefix_possibly_interactive + "example");
+				example_root.innerHTML = `
+					<div class="lg:min-w-[80%] lg:max-w-[80%] min-h-[calc(min(45vw,90vh))] max-h-[calc(min(45vw,90vh))] select-none relative">
+						<div class="graphs border-[1px] border-[#000000] overflow-y-visible pointer-events-none absolute inset-0
+							[&>.graph>svg]:min-w-[100%] [&>.graph>svg]:max-w-[100%] [&>.graph>svg]:min-h-[100%] [&>.graph>svg]:max-h-[100%]
+						" style="
+							--translateX_mouse_move:0.5;
+							--translateY_mouse_move:0.5;
+							
+							--graph_main_translateZ:-100; --graph_main_opacity:1; --graph_main_top:0; --graph_main_right:0.5; --graph_main_bottom:0.5; --graph_main_left:0;
+							--part_graph_translateZ:-100; --part_graph_opacity:1; --part_graph_top:0; --part_graph_right:0; --part_graph_bottom:0.5; --part_graph_left:0.5;
+							--part_graph_hierarchy_translateZ:-100; --part_graph_hierarchy_opacity:1; --part_graph_hierarchy_top:0.5; --part_graph_hierarchy_right:0.5; --part_graph_hierarchy_bottom:0; --part_graph_hierarchy_left:0;
+							--part_cluster_hierarchy_translateZ:-100; --part_cluster_hierarchy_opacity:1; --part_cluster_hierarchy_top:0.5; --part_cluster_hierarchy_right:0; --part_cluster_hierarchy_bottom:0; --part_cluster_hierarchy_left:0.5;
+						">
+							${(function(){
+								let result="";
+								if(example_prefix == "empty_")
+								{
+									result+=`
+										<div class="graph_main graph absolute inset-0 z-[-1]" style="transform:
+											translateX(calc((-10 + 20*var(--translateX_mouse_move))*0.8vw))
+											translateY(calc((-10 + 20*var(--translateY_mouse_move))*0.45vw))
+											rotateY(-30deg) translateX(-15%);"></div>
+									`;
+								}
+								else if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+								{
+									result+=`
+										<div class="graph_main graph absolute top-0 right-1/2 bottom-1/2 left-0 z-[-1]" style="transform:
+											translateX(calc((-10 + 20*var(--translateX_mouse_move))*0.8vw))
+											translateY(calc((-10 + 20*var(--translateY_mouse_move))*0.45vw))
+											rotateY(-30deg)
+											translateZ(calc(var(--graph_main_translateZ)*1px))
+											translateX(-10%);
+											
+											opacity: var(--graph_main_opacity);
+											top: calc(var(--graph_main_top)*100%);
+											right: calc(var(--graph_main_right)*100%);
+											bottom: calc(var(--graph_main_bottom)*100%);
+											left: calc(var(--graph_main_left)*100%);"></div>
+									`;
+									for(let i=0; i!=parts_count; ++i)
+									{
+										result+=`
+											<div class="part_${i}_graph graph absolute top-0 right-0 bottom-1/2 left-1/2 z-[-1]" style="transform:
+												translateX(calc((-10 + 20*var(--translateX_mouse_move))*0.8vw))
+												translateY(calc((-10 + 20*var(--translateY_mouse_move))*0.45vw))
+												rotateY(-30deg)
+												translateZ(calc(${(parts_count-1-i)*(-300)}*1px))
+												translateZ(calc(var(--part_graph_translateZ)*1px))
+												translateX(-10%); filter: blur(calc(${(parts_count-1-i)*1}*1px));
+												
+												opacity: var(--part_graph_opacity);
+												top: calc(var(--part_graph_top)*100%);
+												right: calc(var(--part_graph_right)*100%);
+												bottom: calc(var(--part_graph_bottom)*100%);
+												left: calc(var(--part_graph_left)*100%);"></div>
+											<div class="part_${i}_graph_hierarchy graph absolute top-1/2 right-1/2 bottom-0 left-0 z-[-1]" style="transform:
+												translateX(calc((-10 + 20*var(--translateX_mouse_move))*0.8vw))
+												translateY(calc((-10 + 20*var(--translateY_mouse_move))*0.45vw))
+												rotateY(-30deg)
+												translateZ(calc(${(parts_count-1-i)*(-300)}*1px))
+												translateZ(calc(var(--part_graph_hierarchy_translateZ)*1px))
+												translateX(-10%); filter: blur(calc(${(parts_count-1-i)*1}*1px));
+												
+												opacity: var(--part_graph_hierarchy_opacity);
+												top: calc(var(--part_graph_hierarchy_top)*100%);
+												right: calc(var(--part_graph_hierarchy_right)*100%);
+												bottom: calc(var(--part_graph_hierarchy_bottom)*100%);
+												left: calc(var(--part_graph_hierarchy_left)*100%);"></div>
+											<div class="part_${i}_cluster_hierarchy graph absolute top-1/2 right-0 bottom-0 left-1/2 z-[-1]" style="transform:
+												translateX(calc((-10 + 20*var(--translateX_mouse_move))*0.8vw))
+												translateY(calc((-10 + 20*var(--translateY_mouse_move))*0.45vw))
+												rotateY(-30deg)
+												translateZ(calc(${(parts_count-1-i)*(-300)}*1px))
+												translateZ(calc(var(--part_graph_hierarchy_translateZ)*1px))
+												translateX(-10%); filter: blur(calc(${(parts_count-1-i)*1}*1px));
+												
+												opacity: var(--part_cluster_hierarchy_opacity);
+												top: calc(var(--part_cluster_hierarchy_top)*100%);
+												right: calc(var(--part_cluster_hierarchy_right)*100%);
+												bottom: calc(var(--part_cluster_hierarchy_bottom)*100%);
+												left: calc(var(--part_cluster_hierarchy_left)*100%);"></div>
+										`;
+									}
+								}
+								return result;
+							})()}
+						</div>
+						<div class="mousemove_detecter absolute inset-0 z-[1]" style="touch-action:pan-y;"></div>
+					</div>
+					<div class="lg:min-w-[20%] lg:max-w-[20%] lg:min-h-[calc(min(45vw,90vh))] lg:max-h-[calc(min(45vw,90vh))] select-none top-level-window vlayout vscrollarea overflow-x-hidden items-start" style="font-family:Consolas,monospace;"><!-- https://stackoverflow.com/questions/38661784/breaking-space-opposite-of-non-breaking-space#comment127679932_71004260 -->
+						<div class="vlayout items-start zero-out-nested-layout-margin ${is_interactive?"":"pointer-events-none"}" style="${is_interactive?"":"filter: blur(1px);"}">
+							${(function(){
+								let result="";
+								for(let i=0; i!=iterators_vertex_count; ++i)
+								{
+									result+=`
+										<div class="hlayout zero-out-nested-layout-margin">
+											<div><button class="button_iterator_vertex${i}_decrement">--&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+											<div><button class="button_iterator_vertex${i}_increment">++&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+										</div>
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_iterator_vertex${i}_set_index">itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;std&ZeroWidthSpace;::&ZeroWidthSpace;ranges&ZeroWidthSpace;::&ZeroWidthSpace;next&ZeroWidthSpace;(&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;begin_vertex&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;,&ZeroWidthSpace;i&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_iterator_vertex${i}_set_index h-[100%]"></div>
+										</div>
+										<div><button class="button_iterator_vertex${i}_insert">itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;insert_vertex&ZeroWidthSpace;(&ZeroWidthSpace;v&ZeroWidthSpace;)</button></div>
+										<div><button class="button_iterator_vertex${i}_erase">itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;erase_vertex&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+									`;
+									if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_medians_")
+									{
+										result+=`
+											<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+												<div><button class="button_iterator_vertex${i}_update">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;update_vertex(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;[&ZeroWidthSpace;&amp;&ZeroWidthSpace;value&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;vertex_t&ZeroWidthSpace;&amp;&ZeroWidthSpace;vertex&ZeroWidthSpace;)&ZeroWidthSpace;{&ZeroWidthSpace;vertex&ZeroWidthSpace;=&ZeroWidthSpace;value&ZeroWidthSpace;;&ZeroWidthSpace;})</button></div>
+												<div><input type="text" size="5" class="input_iterator_vertex${i}_update h-[100%]"></div>
+											</div>
+										`;
+									}
+									if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+									{
+										for(let part_index=0; part_index!=parts_count; ++part_index)
+										{
+											result+=`
+												<div><button class="button_part${part_index}_iterator_vertex${i}_expose">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+												<div><button class="button_part${part_index}_iterator_vertex${i}_unexpose">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;unexpose&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+												<div><button class="button_part${part_index}_iterator_vertex${i}_expose_replace">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose_replace&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+											`;
+										}
+									}
+									if(example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_")
+									{
+										for(let part_index=0; part_index!=parts_count; ++part_index)
+										{
+											result+=`
+												<div><button class="button_part${part_index}_iterator_vertex${i}_non_local_search">ite&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;non_local_search&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;...&ZeroWidthSpace;)&ZeroWidthSpace;{&ZeroWidthSpace;...&ZeroWidthSpace;}&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)</button></div>
+											`;
+										}								
+									}
+								}
+								if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+								{
+									for(let part_index=0; part_index!=parts_count; ++part_index)
+									{
+										for(let i=0; i!=iterators_vertex_count-1; ++i)
+										{
+											for(let j=i+1; j!=iterators_vertex_count; ++j)
+											{
+												result+=`
+													<div><button class="button_part${part_index}_iterator_vertexes${i}_${j}_expose">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;],&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${j}&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+													<div><button class="button_part${part_index}_iterator_vertexes${i}_${j}_expose_replace">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose_replace&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;],&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;${j}&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+												`;
+											}
+										}
+									}
+								}
+								for(let i=0; i!=iterators_edge_count; ++i)
+								{
+									result+=`
+										<div class="hlayout zero-out-nested-layout-margin">
+											<div><button class="button_iterator_edge${i}_decrement">--&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+											<div><button class="button_iterator_edge${i}_increment">++&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]</button></div>
+										</div>
+										<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+											<div><button class="button_iterator_edge${i}_set_index">ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;std&ZeroWidthSpace;::&ZeroWidthSpace;ranges&ZeroWidthSpace;::&ZeroWidthSpace;next&ZeroWidthSpace;(&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;begin_edge&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;,&ZeroWidthSpace;i&ZeroWidthSpace;)</button></div>
+											<div><input type="text" size="5" class="input_iterator_edge${i}_set_index h-[100%]"></div>
+										</div>
+										<div><button class="button_iterator_edge${i}_insert">ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;insert_edge&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;v&ZeroWidthSpace;)</button></div>
+										<div><button class="button_iterator_edge${i}_erase">ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;erase_edge&ZeroWidthSpace;(&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;)</button></div>
+									`;
+									if(example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+									{
+										result+=`
+											<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+												<div><button class="button_iterator_edge${i}_update">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;update_edge&ZeroWidthSpace;(&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;[&ZeroWidthSpace;&amp;&ZeroWidthSpace;value&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;edge_t&amp;&ZeroWidthSpace;edge&ZeroWidthSpace;)&ZeroWidthSpace;{&ZeroWidthSpace;edge&ZeroWidthSpace;=&ZeroWidthSpace;value&ZeroWidthSpace;;&ZeroWidthSpace;}&ZeroWidthSpace;)</button></div>
+												<div><input type="text" size="5" class="input_iterator_edge${i}_update h-[100%]"></div>
+											</div>
+										`;
+									}
+									if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+									{
+										for(let part_index=0; part_index!=parts_count; ++part_index)
+										{
+											result+=`
+												<div><button class="button_part${part_index}_iterator_edge${i}_expose">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose&ZeroWidthSpace;(&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;->&ZeroWidthSpace;second&ZeroWidthSpace;.&ZeroWidthSpace;first&ZeroWidthSpace;,&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;->&ZeroWidthSpace;second&ZeroWidthSpace;.&ZeroWidthSpace;second&ZeroWidthSpace;)</button></div>
+												<div><button class="button_part${part_index}_iterator_edge${i}_expose_replace">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose_replace&ZeroWidthSpace;(&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;->&ZeroWidthSpace;second&ZeroWidthSpace;.&ZeroWidthSpace;first&ZeroWidthSpace;,&ZeroWidthSpace;ite&ZeroWidthSpace;[&ZeroWidthSpace;${i}&ZeroWidthSpace;]&ZeroWidthSpace;->&ZeroWidthSpace;second&ZeroWidthSpace;.&ZeroWidthSpace;second&ZeroWidthSpace;)</button></div>
+											`;
+										}
+									}
+								}
+								if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+								{
+									for(let part_index=0; part_index!=parts_count; ++part_index)
+									{
+										result+=`
+											<div><button class="button_part${part_index}_unexpose">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;unexpose&ZeroWidthSpace;(&ZeroWidthSpace;)</button></div>
+										`;
+									}								
+								}
+								if(example_prefix == "tree_jump_and_meet_")
+								{
+									for(let part_index=0; part_index!=parts_count; ++part_index)
+									{
+										result+=`
+											<div class="hlayout zero-out-nested-layout-margin" style="column-gap:0px;">
+												<div><button class="button_part${part_index}_iterator_vertexes_search_jump">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose_replace&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;;<br>
+ite&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;search&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;...&ZeroWidthSpace;)&ZeroWidthSpace;{&ZeroWidthSpace;...&ZeroWidthSpace;}&ZeroWidthSpace;,&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;root_cluster_tree_node&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;;<br>
+ite&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;search&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;...&ZeroWidthSpace;)&ZeroWidthSpace;{&ZeroWidthSpace;...&ZeroWidthSpace;}&ZeroWidthSpace;,&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;root_cluster_tree_node&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;;</button></div>
+												<div><input type="text" size="5" class="input_part${part_index}_iterator_vertexes_search_jump h-[100%]"></div>
+											</div>
+											<div><button class="button_part${part_index}_iterator_vertexes_search_meet">augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose_replace&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;;<br>
+d01&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;root_cluster_tree_node&ZeroWidthSpace;(&ZeroWidthSpace;iterators_vertex&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;->&ZeroWidthSpace;p_cluster&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;->&ZeroWidthSpace;distance&ZeroWidthSpace;;<br>
+augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose_replace&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;2&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;;<br>
+d02&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;root_cluster_tree_node&ZeroWidthSpace;(&ZeroWidthSpace;iterators_vertex&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;->&ZeroWidthSpace;p_cluster&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;->&ZeroWidthSpace;distance&ZeroWidthSpace;;<br>
+augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;expose_replace&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;,&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;2&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;;<br>
+d12&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;root_cluster_tree_node&ZeroWidthSpace;(&ZeroWidthSpace;iterators_vertex&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;->&ZeroWidthSpace;p_cluster&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;->&ZeroWidthSpace;distance&ZeroWidthSpace;;<br>
+dm&ZeroWidthSpace;=&ZeroWidthSpace;(&ZeroWidthSpace;d02&ZeroWidthSpace;+&ZeroWidthSpace;d12&ZeroWidthSpace;-&ZeroWidthSpace;d01&ZeroWidthSpace;)&ZeroWidthSpace;/&ZeroWidthSpace;2&ZeroWidthSpace;;<br>
+ite&ZeroWidthSpace;[&ZeroWidthSpace;0&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;search&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;...&ZeroWidthSpace;)&ZeroWidthSpace;{&ZeroWidthSpace;...&ZeroWidthSpace;}&ZeroWidthSpace;,&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;root_cluster_tree_node&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;2&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;;<br>
+ite&ZeroWidthSpace;[&ZeroWidthSpace;1&ZeroWidthSpace;]&ZeroWidthSpace;=&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;search&ZeroWidthSpace;(&ZeroWidthSpace;[&ZeroWidthSpace;]&ZeroWidthSpace;(&ZeroWidthSpace;...&ZeroWidthSpace;)&ZeroWidthSpace;{&ZeroWidthSpace;...&ZeroWidthSpace;}&ZeroWidthSpace;,&ZeroWidthSpace;augmented_graph&ZeroWidthSpace;.&ZeroWidthSpace;part&ZeroWidthSpace;&lt;&ZeroWidthSpace;${part_index}&ZeroWidthSpace;&gt;&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;root_cluster_tree_node&ZeroWidthSpace;(&ZeroWidthSpace;itv&ZeroWidthSpace;[&ZeroWidthSpace;2&ZeroWidthSpace;]&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;)&ZeroWidthSpace;.&ZeroWidthSpace;value&ZeroWidthSpace;(&ZeroWidthSpace;)&ZeroWidthSpace;;</button></div>
+										`;
+									}								
+								}
+								return result;
+							})()}
+						</div>
+					</div>
+				`;
+				
+				let graphs = example_root.getElementsByClassName("graphs")[0];
+				let mousemove_detecter = example_root.getElementsByClassName("mousemove_detecter")[0];
+				mousemove_detecter.addEventListener("pointermove", (e) => {
+					graphs.style.setProperty("--translateX_mouse_move",e.offsetX/e.target.clientWidth);
+					graphs.style.setProperty("--translateY_mouse_move",e.offsetY/e.target.clientHeight);
+				});
+				if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+				{
+					mousemove_detecter.addEventListener("click", function(e){
+						if(graphs.style.getPropertyValue("--focusing_graph")=="graph_main" && (e.offsetX/e.target.clientWidth<0.5 && e.offsetY/e.target.clientHeight<0.5) ||
+							graphs.style.getPropertyValue("--focusing_graph")=="part_graph" && (e.offsetX/e.target.clientWidth>0.5 && e.offsetY/e.target.clientHeight<0.5) ||
+							graphs.style.getPropertyValue("--focusing_graph")=="part_graph_hierarchy" && (e.offsetX/e.target.clientWidth<0.5 && e.offsetY/e.target.clientHeight>0.5) ||
+							graphs.style.getPropertyValue("--focusing_graph")=="part_cluster_hierarchy" && (e.offsetX/e.target.clientWidth>0.5 && e.offsetY/e.target.clientHeight>0.5))
+						{
+							graphs.style.setProperty("--focusing_graph", "");
+						}
+						else
+						{
+							if(e.offsetX/e.target.clientWidth<0.5 && e.offsetY/e.target.clientHeight<0.5) graphs.style.setProperty("--focusing_graph", "graph_main");
+							if(e.offsetX/e.target.clientWidth>0.5 && e.offsetY/e.target.clientHeight<0.5) graphs.style.setProperty("--focusing_graph", "part_graph");
+							if(e.offsetX/e.target.clientWidth<0.5 && e.offsetY/e.target.clientHeight>0.5) graphs.style.setProperty("--focusing_graph", "part_graph_hierarchy");
+							if(e.offsetX/e.target.clientWidth>0.5 && e.offsetY/e.target.clientHeight>0.5) graphs.style.setProperty("--focusing_graph", "part_cluster_hierarchy");
+						}
+						graphs.style.setProperty("--graph_main_translateZ", graphs.style.getPropertyValue("--focusing_graph")=="graph_main" ? 100 : -100);
+						graphs.style.setProperty("--graph_main_opacity", graphs.style.getPropertyValue("--focusing_graph")=="graph_main" || graphs.style.getPropertyValue("--focusing_graph")=="" ? 1 : 0.25);
+						graphs.style.setProperty("--graph_main_top", graphs.style.getPropertyValue("--focusing_graph")=="graph_main" ? 0 : 0);
+						graphs.style.setProperty("--graph_main_right", graphs.style.getPropertyValue("--focusing_graph")=="graph_main" ? 0 : 0.5);
+						graphs.style.setProperty("--graph_main_bottom", graphs.style.getPropertyValue("--focusing_graph")=="graph_main" ? 0 : 0.5);
+						graphs.style.setProperty("--graph_main_left", graphs.style.getPropertyValue("--focusing_graph")=="graph_main" ? 0 : 0);
+						
+						graphs.style.setProperty("--part_graph_translateZ", graphs.style.getPropertyValue("--focusing_graph")=="part_graph" ? 100 : -100);
+						graphs.style.setProperty("--part_graph_opacity", graphs.style.getPropertyValue("--focusing_graph")=="part_graph" || graphs.style.getPropertyValue("--focusing_graph")=="" ? 1 : 0.25);
+						graphs.style.setProperty("--part_graph_top", graphs.style.getPropertyValue("--focusing_graph")=="part_graph" ? 0 : 0);
+						graphs.style.setProperty("--part_graph_right", graphs.style.getPropertyValue("--focusing_graph")=="part_graph" ? 0 : 0);
+						graphs.style.setProperty("--part_graph_bottom", graphs.style.getPropertyValue("--focusing_graph")=="part_graph" ? 0 : 0.5);
+						graphs.style.setProperty("--part_graph_left", graphs.style.getPropertyValue("--focusing_graph")=="part_graph" ? 0 : 0.5);
+						
+						graphs.style.setProperty("--part_graph_hierarchy_translateZ", graphs.style.getPropertyValue("--focusing_graph")=="part_graph_hierarchy" ? 100 : -100);
+						graphs.style.setProperty("--part_graph_hierarchy_opacity", graphs.style.getPropertyValue("--focusing_graph")=="part_graph_hierarchy" || graphs.style.getPropertyValue("--focusing_graph")=="" ? 1 : 0.25);
+						graphs.style.setProperty("--part_graph_hierarchy_top", graphs.style.getPropertyValue("--focusing_graph")=="part_graph_hierarchy" ? 0 : 0.5);
+						graphs.style.setProperty("--part_graph_hierarchy_right", graphs.style.getPropertyValue("--focusing_graph")=="part_graph_hierarchy" ? 0 : 0.5);
+						graphs.style.setProperty("--part_graph_hierarchy_bottom", graphs.style.getPropertyValue("--focusing_graph")=="part_graph_hierarchy" ? 0 : 0);
+						graphs.style.setProperty("--part_graph_hierarchy_left", graphs.style.getPropertyValue("--focusing_graph")=="part_graph_hierarchy" ? 0 : 0);
+						
+						graphs.style.setProperty("--part_cluster_hierarchy_translateZ", graphs.style.getPropertyValue("--focusing_graph")=="part_cluster_hierarchy" ? 100 : -100);
+						graphs.style.setProperty("--part_cluster_hierarchy_opacity", graphs.style.getPropertyValue("--focusing_graph")=="part_cluster_hierarchy" || graphs.style.getPropertyValue("--focusing_graph")=="" ? 1 : 0.25);
+						graphs.style.setProperty("--part_cluster_hierarchy_top", graphs.style.getPropertyValue("--focusing_graph")=="part_cluster_hierarchy" ? 0 : 0.5);
+						graphs.style.setProperty("--part_cluster_hierarchy_right", graphs.style.getPropertyValue("--focusing_graph")=="part_cluster_hierarchy" ? 0 : 0);
+						graphs.style.setProperty("--part_cluster_hierarchy_bottom", graphs.style.getPropertyValue("--focusing_graph")=="part_cluster_hierarchy" ? 0 : 0);
+						graphs.style.setProperty("--part_cluster_hierarchy_left", graphs.style.getPropertyValue("--focusing_graph")=="part_cluster_hierarchy" ? 0 : 0.5);
+					})
+				}
+											
+				let from_result_to_animations_to_play = function(result){
+					return function(){
+						return new Promise(function(resolve){
+							if(example_prefix == "empty_")
+							{
+								let graph_main=graphs.getElementsByClassName("graph_main")[0];
+								//console.log(d3.select(graph_main).graphviz().active(example_prefix_possibly_interactive + "example"));
+								d3.select(graph_main).graphviz().keyMode("id")
+									.transition(
+										function(){
+											return d3.transition(example_prefix_possibly_interactive + "example")
+												.duration(500)
+												.ease(d3.easeCubicOut)//.ease(d3.easeLinear)
+												.on("end", resolve)
+											;
+										}
+									)
+									.tweenShapes(false)
+									.tweenPrecision(10)//.tweenPrecision("10%")
+									.renderDot(result.get(0).get(0));
+							}
+							else if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+							{
+								let graph_main=graphs.getElementsByClassName("graph_main")[0];
+								//console.log(d3.select(graph_main).graphviz().active(example_prefix_possibly_interactive + "example"));
+								d3.select(graph_main).graphviz().keyMode("id")
+									.transition(
+										function(){
+											return d3.transition(example_prefix_possibly_interactive + "example")
+												.duration(500)
+												.ease(d3.easeCubicOut)//.ease(d3.easeLinear)
+												.on("end", resolve)
+											;
+										}
+									)
+									.tweenShapes(false)
+									.tweenPrecision(10)//.tweenPrecision("10%")
+									.renderDot(result.get(0).get(0));
+								
+								for(let i = 0; i != parts_count; ++i)
+								{
+									((i) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+									{
+										let part_graph=graphs.getElementsByClassName("part_"+i+"_graph")[0];
+										//console.log(d3.select(part_graph).graphviz().active(example_prefix_possibly_interactive + "example"));
+										d3.select(part_graph).graphviz().keyMode("id")
+											.transition(
+												function(){
+													return d3.transition(example_prefix_possibly_interactive + "example")
+														.duration(500)
+														.ease(d3.easeCubicOut)//.ease(d3.easeLinear)
+														.on("end", resolve)
+													;
+												}
+											)
+											.tweenShapes(false)
+											.tweenPrecision(10)//.tweenPrecision("10%")
+											.renderDot(result.get(i+1).get(0));
+											
+										let part_graph_hierarchy=graphs.getElementsByClassName("part_"+i+"_graph_hierarchy")[0];
+										//console.log(d3.select(part_graph_hierarchy).graphviz().active(example_prefix_possibly_interactive + "example"));
+										d3.select(part_graph_hierarchy).graphviz().keyMode("id")
+											.transition(
+												function(){
+													return d3.transition(example_prefix_possibly_interactive + "example")
+														.duration(500)
+														.ease(d3.easeCubicOut)//.ease(d3.easeLinear)
+														.on("end", resolve)
+													;
+												}
+											)
+											.tweenShapes(false)
+											.tweenPrecision(10)//.tweenPrecision("10%")
+											.renderDot(result.get(i+1).get(1));
+											
+										let part_cluster_hierarchy=graphs.getElementsByClassName("part_"+i+"_cluster_hierarchy")[0];
+										//console.log(d3.select(part_cluster_hierarchy).graphviz().active(example_prefix_possibly_interactive + "example"));
+										d3.select(part_cluster_hierarchy).graphviz().keyMode("id")
+											.transition(
+												function(){
+													return d3.transition(example_prefix_possibly_interactive + "example")
+														.duration(500)
+														.ease(d3.easeCubicOut)//.ease(d3.easeLinear)
+														.on("end", resolve)
+													;
+												}
+											)
+											.tweenShapes(false)
+											.tweenPrecision(10)//.tweenPrecision("10%")
+											.renderDot(result.get(i+1).get(2));
+									})(i);
+								}
+							}
+						});
+					}
+				};
+				
+				if(is_interactive)
+				{
+					let play_or_schedule_animation = function(result){
+						let animations_to_play = from_result_to_animations_to_play(result);
+						if(window[example_prefix_possibly_interactive + "animation_playing"])
+							window[example_prefix_possibly_interactive + "pending_animations"].push(animations_to_play);
+						else
+						{
+							window[example_prefix_possibly_interactive + "animation_playing"] = true;
+							let play_animations = function(animations_to_play){
+								animations_to_play().then(function(){
+									if(window[example_prefix_possibly_interactive + "pending_animations"].length==0)
+										window[example_prefix_possibly_interactive + "animation_playing"] = false;
+									else
+										play_animations(window[example_prefix_possibly_interactive + "pending_animations"].shift());
+								});
+							};
+							play_animations(animations_to_play);
+						}
+					};
+					
+					for(let i = 0; i != iterators_vertex_count; ++i)
+					{
+						((i) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+						{
+							example_root.getElementsByClassName(`button_iterator_vertex${i}_decrement`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_vertex_decrement"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator_vertex${i}_increment`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_vertex_increment"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator_vertex${i}_set_index`)[0].addEventListener("click", () => {
+								let valueInt = parseInt(example_root.getElementsByClassName(`input_iterator_vertex${i}_set_index`)[0].value);
+								if(isFinite(valueInt))
+								{
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](i, valueInt);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								}
+							});
+							example_root.getElementsByClassName(`button_iterator_vertex${i}_insert`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_vertex_insert"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator_vertex${i}_erase`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_vertex_erase"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_medians_")
+							{
+								example_root.getElementsByClassName(`button_iterator_vertex${i}_update`)[0].addEventListener("click", () => {
+									Module[example_prefix_possibly_interactive + "iterator_vertex_update"](i, example_root.getElementsByClassName(`input_iterator_vertex${i}_update`)[0].value);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								});
+							}
+							if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+							{
+								for(let part_index=0; part_index!=parts_count; ++part_index)
+								{
+									((part_index) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+									{
+										example_root.getElementsByClassName(`button_part${part_index}_iterator_vertex${i}_expose`)[0].addEventListener("click", () => {
+											Module[example_prefix_possibly_interactive + "iterator_vertex_expose"](part_index, i);
+											play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+										});
+										example_root.getElementsByClassName(`button_part${part_index}_iterator_vertex${i}_unexpose`)[0].addEventListener("click", () => {
+											Module[example_prefix_possibly_interactive + "iterator_vertex_unexpose"](part_index, i);
+											play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+										});
+										example_root.getElementsByClassName(`button_part${part_index}_iterator_vertex${i}_expose_replace`)[0].addEventListener("click", () => {
+											Module[example_prefix_possibly_interactive + "iterator_vertex_expose_replace"](part_index, i);
+											play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+										});
+									})(part_index);
+								}
+							}
+							if(example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_")
+							{
+								for(let part_index=0; part_index!=parts_count; ++part_index)
+								{
+									((part_index) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+									{
+										example_root.getElementsByClassName(`button_part${part_index}_iterator_vertex${i}_non_local_search`)[0].addEventListener("click", () => {
+											Module[example_prefix_possibly_interactive + "iterator_vertex_non_local_search"](part_index, i);
+											play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+										});
+									})(part_index);
+								}
+							}
+						})(i);
+					}
+					if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+					{
+						for(let part_index=0; part_index!=parts_count; ++part_index)
+						{
+							((part_index) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+							{
+								for(let i = 0; i != iterators_vertex_count-1; ++i)
+								{
+									((i) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+									{
+										for(let j = i+1; j != iterators_vertex_count; ++j)
+										{
+											((j) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+											{
+												example_root.getElementsByClassName(`button_part${part_index}_iterator_vertexes${i}_${j}_expose`)[0].addEventListener("click", () => {
+													Module[example_prefix_possibly_interactive + "iterator_vertexes_expose"](part_index, i, j);
+													play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+												});
+												example_root.getElementsByClassName(`button_part${part_index}_iterator_vertexes${i}_${j}_expose_replace`)[0].addEventListener("click", () => {
+													Module[example_prefix_possibly_interactive + "iterator_vertexes_expose_replace"](part_index, i, j);
+													play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+												});
+											})(j);
+										}
+									})(i);
+								}
+							})(part_index);
+						}
+					}
+					for(let i = 0; i != iterators_edge_count; ++i)
+					{
+						((i) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+						{
+							example_root.getElementsByClassName(`button_iterator_edge${i}_decrement`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_edge_decrement"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator_edge${i}_increment`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_edge_increment"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator_edge${i}_set_index`)[0].addEventListener("click", () => {
+								let valueInt = parseInt(example_root.getElementsByClassName(`input_iterator_edge${i}_set_index`)[0].value);
+								if(isFinite(valueInt))
+								{
+									Module[example_prefix_possibly_interactive + "iterator_edge_set_index"](i, valueInt);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								}
+							});
+							example_root.getElementsByClassName(`button_iterator_edge${i}_insert`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_edge_insert"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							example_root.getElementsByClassName(`button_iterator_edge${i}_erase`)[0].addEventListener("click", () => {
+								Module[example_prefix_possibly_interactive + "iterator_edge_erase"](i);
+								play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+							});
+							if(example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+							{
+								example_root.getElementsByClassName(`button_iterator_edge${i}_update`)[0].addEventListener("click", () => {
+									Module[example_prefix_possibly_interactive + "iterator_edge_update"](i, example_root.getElementsByClassName(`input_iterator_edge${i}_update`)[0].value);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								});
+							}
+							if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+							{
+								for(let part_index=0; part_index!=parts_count; ++part_index)
+								{
+									((part_index) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+									{
+										example_root.getElementsByClassName(`button_part${part_index}_iterator_edge${i}_expose`)[0].addEventListener("click", () => {
+											Module[example_prefix_possibly_interactive + "iterator_edge_expose"](part_index, i);
+											play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+										});
+										example_root.getElementsByClassName(`button_part${part_index}_iterator_edge${i}_expose_replace`)[0].addEventListener("click", () => {
+											Module[example_prefix_possibly_interactive + "iterator_edge_expose_replace"](part_index, i);
+											play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+										});
+									})(part_index);
+								}
+							}
+						})(i);
+					}
+					if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+					{
+						for(let part_index=0; part_index!=parts_count; ++part_index)
+						{
+							((part_index) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+							{
+								example_root.getElementsByClassName(`button_part${part_index}_unexpose`)[0].addEventListener("click", () => {
+									Module[example_prefix_possibly_interactive + "unexpose"](part_index);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								});
+							})(part_index);
+						}
+					}
+					if(example_prefix == "tree_jump_and_meet_")
+					{
+						for(let part_index=0; part_index!=parts_count; ++part_index)
+						{
+							((part_index) => // https://stackoverflow.com/questions/61762303/javascript-arrow-function-can-we-capture-values-like-in-c-lambdas
+							{
+								example_root.getElementsByClassName(`button_part${part_index}_iterator_vertexes_search_jump`)[0].addEventListener("click", () => {
+									let valueInt = parseInt(example_root.getElementsByClassName(`input_part${part_index}_iterator_vertexes_search_jump`)[0].value);
+									if(isFinite(valueInt))
+									{
+										Module[example_prefix_possibly_interactive + "iterator_vertexes_search_jump"](part_index, valueInt);
+										play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+									}
+								});
+								example_root.getElementsByClassName(`button_part${part_index}_iterator_vertexes_search_meet`)[0].addEventListener("click", () => {
+									Module[example_prefix_possibly_interactive + "iterator_vertexes_search_meet"](part_index);
+									play_or_schedule_animation(Module[example_prefix_possibly_interactive + "to_graphs_string"]());
+								});
+							})(part_index);
+						}
+					}
+				}
+				else
+				{
+					(async function(){
+						let create_ring_init=function(element){
+							element.parentElement.classList.add("relative");
+							element.parentElement.style.transformStyle="flat";
+						};
+						let create_ring=function(element){
+							let ring = document.createElement("div");
+							ring.classList.add("absolute");
+							ring.classList.add("inset-0");
+							ring.classList.add("ring");
+							ring.classList.add("animation_ping");
+							ring.classList.add("z-[1]");
+							element.parentElement.appendChild(ring);;
+							setTimeout(function(){ element.parentElement.removeChild(ring); }, 3000);
+						};
+						let isElementInViewport = function(el) { // https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+							let rect = el.getBoundingClientRect();
+							return (
+								rect.bottom >= 0 &&
+								rect.right >= 0 &&
+								rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+								rect.left <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+							);
+						};
+						let isElementVisible = function(el) { return !!el.offsetParent; }; // https://stackoverflow.com/questions/53047318/performant-way-to-find-out-if-an-element-or-any-of-its-ancestor-elements-has-dis/53068496#53068496
+						let isElementInViewportAndVisible = function(el) { return isElementInViewport(el) && isElementVisible(el); };
+						let generate_random_string = function(length) { // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+							const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+							let result = '';
+							for (let counter = 0; counter != length; ++counter)
+								result += characters.charAt(Math.floor(Math.random() * characters.length));
+							return result;
+						};
+						
+						let button_iterator_vertex0_set_index = example_root.getElementsByClassName(`button_iterator_vertex0_set_index`)[0]; create_ring_init(button_iterator_vertex0_set_index);
+						let button_iterator_vertex1_set_index = example_root.getElementsByClassName(`button_iterator_vertex1_set_index`)[0]; create_ring_init(button_iterator_vertex1_set_index);
+						let button_iterator_vertex2_set_index;
+						if(iterators_vertex_count >= 3)
+						{
+							button_iterator_vertex2_set_index = example_root.getElementsByClassName(`button_iterator_vertex2_set_index`)[0]; create_ring_init(button_iterator_vertex2_set_index);
+						}
+						
+						let button_iterator_vertex0_insert = example_root.getElementsByClassName(`button_iterator_vertex0_insert`)[0]; create_ring_init(button_iterator_vertex0_insert);
+						let button_iterator_vertex0_erase = example_root.getElementsByClassName(`button_iterator_vertex0_erase`)[0]; create_ring_init(button_iterator_vertex0_erase);
+						let button_iterator_vertex0_update;
+						if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_medians_")
+						{
+							button_iterator_vertex0_update = example_root.getElementsByClassName(`button_iterator_vertex0_update`)[0]; create_ring_init(button_iterator_vertex0_update);
+						}
+						
+						let button_iterator_edge0_set_index = example_root.getElementsByClassName(`button_iterator_edge0_set_index`)[0]; create_ring_init(button_iterator_edge0_set_index);
+						let button_iterator_edge0_insert = example_root.getElementsByClassName(`button_iterator_edge0_insert`)[0]; create_ring_init(button_iterator_edge0_insert);
+						let button_iterator_edge0_erase = example_root.getElementsByClassName(`button_iterator_edge0_erase`)[0]; create_ring_init(button_iterator_edge0_erase);
+						let button_iterator_edge0_update;
+						if(example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+						{
+							button_iterator_edge0_update = example_root.getElementsByClassName(`button_iterator_edge0_update`)[0]; create_ring_init(button_iterator_edge0_update);
+						}
+						
+						let button_part0_iterator_vertex0_expose_replace;
+						if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_medians_")
+						{
+							button_part0_iterator_vertex0_expose_replace = example_root.getElementsByClassName(`button_part0_iterator_vertex0_expose_replace`)[0]; create_ring_init(button_part0_iterator_vertex0_expose_replace);
+						}
+						
+						let button_part0_iterator_vertexes0_1_expose_replace;
+						if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+						{
+							button_part0_iterator_vertexes0_1_expose_replace = example_root.getElementsByClassName(`button_part0_iterator_vertexes0_1_expose_replace`)[0]; create_ring_init(button_part0_iterator_vertexes0_1_expose_replace);
+						}
+						let button_part1_iterator_vertexes0_1_expose_replace;
+						if(example_prefix == "minimum_spanning_forests_")
+						{
+							button_part1_iterator_vertexes0_1_expose_replace = example_root.getElementsByClassName(`button_part1_iterator_vertexes0_1_expose_replace`)[0]; create_ring_init(button_part1_iterator_vertexes0_1_expose_replace);
+						}
+						
+						let button_part0_iterator_vertexes_search_jump, input_part0_iterator_vertexes_search_jump;
+						let button_part0_iterator_vertexes_search_meet;
+						if(example_prefix == "tree_jump_and_meet_")
+						{
+							button_part0_iterator_vertexes_search_jump = example_root.getElementsByClassName(`button_part0_iterator_vertexes_search_jump`)[0]; create_ring_init(button_part0_iterator_vertexes_search_jump);
+							input_part0_iterator_vertexes_search_jump = example_root.getElementsByClassName(`input_part0_iterator_vertexes_search_jump`)[0]; create_ring_init(input_part0_iterator_vertexes_search_jump);
+							button_part0_iterator_vertexes_search_meet = example_root.getElementsByClassName(`button_part0_iterator_vertexes_search_meet`)[0]; create_ring_init(button_part0_iterator_vertexes_search_meet);
+						}
+						
+						let count_vertex_init, count_vertex_min, count_vertex_max;
+						let count_edge_init, count_edge_min, count_edge_max;
+						if(example_prefix == "empty_")
+						{
+							count_vertex_min = 6;
+							count_vertex_init = 12;
+							count_vertex_max = 18;
+							count_edge_min = 16;
+							count_edge_init = 24;
+							count_edge_max = 32;
+						}
+						else if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_")
+						{
+							count_vertex_min = 6;
+							count_vertex_init = 8;
+							count_vertex_max = 10;
+							count_edge_min = 12;
+							count_edge_init = 16;
+							count_edge_max = 20;
+						}
+						else if(example_prefix == "minimum_spanning_forests_")
+						{
+							count_vertex_min = 4;
+							count_vertex_init = 6;
+							count_vertex_max = 8;
+							count_edge_min = 10;
+							count_edge_init = 12;
+							count_edge_max = 14;
+						}
+						else if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+						{
+							count_vertex_min = 6;
+							count_vertex_init = 8;
+							count_vertex_max = 10;
+							count_edge_min = 4;
+							count_edge_init = 6;
+							count_edge_max = 8;
+						}
+						let count_vertex = 0;
+						for(let i=0; i!=count_vertex_init;++i)
+						{
+							Module[example_prefix_possibly_interactive + "iterator_vertex_insert"](0);
+							++count_vertex;
+						}
+						if(example_prefix == "empty_" || example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_")
+						{
+							for(let i=0; i!=count_edge_init;++i)
+							{
+								Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex));
+								Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](1, Math.floor(Math.random() * count_vertex));
+								Module[example_prefix_possibly_interactive + "iterator_edge_insert"](0);
+							}
+						}
+						else if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+						{
+							for(let i=0; i!=count_edge_init;++i)
+							{
+								let try_count;
+								for(try_count=0; try_count!=10; ++try_count)
+								{
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex));
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](1, Math.floor(Math.random() * count_vertex));
+									if(Module[example_prefix_possibly_interactive + "iterator_vertexes_is_disconnected"](0,0,1))
+										break;
+								}
+								if(try_count!=10)
+								{
+									Module[example_prefix_possibly_interactive + "iterator_edge_insert"](0); create_ring(button_iterator_edge0_insert);
+								}
+							}
+						}
+						while(true)
+						{
+							while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+
+							let modifier_vertex_count = Math.floor(4 + Math.random() * 2), insert_vertex_count = 0, erase_vertex_count = 0;
+							for(let i=0; i!=modifier_vertex_count; ++i)
+							{
+								if(Math.random() > (count_vertex-count_vertex_min)/(count_vertex_max-count_vertex_min))
+									++insert_vertex_count;
+								else
+									++erase_vertex_count;
+							}
+							for(let i=0;i!=erase_vertex_count;++i)
+							{
+								while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+							
+								Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex)); create_ring(button_iterator_vertex0_set_index);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								
+								--count_vertex;
+								Module[example_prefix_possibly_interactive + "iterator_vertex_erase"](0); create_ring(button_iterator_vertex0_erase);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							}
+							for(let i=0;i!=insert_vertex_count;++i)
+							{
+								++count_vertex;
+								Module[example_prefix_possibly_interactive + "iterator_vertex_insert"](0); create_ring(button_iterator_vertex0_insert);
+							}
+							await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							
+							let count_edge = Module[example_prefix_possibly_interactive + "size_edge"]();
+							let modifier_edge_count = Math.floor(4 + Math.random() * 2), insert_edge_count = 0, erase_edge_count = 0;
+							for(let i=0; i!=modifier_edge_count; ++i)
+							{
+								if(Math.random() > (count_edge-count_edge_min)/(count_edge_max-count_edge_min))
+									++insert_edge_count;
+								else
+									++erase_edge_count;
+							}
+							for(let i=0;i!=erase_edge_count;++i)
+							{
+								while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+								
+								Module[example_prefix_possibly_interactive + "iterator_edge_set_index"](0, Math.floor(Math.random() * count_edge)); create_ring(button_iterator_edge0_set_index);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								
+								--count_edge;
+								Module[example_prefix_possibly_interactive + "iterator_edge_erase"](0); create_ring(button_iterator_edge0_erase);
+								await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+							}
+							if(example_prefix == "empty_" || example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_")
+							{
+								for(let i=0;i!=insert_edge_count;++i)
+								{
+									while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+									
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex)); create_ring(button_iterator_vertex0_set_index);
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](1, Math.floor(Math.random() * count_vertex)); create_ring(button_iterator_vertex1_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									++count_edge;
+									Module[example_prefix_possibly_interactive + "iterator_edge_insert"](0); create_ring(button_iterator_edge0_insert);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								}
+							}
+							else if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_" || example_prefix == "tree_jump_and_meet_")
+							{
+								for(let i=0;i!=insert_edge_count;++i)
+								{
+									while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+									
+									let try_count;
+									for(try_count=0; try_count!=10; ++try_count)
+									{
+										Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex));
+										Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](1, Math.floor(Math.random() * count_vertex));
+										if(Module[example_prefix_possibly_interactive + "iterator_vertexes_is_disconnected"](0,0,1))
+											break;
+									}
+									if(try_count!=10)
+									{
+										create_ring(button_iterator_vertex0_set_index);
+										create_ring(button_iterator_vertex1_set_index);
+										await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+										
+										++count_edge;
+										Module[example_prefix_possibly_interactive + "iterator_edge_insert"](0); create_ring(button_iterator_edge0_insert);
+										await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									}
+								}
+							}
+							
+							if(example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_jump_and_meet_")
+							{
+								let iterator_edge_update_count = 3 + Math.floor(Math.random() * 2);
+								for(let i=0; i!=iterator_edge_update_count; ++i)
+								{
+									while(!isElementInViewportAndVisible(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+
+									Module[example_prefix_possibly_interactive + "iterator_edge_set_index"](0, Math.floor(Math.random() * count_edge)); create_ring(button_iterator_edge0_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									Module[example_prefix_possibly_interactive + "iterator_edge_update"](0, (function(){
+										if(example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_")
+											return '' + Math.floor(-10 + Math.random() * 21);
+										else if(example_prefix == "tree_diameter_and_centers_")
+											return '' + Math.floor(0 + Math.random() * 11);
+										else if(example_prefix == "tree_jump_and_meet_")
+											return '' + Math.floor(1 + Math.random() * 10);
+									})()); create_ring(button_iterator_edge0_update);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								}
+							}
+							else if(example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_medians_")
+							{
+								let iterator_edge_update_count = 3 + Math.floor(Math.random() * 2);
+								for(let i=0; i!=iterator_edge_update_count; ++i)
+								{
+									while(!isElementInViewportAndVisible(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+
+									Module[example_prefix_possibly_interactive + "iterator_edge_set_index"](0, Math.floor(Math.random() * count_edge)); create_ring(button_iterator_edge0_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									Module[example_prefix_possibly_interactive + "iterator_edge_update"](0, (function(){
+										if(example_prefix == "tree_nearest_marked_vertexes_")
+											return '' + Math.floor(-10 + Math.random() * 21);
+										else if(example_prefix == "tree_medians_")
+											return '' + Math.floor(0 + Math.random() * 11);
+									})()); create_ring(button_iterator_edge0_update);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								}
+								
+								let iterator_vertex_update_count = 3 + Math.floor(Math.random() * 2);
+								for(let i=0; i!=iterator_vertex_update_count; ++i)
+								{
+									while(!isElementInViewportAndVisible(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex)); create_ring(button_iterator_vertex0_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									Module[example_prefix_possibly_interactive + "iterator_vertex_expose_replace"](0, 0); create_ring(button_part0_iterator_vertex0_expose_replace);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									Module[example_prefix_possibly_interactive + "iterator_vertex_update"](0, (function(){
+										if(example_prefix == "tree_nearest_marked_vertexes_")
+											return '' + [false, true][Math.floor(Math.random() * 2)];
+										else if(example_prefix == "tree_medians_")
+											return '' + Math.floor(0 + Math.random() * 11);
+									})()); create_ring(button_iterator_vertex0_update);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								}
+							}
+							
+							if(example_prefix == "arbitrary_spanning_forest_" || example_prefix == "minimum_spanning_forest_" || example_prefix == "minimum_spanning_forests_" || example_prefix == "tree_nearest_marked_vertexes_" || example_prefix == "tree_diameter_and_centers_" || example_prefix == "tree_medians_")
+							{
+								let expose_vertexes_count = Math.floor(4 + Math.random() * 2);
+								for(let i=0;i!=expose_vertexes_count;++i)
+								{
+									while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+										
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex)); create_ring(button_iterator_vertex0_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									for(let try_count=0; try_count!=10; ++try_count)
+									{
+										Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](1, Math.floor(Math.random() * count_vertex));
+										if(Module[example_prefix_possibly_interactive + "iterator_vertexes_is_connected"](0,0,1))
+											break;
+									}
+									create_ring(button_iterator_vertex1_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									for(let part_index=0; part_index!=parts_count; ++part_index)
+									{
+										while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+									
+										Module[example_prefix_possibly_interactive + "iterator_vertexes_expose_replace"](part_index, 0, 1); create_ring([button_part0_iterator_vertexes0_1_expose_replace, button_part1_iterator_vertexes0_1_expose_replace][part_index]);
+										await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									}
+								}
+							}
+							else if(example_prefix == "tree_jump_and_meet_")
+							{
+								let jump_vertexes_round_count = Math.floor(3 + Math.random() * 2);
+								for(let i=0;i!=jump_vertexes_round_count;++i)
+								{
+									while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+										
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex)); create_ring(button_iterator_vertex0_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									for(let try_count=0; try_count!=10; ++try_count)
+									{
+										Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](1, Math.floor(Math.random() * count_vertex));
+										if(Module[example_prefix_possibly_interactive + "iterator_vertexes_is_connected"](0,0,1))
+											break;
+									}
+									create_ring(button_iterator_vertex1_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									
+									for(let part_index=0; part_index!=parts_count; ++part_index)
+									{
+										let jump_vertexes_count = Math.floor(3 + Math.random() * 2);
+										for(let j=0;j!=jump_vertexes_count;++j)
+										{
+											while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+										
+											let distance = Math.floor(Math.random() * 10);
+											input_part0_iterator_vertexes_search_jump.value = ''+distance; create_ring(input_part0_iterator_vertexes_search_jump);
+											await new Promise(resolve => setTimeout(resolve, 500)); await new Promise(resolve => setTimeout(resolve, 200));
+											
+											Module[example_prefix_possibly_interactive + "iterator_vertexes_search_jump"](part_index, distance); create_ring(button_part0_iterator_vertexes_search_jump);
+											await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+										}
+									}
+								}
+								
+								let meet_vertexes_count = Math.floor(4 + Math.random() * 2);
+								for(let i=0;i!=meet_vertexes_count;++i)
+								{
+									while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+											
+									Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](0, Math.floor(Math.random() * count_vertex)); create_ring(button_iterator_vertex0_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									for(let try_count=0; try_count!=10; ++try_count)
+									{
+										Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](1, Math.floor(Math.random() * count_vertex));
+										if(Module[example_prefix_possibly_interactive + "iterator_vertexes_is_connected"](0,0,1))
+											break;
+									}
+									create_ring(button_iterator_vertex1_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									for(let try_count=0; try_count!=10; ++try_count)
+									{
+										Module[example_prefix_possibly_interactive + "iterator_vertex_set_index"](2, Math.floor(Math.random() * count_vertex));
+										if(Module[example_prefix_possibly_interactive + "iterator_vertexes_is_connected"](0,0,2))
+											break;
+									}
+									create_ring(button_iterator_vertex2_set_index);
+									await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+								
+									for(let part_index=0; part_index!=parts_count; ++part_index)
+									{
+										while(!isElementInViewport(example_root))await new Promise(resolve => setTimeout(resolve, 500));
+									
+										Module[example_prefix_possibly_interactive + "iterator_vertexes_search_meet"](part_index); create_ring(button_part0_iterator_vertexes_search_meet);
+										await from_result_to_animations_to_play(Module[example_prefix_possibly_interactive + "to_graphs_string"]())(); await new Promise(resolve => setTimeout(resolve, 200));
+									}
+								}
+							}
+						}
+					})();
+				}
+			})(example_prefix + (is_interactive ? "interactive_" : ""), example_prefix, is_interactive);
+		}
+	}
+}
+		</script>
+		
+		<script type='text/javascript'>
+		  var statusElement = document.getElementById('status');
+		  var progressElement = document.getElementById('progress');
+		  var spinnerElement = document.getElementById('spinner');
+
+		  var Module = {
+			preRun: [],
+			postRun: [
+				function(){
+					Array.from(document.getElementsByClassName("example")).forEach(function(e){e.classList.remove("hidden")});
+					initialize_examples();
+					/*(async function()
+					{
+						for(let i=0; i!=10;++i)
+						{
+							Module["push_back"]();
+						}
+						while(true)
+						{
+							await new Promise(function(resolve)
+							{
+								Module["push_back"]();
+								Module["pop_front"]();
+								const result = Module["to_graphs_string"]();
+								for(let i = 0; i < result.size(); ++i)
+								{
+									//console.log(d3.select("#sequence2"+i).graphviz().active("sequences2"));
+									d3.select("#sequence2"+i).graphviz().keyMode("id")
+										.transition(
+											function(){return d3.transition("sequences2")
+												.duration(500)
+												.ease(d3.easeLinear).on("end", resolve);}
+										)
+										.renderDot(result.get(i));
+								}
+							});
+							await new Promise(resolve => setTimeout(resolve, 200));
+						}
+					})();*/
+				},
+			],
+			print: (function() {
+			  var element = document.getElementById('output');
+			  if (element) element.value = ''; // clear browser cache
+			  return function(text) {
+				if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+				// These replacements are necessary if you render to raw HTML
+				//text = text.replace(/&/g, "&amp;");
+				//text = text.replace(/</g, "&lt;");
+				//text = text.replace(/>/g, "&gt;");
+				//text = text.replace('\n', '<br>', 'g');
+				console.log(text);
+				if (element) {
+				  element.value += text + "\n";
+				  element.scrollTop = element.scrollHeight; // focus on bottom
+				}
+			  };
+			})(),
+			canvas: (function() {
+			  var canvas = document.getElementById('canvas');
+
+			  // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+			  // application robust, you may want to override this behavior before shipping!
+			  // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+			  canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+			  return canvas;
+			})(),
+			setStatus: function(text) {
+			  if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+			  if (text === Module.setStatus.last.text) return;
+			  var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+			  var now = Date.now();
+			  if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+			  Module.setStatus.last.time = now;
+			  Module.setStatus.last.text = text;
+			  if (m) {
+				text = m[1];
+				progressElement.value = parseInt(m[2])*100;
+				progressElement.max = parseInt(m[4])*100;
+				progressElement.hidden = false;
+				spinnerElement.hidden = false;
+			  } else {
+				progressElement.value = null;
+				progressElement.max = null;
+				progressElement.hidden = true;
+				if (!text) spinnerElement.hidden = true;
+			  }
+			  statusElement.innerHTML = text;
+			},
+			totalDependencies: 0,
+			monitorRunDependencies: function(left) {
+			  this.totalDependencies = Math.max(this.totalDependencies, left);
+			  Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+			}
+		  };
+		  Module.setStatus('Downloading...');
+		  window.onerror = function() {
+			Module.setStatus('Exception thrown, see JavaScript console');
+			spinnerElement.style.display = 'none';
+			Module.setStatus = function(text) {
+			  if (text) console.error('[post-exception status] ' + text);
+			};
+		  };
+		</script>
+	{{{ SCRIPT }}}
+	
+	</body>
+</html>
