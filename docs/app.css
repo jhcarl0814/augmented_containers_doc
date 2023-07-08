@@ -424,7 +424,6 @@ video {
 }
 
 .heading2 {
-  white-space: pre-wrap;
   font-size: 140%;
   font-weight: 700;
   margin-inline: 12px;
@@ -435,7 +434,6 @@ video {
 }
 
 .heading3 {
-  white-space: pre-wrap;
   font-size: 120%;
   font-weight: 700;
   margin-inline: 12px;
@@ -446,10 +444,17 @@ video {
 }
 
 .paragraph {
-  white-space: pre-wrap;
   margin-inline: 12px;
   margin-block: 6px;
   line-height: calc(var(--line-height-paragraph) * 1em);
+}
+
+.highlight_yellow {
+  background-color: rgb(255 255 0 / 0.8);
+}
+
+.highlight_bold {
+  font-weight: 700;
 }
 
 .block-code
