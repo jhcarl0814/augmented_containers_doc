@@ -743,8 +743,44 @@ td>.block-code:last-child {
   left: 0px;
 }
 
+.top-0 {
+  top: 0px;
+}
+
+.right-1\/2 {
+  right: 50%;
+}
+
+.bottom-1\/2 {
+  bottom: 50%;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.right-0 {
+  right: 0px;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
+.top-1\/2 {
+  top: 50%;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
 .z-\[1\] {
   z-index: 1;
+}
+
+.z-\[-1\] {
+  z-index: -1;
 }
 
 .m-\[9px\] {
@@ -1031,6 +1067,11 @@ td>.block-code:last-child {
   writing-mode: vertical-rl;
 }
 
+.\[margin-inline-start\:12px\] {
+  -webkit-margin-start: 12px;
+          margin-inline-start: 12px;
+}
+
 *
 {
   transform-style:preserve-3d;
@@ -1242,5 +1283,21 @@ a:hover
 }
 
 .\[\&\>\.sequence\>svg\]\:max-w-\[100\%\]>.sequence>svg {
+  max-width: 100%;
+}
+
+.\[\&\>\.graph\>svg\]\:max-h-\[100\%\]>.graph>svg {
+  max-height: 100%;
+}
+
+.\[\&\>\.graph\>svg\]\:min-h-\[100\%\]>.graph>svg {
+  min-height: 100%;
+}
+
+.\[\&\>\.graph\>svg\]\:min-w-\[100\%\]>.graph>svg {
+  min-width: 100%;
+}
+
+.\[\&\>\.graph\>svg\]\:max-w-\[100\%\]>.graph>svg {
   max-width: 100%;
 }
