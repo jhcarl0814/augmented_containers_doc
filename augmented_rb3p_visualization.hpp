@@ -1,7 +1,7 @@
 ﻿#ifndef AUGMENTED_RB3P_VISUALIZATION_HPP
 #define AUGMENTED_RB3P_VISUALIZATION_HPP
 
-#include "augmented_rb3p.hpp"
+#include <augmented_containers/augmented_rb3p.hpp>
 #include "ext_infrastructure/ext_graphviz.hpp"
 #include <sstream>
 #include <iomanip>

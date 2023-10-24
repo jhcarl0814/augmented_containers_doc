@@ -3,7 +3,7 @@
     #define AUGMENTED_DEQUE_EXAMPLE_PREFIXING(id) id
 #endif
 
-#include "augmented_deque.hpp"
+#include <augmented_containers/augmented_deque.hpp>
 #include "augmented_deque_visualization.hpp"
 #include <random>
 #include <array>
