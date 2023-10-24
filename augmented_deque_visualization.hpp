@@ -1,7 +1,7 @@
 ﻿#ifndef AUGMENTED_DEQUE_VISUALIZATION_HPP
 #define AUGMENTED_DEQUE_VISUALIZATION_HPP
 
-#include "augmented_deque.hpp"
+#include <augmented_containers/augmented_deque.hpp>
 #include "ext_infrastructure/ext_graphviz.hpp"
 #include <sstream>
 #include <iomanip>

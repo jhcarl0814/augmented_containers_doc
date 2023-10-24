@@ -3,7 +3,7 @@
     #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) id
 #endif
 
-#include "augmented_graph.hpp"
+#include <augmented_containers/augmented_graph.hpp>
 #include "augmented_graph_visualization.hpp"
 #include <random>
 

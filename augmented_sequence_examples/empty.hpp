@@ -3,9 +3,9 @@
     #define AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(id) id
 #endif
 
-#include "augmented_rb2p.hpp"
+#include <augmented_containers/augmented_rb2p.hpp>
 #include "augmented_rb2p_visualization.hpp"
-#include "augmented_rb3p.hpp"
+#include <augmented_containers/augmented_rb3p.hpp>
 #include "augmented_rb3p_visualization.hpp"
 
 std::vector<augmented_containers::augmented_sequence_t<
