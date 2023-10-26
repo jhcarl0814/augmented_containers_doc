@@ -2,7 +2,7 @@
 #define AUGMENTED_RB2P_VISUALIZATION_HPP
 
 #include <augmented_containers/augmented_rb2p.hpp>
-#include "ext_infrastructure/ext_graphviz.hpp"
+#include <ext_infrastructure/ext_graphviz.hpp>
 #include <sstream>
 #include <iomanip>
 #include <functional>

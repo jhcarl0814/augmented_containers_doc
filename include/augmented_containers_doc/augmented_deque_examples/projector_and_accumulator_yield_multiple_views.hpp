@@ -4,7 +4,7 @@
 #endif
 
 #include <augmented_containers/augmented_deque.hpp>
-#include "augmented_deque_visualization.hpp"
+#include <augmented_containers_doc/augmented_deque_visualization.hpp>
 #include <random>
 #include <map>
 

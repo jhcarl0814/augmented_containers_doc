@@ -8,7 +8,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -19,7 +19,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -31,7 +31,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -42,7 +42,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -54,7 +54,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -65,7 +65,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -77,7 +77,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -88,7 +88,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -100,7 +100,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -111,7 +111,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -123,7 +123,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -134,7 +134,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/empty.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/empty.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -148,7 +148,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -159,7 +159,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -171,7 +171,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -182,7 +182,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -194,7 +194,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -205,7 +205,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -217,7 +217,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -228,7 +228,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -240,7 +240,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -251,7 +251,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -263,7 +263,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -274,7 +274,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_value.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_value.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -288,7 +288,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -299,7 +299,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -311,7 +311,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -322,7 +322,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -334,7 +334,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -345,7 +345,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -357,7 +357,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -368,7 +368,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -380,7 +380,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -391,7 +391,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -403,7 +403,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -414,7 +414,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_values.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_values.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -428,7 +428,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -439,7 +439,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -451,7 +451,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -462,7 +462,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -474,7 +474,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -485,7 +485,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -497,7 +497,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -508,7 +508,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -520,7 +520,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -531,7 +531,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -543,7 +543,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -554,7 +554,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_one_view.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_one_view.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -568,7 +568,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -579,7 +579,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -591,7 +591,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -602,7 +602,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -614,7 +614,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -625,7 +625,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -637,7 +637,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -648,7 +648,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -660,7 +660,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -671,7 +671,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -683,7 +683,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -694,7 +694,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/accumulator_yield_multiple_views.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/accumulator_yield_multiple_views.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -708,7 +708,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -719,7 +719,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -731,7 +731,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -742,7 +742,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -754,7 +754,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -765,7 +765,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -777,7 +777,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -788,7 +788,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -800,7 +800,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -811,7 +811,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -823,7 +823,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -834,7 +834,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_monotonic_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_monotonic_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -848,7 +848,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -859,7 +859,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -871,7 +871,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -882,7 +882,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -894,7 +894,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -905,7 +905,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -917,7 +917,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -928,7 +928,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -940,7 +940,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -951,7 +951,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -963,7 +963,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -974,7 +974,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -988,7 +988,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -999,7 +999,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1011,7 +1011,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1022,7 +1022,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1034,7 +1034,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1045,7 +1045,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb2p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb2p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1057,7 +1057,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1068,7 +1068,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT no_size
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1080,7 +1080,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1091,7 +1091,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1103,7 +1103,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
@@ -1114,7 +1114,7 @@
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION rb3p
     #define AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING(id) id##rb3p
     #define AUGMENTED_SEQUENCE_SIZE_MANAGEMENT at_each_node_except_node_end
-    #include "augmented_sequence_examples/find_by_heap_predicate_generator.hpp"
+    #include <augmented_containers_doc/augmented_sequence_examples/find_by_heap_predicate_generator.hpp>
     #undef AUGMENTED_SEQUENCE_SIZE_MANAGEMENT
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION_POSTFIXING
     #undef AUGMENTED_SEQUENCE_PHYSICAL_REPRESENTATION
