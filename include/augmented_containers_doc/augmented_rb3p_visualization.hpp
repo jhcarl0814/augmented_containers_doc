@@ -2,7 +2,7 @@
 #define AUGMENTED_RB3P_VISUALIZATION_HPP
 
 #include <augmented_containers/augmented_rb3p.hpp>
-#include "ext_infrastructure/ext_graphviz.hpp"
+#include <ext_infrastructure/ext_graphviz.hpp>
 #include <sstream>
 #include <iomanip>
 #include <functional>

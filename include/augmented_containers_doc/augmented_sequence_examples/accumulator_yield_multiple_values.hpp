@@ -4,9 +4,9 @@
 #endif
 
 #include <augmented_containers/augmented_rb2p.hpp>
-#include "augmented_rb2p_visualization.hpp"
+#include <augmented_containers_doc/augmented_rb2p_visualization.hpp>
 #include <augmented_containers/augmented_rb3p.hpp>
-#include "augmented_rb3p_visualization.hpp"
+#include <augmented_containers_doc/augmented_rb3p_visualization.hpp>
 #include <random>
 #include <array>
 

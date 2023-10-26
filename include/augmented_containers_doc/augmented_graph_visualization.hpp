@@ -2,7 +2,7 @@
 #define AUGMENTED_GRAPH_VISUALIZATION_HPP
 
 #include <augmented_containers/augmented_graph.hpp>
-#include "ext_infrastructure/ext_graphviz.hpp"
+#include <ext_infrastructure/ext_graphviz.hpp>
 #include <sstream>
 #include <iomanip>
 

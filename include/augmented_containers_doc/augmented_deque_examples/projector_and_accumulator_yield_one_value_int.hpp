@@ -4,7 +4,7 @@
 #endif
 
 #include <augmented_containers/augmented_deque.hpp>
-#include "augmented_deque_visualization.hpp"
+#include <augmented_containers_doc/augmented_deque_visualization.hpp>
 #include <random>
 
 std::random_device AUGMENTED_DEQUE_EXAMPLE_PREFIXING(rd); // Will be used to obtain a seed for the random number engine

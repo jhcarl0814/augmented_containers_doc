@@ -4,89 +4,89 @@
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX empty_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) empty_ ## id
-#include "augmented_graph_examples/empty.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/empty.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX empty_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) empty_interactive_ ## id
-#include "augmented_graph_examples/empty.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/empty.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX arbitrary_spanning_forest_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) arbitrary_spanning_forest_ ## id
-#include "augmented_graph_examples/arbitrary_spanning_forest.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/arbitrary_spanning_forest.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX arbitrary_spanning_forest_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) arbitrary_spanning_forest_interactive_ ## id
-#include "augmented_graph_examples/arbitrary_spanning_forest.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/arbitrary_spanning_forest.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX minimum_spanning_forest_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) minimum_spanning_forest_ ## id
-#include "augmented_graph_examples/minimum_spanning_forest.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/minimum_spanning_forest.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX minimum_spanning_forest_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) minimum_spanning_forest_interactive_ ## id
-#include "augmented_graph_examples/minimum_spanning_forest.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/minimum_spanning_forest.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX minimum_spanning_forests_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) minimum_spanning_forests_ ## id
-#include "augmented_graph_examples/minimum_spanning_forests.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/minimum_spanning_forests.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX minimum_spanning_forests_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) minimum_spanning_forests_interactive_ ## id
-#include "augmented_graph_examples/minimum_spanning_forests.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/minimum_spanning_forests.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_nearest_marked_vertexes_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_nearest_marked_vertexes_ ## id
-#include "augmented_graph_examples/tree_nearest_marked_vertexes.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_nearest_marked_vertexes.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_nearest_marked_vertexes_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_nearest_marked_vertexes_interactive_ ## id
-#include "augmented_graph_examples/tree_nearest_marked_vertexes.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_nearest_marked_vertexes.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_diameter_and_centers_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_diameter_and_centers_ ## id
-#include "augmented_graph_examples/tree_diameter_and_centers.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_diameter_and_centers.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_diameter_and_centers_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_diameter_and_centers_interactive_ ## id
-#include "augmented_graph_examples/tree_diameter_and_centers.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_diameter_and_centers.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_medians_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_medians_ ## id
-#include "augmented_graph_examples/tree_medians.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_medians.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_medians_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_medians_interactive_ ## id
-#include "augmented_graph_examples/tree_medians.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_medians.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_jump_and_meet_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_jump_and_meet_ ## id
-#include "augmented_graph_examples/tree_jump_and_meet.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_jump_and_meet.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIX tree_jump_and_meet_interactive_
 #define AUGMENTED_GRAPH_EXAMPLE_PREFIXING(id) tree_jump_and_meet_interactive_ ## id
-#include "augmented_graph_examples/tree_jump_and_meet.hpp"
+#include <augmented_containers_doc/augmented_graph_examples/tree_jump_and_meet.hpp>
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIXING
 #undef AUGMENTED_GRAPH_EXAMPLE_PREFIX
 

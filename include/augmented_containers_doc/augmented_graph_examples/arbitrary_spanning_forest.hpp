@@ -4,7 +4,7 @@
 #endif
 
 #include <augmented_containers/augmented_graph.hpp>
-#include "augmented_graph_visualization.hpp"
+#include <augmented_containers_doc/augmented_graph_visualization.hpp>
 
 struct AUGMENTED_GRAPH_EXAMPLE_PREFIXING(monostate_comparator_t)
 {
