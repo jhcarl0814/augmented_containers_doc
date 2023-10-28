@@ -50,9 +50,6 @@ set(compile_options
     "-sDISABLE_EXCEPTION_CATCHING=0"
     #"-sUSE_BOOST_HEADERS"
 
-    "-Wno-invalid-offsetof"
-    "-fexperimental-library"
-    "-Wno-null-dereference"
 )
 set(link_options
     "$<$<CONFIG:Debug>:-O0>"
