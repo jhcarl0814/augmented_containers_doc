@@ -6,6 +6,11 @@
 #include <sstream>
 #include <iomanip>
 
+#ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#endif
+
 namespace augmented_containers
 {
     namespace detail
@@ -164,7 +169,17 @@ namespace augmented_containers
 
         return [&]<std::size_t... I>(std::index_sequence<I...>)
         {
-            return std::vector<graph_t>{[&augmented_deque, &stride1_sequence = augmented_deque.template sequence<0>(), &sequence = augmented_deque.template sequence<I>(), &to_graphs_parameters]()
+            return std::vector<graph_t>{[
+#ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wunused-lambda-capture"
+#endif
+                                            &augmented_deque
+#ifdef __clang__
+    #pragma clang diagnostic pop
+#endif
+                                            ,
+                                            &stride1_sequence = augmented_deque.template sequence<0>(), &sequence = augmented_deque.template sequence<I>(), &to_graphs_parameters]()
                 {
                     using stride1_sequence_t = typename std::remove_cvref_t<decltype(augmented_deque)>::template sequence_t<0>;
                     using sequence_t = typename std::remove_cvref_t<decltype(augmented_deque)>::template sequence_t<I>;
@@ -1406,5 +1421,9 @@ namespace augmented_containers
         (std::make_index_sequence<augmented_deque_t<element_t, allocator_element_t, config_t>::sequences_count>());
     }
 } // namespace augmented_containers
+
+#ifdef __clang__
+    #pragma clang diagnostic pop
+#endif
 
 #endif // AUGMENTED_DEQUE_VISUALIZATION_HPP

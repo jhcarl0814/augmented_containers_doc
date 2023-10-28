@@ -50,6 +50,10 @@ set(compile_options
     "-sDISABLE_EXCEPTION_CATCHING=0"
     #"-sUSE_BOOST_HEADERS"
 
+    "-Wall"
+    "-Wextra"
+    "-pedantic"
+    "-Werror"
 )
 set(link_options
     "$<$<CONFIG:Debug>:-O0>"
