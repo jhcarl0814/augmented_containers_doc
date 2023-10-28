@@ -301,8 +301,8 @@ std::vector<std::string> AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(to_graphs_string)(
                 {
                     using namespace augmented_containers::detail::language;
                     using namespace augmented_containers::detail::visualization;
-                    using element_t = typename decltype(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s))::value_type::element_t;
-                    using accumulated_storage_t = typename decltype(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s))::value_type::accumulated_storage_t;
+                    using element_t [[maybe_unused]] = typename decltype(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s))::value_type::element_t;
+                    using accumulated_storage_t [[maybe_unused]] = typename decltype(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s))::value_type::accumulated_storage_t;
 
                     decltype(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s))::value_type::iterator_t iterator_from = decltype(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s))::value_type::iterator_t::from_accumulated_storage_pointer(&const_cast<AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(accumulating_group_by_element_binary_functor_t)::accumulated_storage_t &>(parameters.datum));
                     std::u8string color_primary = std::map<std::size_t, std::u8string>{{0, u8"#FF0000"}, {1, u8"#00FF00"}, {2, u8"#0000FF"}}.at(AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(calculate_group_by_s_key)(*iterator_from));

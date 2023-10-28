@@ -6,6 +6,11 @@
 #include <sstream>
 #include <iomanip>
 
+#ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#endif
+
 namespace augmented_containers
 {
     namespace detail
@@ -2270,5 +2275,9 @@ namespace augmented_containers
         return result;
     }
 } // namespace augmented_containers
+
+#ifdef __clang__
+    #pragma clang diagnostic pop
+#endif
 
 #endif // AUGMENTED_GRAPH_VISUALIZATION_HPP

@@ -9,6 +9,11 @@
 #include <optional>
 #include <map>
 
+#ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#endif
+
 namespace augmented_containers
 {
     namespace detail
@@ -1424,5 +1429,9 @@ namespace augmented_containers
         return {g};
     }
 } // namespace augmented_containers
+
+#ifdef __clang__
+    #pragma clang diagnostic pop
+#endif
 
 #endif // AUGMENTED_RB2P_VISUALIZATION_HPP

@@ -349,7 +349,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                 } break;
                                 case accumulated_storage_node_type_e::read_range:
                                 {
-                                    auto tree_node = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<1>::tree_node_t::from_accumulated_storage_pointer(&const_cast<accumulated_storage_t &>(parameters.datum));
+                                    [[maybe_unused]] auto tree_node = decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::sequence_t<1>::tree_node_t::from_accumulated_storage_pointer(&const_cast<accumulated_storage_t &>(parameters.datum));
                                     for(element_t * const &p : parameters.datum)
                                     {
                                         if(p != nullptr)
