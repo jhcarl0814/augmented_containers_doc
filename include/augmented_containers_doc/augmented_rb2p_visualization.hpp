@@ -711,26 +711,11 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .container_index =
-#endif
-                                                                    container_index,
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    accumulated_storage_node_type_e::tree_node,
+                                                                .container_index = container_index,
+                                                                .member_name = u8"accumulated_storage",
+                                                                .datum = *p_tree_node->p_accumulated_storage(),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                             }),
                                                         },
                                                     }});
@@ -739,22 +724,10 @@ namespace augmented_containers
                                                         .BGCOLOR = active_cell_color,
                                                         .COLSPAN = 4,
                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                            .container_index =
-#endif
-                                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                                            .member_name =
-#endif
-                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                            .datum =
-#endif
-                                                                *p_tree_node->p_element(),
-#ifndef __EMSCRIPTEN__
-                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                std::back_inserter(converter_generated_statements),
+                                                            .container_index = container_index,
+                                                            .member_name = u8"element",
+                                                            .datum = *p_tree_node->p_element(),
+                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                         }),
                                                     },
                                                 }});
@@ -802,26 +775,11 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .container_index =
-#endif
-                                                                    container_index,
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    accumulated_storage_node_type_e::tree_node,
+                                                                .container_index = container_index,
+                                                                .member_name = u8"accumulated_storage",
+                                                                .datum = *p_tree_node->p_accumulated_storage(),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                             }),
                                                         },
                                                     }});
@@ -830,22 +788,10 @@ namespace augmented_containers
                                                         .BGCOLOR = active_cell_color,
                                                         .COLSPAN = 4,
                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                            .container_index =
-#endif
-                                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                                            .member_name =
-#endif
-                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                            .datum =
-#endif
-                                                                *p_tree_node->p_element(),
-#ifndef __EMSCRIPTEN__
-                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                std::back_inserter(converter_generated_statements),
+                                                            .container_index = container_index,
+                                                            .member_name = u8"element",
+                                                            .datum = *p_tree_node->p_element(),
+                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                         }),
                                                     },
                                                 }});
@@ -901,26 +847,11 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .container_index =
-#endif
-                                                                    container_index,
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    accumulated_storage_node_type_e::tree_node,
+                                                                .container_index = container_index,
+                                                                .member_name = u8"accumulated_storage",
+                                                                .datum = *p_tree_node->p_accumulated_storage(),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                             }),
                                                         },
                                                     }});
@@ -936,22 +867,10 @@ namespace augmented_containers
                                                         .BGCOLOR = active_cell_color,
                                                         .COLSPAN = 4,
                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                            .container_index =
-#endif
-                                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                                            .member_name =
-#endif
-                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                            .datum =
-#endif
-                                                                *p_tree_node->p_element(),
-#ifndef __EMSCRIPTEN__
-                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                std::back_inserter(converter_generated_statements),
+                                                            .container_index = container_index,
+                                                            .member_name = u8"element",
+                                                            .datum = *p_tree_node->p_element(),
+                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                         }),
                                                     },
                                                 }});
@@ -989,26 +908,11 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .container_index =
-#endif
-                                                                    container_index,
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    accumulated_storage_node_type_e::tree_node,
+                                                                .container_index = container_index,
+                                                                .member_name = u8"accumulated_storage",
+                                                                .datum = *p_tree_node->p_accumulated_storage(),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                             }),
                                                         },
                                                     }});
@@ -1017,22 +921,10 @@ namespace augmented_containers
                                                         .BGCOLOR = active_cell_color,
                                                         .COLSPAN = 4,
                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                            .container_index =
-#endif
-                                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                                            .member_name =
-#endif
-                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                            .datum =
-#endif
-                                                                *p_tree_node->p_element(),
-#ifndef __EMSCRIPTEN__
-                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                std::back_inserter(converter_generated_statements),
+                                                            .container_index = container_index,
+                                                            .member_name = u8"element",
+                                                            .datum = *p_tree_node->p_element(),
+                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                         }),
                                                     },
                                                 }});
@@ -1054,26 +946,11 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .container_index =
-#endif
-                                                                    container_index,
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    accumulated_storage_node_type_e::tree_node,
+                                                                .container_index = container_index,
+                                                                .member_name = u8"accumulated_storage",
+                                                                .datum = *p_tree_node->p_accumulated_storage(),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                             }),
                                                         },
                                                     }});
@@ -1082,22 +959,10 @@ namespace augmented_containers
                                                         .BGCOLOR = active_cell_color,
                                                         .COLSPAN = 4,
                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                            .container_index =
-#endif
-                                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                                            .member_name =
-#endif
-                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                            .datum =
-#endif
-                                                                *p_tree_node->p_element(),
-#ifndef __EMSCRIPTEN__
-                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                std::back_inserter(converter_generated_statements),
+                                                            .container_index = container_index,
+                                                            .member_name = u8"element",
+                                                            .datum = *p_tree_node->p_element(),
+                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                         }),
                                                     },
                                                 }});
@@ -1157,26 +1022,11 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .container_index =
-#endif
-                                                                    container_index,
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    accumulated_storage_node_type_e::tree_node,
+                                                                .container_index = container_index,
+                                                                .member_name = u8"accumulated_storage",
+                                                                .datum = *p_tree_node->p_accumulated_storage(),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                             }),
                                                         },
                                                     }});
@@ -1191,22 +1041,10 @@ namespace augmented_containers
                                                         .BGCOLOR = active_cell_color,
                                                         .COLSPAN = 4,
                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                            .container_index =
-#endif
-                                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                                            .member_name =
-#endif
-                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                            .datum =
-#endif
-                                                                *p_tree_node->p_element(),
-#ifndef __EMSCRIPTEN__
-                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                std::back_inserter(converter_generated_statements),
+                                                            .container_index = container_index,
+                                                            .member_name = u8"element",
+                                                            .datum = *p_tree_node->p_element(),
+                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                         }),
                                                     },
                                                 }});
@@ -1250,26 +1088,11 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .container_index =
-#endif
-                                                                    container_index,
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    accumulated_storage_node_type_e::tree_node,
+                                                                .container_index = container_index,
+                                                                .member_name = u8"accumulated_storage",
+                                                                .datum = *p_tree_node->p_accumulated_storage(),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                             }),
                                                         },
                                                     }});
@@ -1284,22 +1107,10 @@ namespace augmented_containers
                                                         .BGCOLOR = active_cell_color,
                                                         .COLSPAN = 4,
                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                            .container_index =
-#endif
-                                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                                            .member_name =
-#endif
-                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                            .datum =
-#endif
-                                                                *p_tree_node->p_element(),
-#ifndef __EMSCRIPTEN__
-                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                std::back_inserter(converter_generated_statements),
+                                                            .container_index = container_index,
+                                                            .member_name = u8"element",
+                                                            .datum = *p_tree_node->p_element(),
+                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                         }),
                                                     },
                                                 }});
@@ -1350,26 +1161,11 @@ namespace augmented_containers
                         {{
                             {u8"id", u8"read_range_" + object_pointer_to_string(p_node_end)},
                             {u8"label", to_graphs_parameters.accumulated_storage_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                            .container_index =
-#endif
-                                                container_index,
-#ifndef __EMSCRIPTEN__
-                                            .member_name =
-#endif
-                                                u8"read_range(it[" + index_to_string(2 * container_index + 0) + u8"], it[" + index_to_string(2 * container_index + 1) + u8"])",
-#ifndef __EMSCRIPTEN__
-                                            .datum =
-#endif
-                                                augmented_sequence_rb2p.read_range(to_graphs_parameters.iterators[2 * container_index + 0], to_graphs_parameters.iterators[2 * container_index + 1]),
-#ifndef __EMSCRIPTEN__
-                                            .converter_generated_statements_back_inserter =
-#endif
-                                                std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                            .accumulated_storage_node_type =
-#endif
-                                                accumulated_storage_node_type_e::read_range,
+                                            .container_index = container_index,
+                                            .member_name = u8"read_range(it[" + index_to_string(2 * container_index + 0) + u8"], it[" + index_to_string(2 * container_index + 1) + u8"])",
+                                            .datum = augmented_sequence_rb2p.read_range(to_graphs_parameters.iterators[2 * container_index + 0], to_graphs_parameters.iterators[2 * container_index + 1]),
+                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                            .accumulated_storage_node_type = accumulated_storage_node_type_e::read_range,
                                         })},
                         }}});
                 }

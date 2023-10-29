@@ -173,32 +173,18 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
     for(dot::graph_t &graph : to_graphs(
             AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque),
             to_graphs_parameters_t{
-#ifndef __EMSCRIPTEN__
-                .element_to_string_converter =
-#endif
-                    [](auto parameters) -> html_label_t
+                .element_to_string_converter = [](auto parameters) -> html_label_t
                 { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; },
-#ifndef __EMSCRIPTEN__
                .projected_and_accumulated_storage_to_string_converter_per_sequence =
-#endif
                     std::make_tuple(
                         std::make_pair(
                             [](auto parameters) -> html_label_t
                             { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; },
                             [](auto parameters) -> html_label_t
                             { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}}; })),
-#ifndef __EMSCRIPTEN__
-               .iterators_element =
-#endif
-                    AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
-#ifndef __EMSCRIPTEN__
-               .read_range_per_sequence =
-#endif
-                    std::make_tuple(true),
-#ifndef __EMSCRIPTEN__
-               .iterators_projected_storage_per_sequence =
-#endif
-                    AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence),
+               .iterators_element = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
+               .read_range_per_sequence = std::make_tuple(true),
+               .iterators_projected_storage_per_sequence = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_projected_storage_per_sequence),
             }))
     {
         result.push_back((std::ostringstream() << graph).str());

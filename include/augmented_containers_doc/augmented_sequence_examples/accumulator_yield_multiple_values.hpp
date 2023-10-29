@@ -229,10 +229,7 @@ std::vector<std::string> AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(to_graphs_string)(
     for(dot::graph_t &graph : to_graphs(
             AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_s),
             to_graphs_parameters_t{
-#ifndef __EMSCRIPTEN__
-                .element_to_string_converter =
-#endif
-                    [](auto parameters) -> html_label_t
+                .element_to_string_converter = [](auto parameters) -> html_label_t
                 {
                     return html_label_t{fonttable_t{table_t{
                         .BORDER = 0,
@@ -249,10 +246,7 @@ std::vector<std::string> AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(to_graphs_string)(
                         }(),
                     }}};
                 },
-#ifndef __EMSCRIPTEN__
-               .accumulated_storage_to_string_converter =
-#endif
-                    [](auto parameters) -> html_label_t
+               .accumulated_storage_to_string_converter = [](auto parameters) -> html_label_t
                 {
                     using namespace augmented_containers::detail::language;
                     using namespace augmented_containers::detail::visualization;
@@ -366,20 +360,10 @@ std::vector<std::string> AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(to_graphs_string)(
                             },
                         }}};
                     } break;
-                    }
-                },
-#ifndef __EMSCRIPTEN__
-               .iterators =
-#endif
-                    AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_iterators),
-#ifndef __EMSCRIPTEN__
-               .iterators_container_index =
-#endif
-                    AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_iterators_container_index),
-#ifndef __EMSCRIPTEN__
-               .read_range =
-#endif
-                    true,
+                    } },
+               .iterators = AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_iterators),
+               .iterators_container_index = AUGMENTED_SEQUENCE_EXAMPLE_PREFIXING(augmented_sequence_iterators_container_index),
+               .read_range = true,
             }))
     {
         result.push_back((std::ostringstream() << graph).str());

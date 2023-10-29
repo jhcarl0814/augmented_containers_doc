@@ -230,22 +230,10 @@ namespace augmented_containers
                                             result.push_back(row_t{{
                                                 cell_t{
                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                        .member_name =
-#endif
-                                                            u8"vertex",
-#ifndef __EMSCRIPTEN__
-                                                        .datum =
-#endif
-                                                            iterator_vertex,
-#ifndef __EMSCRIPTEN__
-                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                        .accumulated_storage_node_type =
-#endif
-                                                            storage_node_type_e::vertex,
+                                                        .member_name = u8"vertex",
+                                                        .datum = iterator_vertex,
+                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                        .accumulated_storage_node_type = storage_node_type_e::vertex,
                                                     }),
                                                 },
                                             }});
@@ -314,22 +302,10 @@ namespace augmented_containers
                                                     result.push_back(row_t{{
                                                         cell_t{
                                                             .content = to_graphs_parameters.edge_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"edge",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    vertex_edge,
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    storage_node_type_e::edge,
+                                                                .member_name = u8"edge",
+                                                                .datum = vertex_edge,
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = storage_node_type_e::edge,
                                                             }),
                                                         },
                                                     }});
@@ -487,22 +463,10 @@ namespace augmented_containers
                                                                 .BORDER=part.it_vertex_exposed1==iterator_vertex||part.it_vertex_exposed2==iterator_vertex?std::make_optional<double>(2):std::nullopt,
                                                                 .COLOR=part.it_vertex_exposed1==iterator_vertex||part.it_vertex_exposed2==iterator_vertex?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                 .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"vertex",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        iterator_vertex,
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_vertex,
+                                                                    .member_name = u8"vertex",
+                                                                    .datum = iterator_vertex,
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_vertex,
                                                                 }),
                                                             },
                                                         }});
@@ -636,22 +600,10 @@ namespace augmented_containers
                                                         result.push_back(row_t{{
                                                             cell_t{
                                                                 .content = to_graphs_parameters.edge_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"edge",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        iterator_edge,
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_edge,
+                                                                    .member_name = u8"edge",
+                                                                    .datum = iterator_edge,
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_edge,
                                                                 }),
                                                             },
                                                         }});
@@ -785,22 +737,10 @@ namespace augmented_containers
                                                                 result.push_back(row_t{{
                                                                     cell_t{
                                                                         .content = to_graphs_parameters.edge_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                            .member_name =
-#endif
-                                                                                u8"edge",
-#ifndef __EMSCRIPTEN__
-                                                                            .datum =
-#endif
-                                                                                iterator_edge,
-#ifndef __EMSCRIPTEN__
-                                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                                std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                            .accumulated_storage_node_type =
-#endif
-                                                                                storage_node_type_e::top_tree_graph_edge,
+                                                                            .member_name = u8"edge",
+                                                                            .datum = iterator_edge,
+                                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                            .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_edge,
                                                                         }),
                                                                     },
                                                                 }});
@@ -956,22 +896,10 @@ namespace augmented_containers
                                                                 .BORDER=part.it_vertex_exposed1==iterator_vertex||part.it_vertex_exposed2==iterator_vertex?std::make_optional<double>(2):std::nullopt,
                                                                 .COLOR=part.it_vertex_exposed1==iterator_vertex||part.it_vertex_exposed2==iterator_vertex?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                 .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"vertex",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        iterator_vertex,
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_hierarchy_vertex,
+                                                                    .member_name = u8"vertex",
+                                                                    .datum = iterator_vertex,
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_vertex,
                                                                 }),
                                                             },
                                                         }});
@@ -1105,22 +1033,10 @@ namespace augmented_containers
                                                         result.push_back(row_t{{
                                                             cell_t{
                                                                 .content = to_graphs_parameters.edge_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"edge",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        iterator_edge,
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_hierarchy_edge,
+                                                                    .member_name = u8"edge",
+                                                                    .datum = iterator_edge,
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_edge,
                                                                 }),
                                                             },
                                                         }});
@@ -1226,22 +1142,10 @@ namespace augmented_containers
                                                             .BORDER=part.it_vertex_exposed1==p_tree_node->arc_backward.head||part.it_vertex_exposed2==p_tree_node->arc_backward.head?std::make_optional<double>(2):std::nullopt,
                                                             .COLOR=part.it_vertex_exposed1==p_tree_node->arc_backward.head||part.it_vertex_exposed2==p_tree_node->arc_backward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                             .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"cluster_title.vertex1",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    p_tree_node->arc_backward.head,
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                .member_name = u8"cluster_title.vertex1",
+                                                                .datum = p_tree_node->arc_backward.head,
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                             }),
                                                         });
                                                         cells.push_back(cell_t{
@@ -1249,22 +1153,10 @@ namespace augmented_containers
                                                             .BORDER=part.it_vertex_exposed1==p_tree_node->arc_forward.head||part.it_vertex_exposed2==p_tree_node->arc_forward.head?std::make_optional<double>(2):std::nullopt,
                                                             .COLOR=part.it_vertex_exposed1==p_tree_node->arc_forward.head||part.it_vertex_exposed2==p_tree_node->arc_forward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                             .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"cluster_title.vertex2",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    p_tree_node->arc_forward.head,
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                .member_name = u8"cluster_title.vertex2",
+                                                                .datum = p_tree_node->arc_forward.head,
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                             }),
                                                         });
                                                         if(p_tree_node->child_left()==nullptr&&p_tree_node->child_right()==nullptr)// leaf
@@ -1282,22 +1174,10 @@ namespace augmented_containers
                                                                 .BORDER=part.it_vertex_exposed1==p_tree_node->child_left()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_backward.head?std::make_optional<double>(2):std::nullopt,
                                                                 .COLOR=part.it_vertex_exposed1==p_tree_node->child_left()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_backward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                 .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"cluster_title.child_left.vertex1",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        p_tree_node->child_left()->arc_backward.head,
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                    .member_name = u8"cluster_title.child_left.vertex1",
+                                                                    .datum = p_tree_node->child_left()->arc_backward.head,
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                 }),
                                                             });
                                                             cells.push_back(cell_t{
@@ -1305,22 +1185,10 @@ namespace augmented_containers
                                                                 .BORDER=part.it_vertex_exposed1==p_tree_node->child_left()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_forward.head?std::make_optional<double>(2):std::nullopt,
                                                                 .COLOR=part.it_vertex_exposed1==p_tree_node->child_left()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_forward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                 .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"cluster_title.child_left.vertex2",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        p_tree_node->child_left()->arc_forward.head,
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                    .member_name = u8"cluster_title.child_left.vertex2",
+                                                                    .datum = p_tree_node->child_left()->arc_forward.head,
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                 }),
                                                             });
                                                         }
@@ -1338,22 +1206,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_left()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_backward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_left()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_backward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_left.vertex1",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_left()->arc_backward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_left.vertex1",
+                                                                        .datum = p_tree_node->child_left()->arc_backward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                                 cells.push_back(cell_t{
@@ -1361,22 +1217,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_left()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_forward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_left()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_forward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_left.vertex2",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_left()->arc_forward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_left.vertex2",
+                                                                        .datum = p_tree_node->child_left()->arc_forward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                                 cells.push_back(cell_t{
@@ -1389,22 +1233,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_right()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_backward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_right()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_backward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_right.vertex1",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_right()->arc_backward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_right.vertex1",
+                                                                        .datum = p_tree_node->child_right()->arc_backward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                                 cells.push_back(cell_t{
@@ -1412,22 +1244,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_right()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_forward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_right()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_forward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_right.vertex2",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_right()->arc_forward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_right.vertex2",
+                                                                        .datum = p_tree_node->child_right()->arc_forward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                             }
@@ -1443,22 +1263,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_left()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_backward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_left()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_backward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_left.vertex1",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_left()->arc_backward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_left.vertex1",
+                                                                        .datum = p_tree_node->child_left()->arc_backward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                                 cells.push_back(cell_t{
@@ -1466,22 +1274,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_left()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_forward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_left()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_left()->arc_forward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_left.vertex2",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_left()->arc_forward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_left.vertex2",
+                                                                        .datum = p_tree_node->child_left()->arc_forward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                                 cells.push_back(cell_t{
@@ -1494,22 +1290,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_right()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_backward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_right()->arc_backward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_backward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_right.vertex1",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_right()->arc_backward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_right.vertex1",
+                                                                        .datum = p_tree_node->child_right()->arc_backward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                                 cells.push_back(cell_t{
@@ -1517,22 +1301,10 @@ namespace augmented_containers
                                                                     .BORDER=part.it_vertex_exposed1==p_tree_node->child_right()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_forward.head?std::make_optional<double>(2):std::nullopt,
                                                                     .COLOR=part.it_vertex_exposed1==p_tree_node->child_right()->arc_forward.head||part.it_vertex_exposed2==p_tree_node->child_right()->arc_forward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                     .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"cluster_title.child_right.vertex2",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            p_tree_node->child_right()->arc_forward.head,
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
+                                                                        .member_name = u8"cluster_title.child_right.vertex2",
+                                                                        .datum = p_tree_node->child_right()->arc_forward.head,
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex,
                                                                     }),
                                                                 });
                                                             }
@@ -1546,22 +1318,10 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 2,
                                                             .content = std::get<part_index>(to_graphs_parameters.part_data_to_string_converter_per_part)(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"cluster",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    std::make_tuple(p_tree_node->arc_backward.head, std::cref(*p_tree_node->p_cluster()), p_tree_node->arc_forward.head),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
+                                                                .member_name = u8"cluster",
+                                                                .datum = std::make_tuple(p_tree_node->arc_backward.head, std::cref(*p_tree_node->p_cluster()), p_tree_node->arc_forward.head),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
                                                             }),
                                                         });
                                                         if(p_tree_node->child_left()==nullptr&&p_tree_node->child_right()==nullptr)// leaf
@@ -1571,22 +1331,10 @@ namespace augmented_containers
                                                                 .BGCOLOR = active_cell_color,
                                                                 .COLSPAN = 2,
                                                                 .content = std::get<part_index>(to_graphs_parameters.part_data_to_string_converter_per_part)(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"cluster",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        std::make_tuple(p_tree_node->child_left()->arc_backward.head, std::cref(*p_tree_node->child_left()->p_cluster()), p_tree_node->child_left()->arc_forward.head),
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
+                                                                    .member_name = u8"cluster",
+                                                                    .datum = std::make_tuple(p_tree_node->child_left()->arc_backward.head, std::cref(*p_tree_node->child_left()->p_cluster()), p_tree_node->child_left()->arc_forward.head),
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
                                                                 }),
                                                             });
                                                         else if(p_tree_node->child_left()!=nullptr&&p_tree_node->child_right()!=nullptr)
@@ -1595,44 +1343,20 @@ namespace augmented_containers
                                                                 .BGCOLOR = active_cell_color,
                                                                 .COLSPAN = 2,
                                                                 .content = std::get<part_index>(to_graphs_parameters.part_data_to_string_converter_per_part)(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"cluster",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        std::make_tuple(p_tree_node->child_left()->arc_backward.head, std::cref(*p_tree_node->child_left()->p_cluster()), p_tree_node->child_left()->arc_forward.head),
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
+                                                                    .member_name = u8"cluster",
+                                                                    .datum = std::make_tuple(p_tree_node->child_left()->arc_backward.head, std::cref(*p_tree_node->child_left()->p_cluster()), p_tree_node->child_left()->arc_forward.head),
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
                                                                 }),
                                                             });
                                                             cells.push_back(cell_t{
                                                                 .BGCOLOR = active_cell_color,
                                                                 .COLSPAN = 2,
                                                                 .content = std::get<part_index>(to_graphs_parameters.part_data_to_string_converter_per_part)(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"cluster",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        std::make_tuple(p_tree_node->child_right()->arc_backward.head, std::cref(*p_tree_node->child_right()->p_cluster()), p_tree_node->child_right()->arc_forward.head),
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
+                                                                    .member_name = u8"cluster",
+                                                                    .datum = std::make_tuple(p_tree_node->child_right()->arc_backward.head, std::cref(*p_tree_node->child_right()->p_cluster()), p_tree_node->child_right()->arc_forward.head),
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_cluster_title_cluster,
                                                                 }),
                                                             });
                                                         }
@@ -1701,22 +1425,10 @@ namespace augmented_containers
                                                                 result.push_back(row_t{{
                                                                     cell_t{
                                                                         .content = to_graphs_parameters.edge_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                            .member_name =
-#endif
-                                                                                u8"edge",
-#ifndef __EMSCRIPTEN__
-                                                                            .datum =
-#endif
-                                                                                iterator_edge,
-#ifndef __EMSCRIPTEN__
-                                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                                std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                            .accumulated_storage_node_type =
-#endif
-                                                                                storage_node_type_e::top_tree_graph_hierarchy_edge,
+                                                                            .member_name = u8"edge",
+                                                                            .datum = iterator_edge,
+                                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                            .accumulated_storage_node_type = storage_node_type_e::top_tree_graph_hierarchy_edge,
                                                                         }),
                                                                     },
                                                                 }});
@@ -2021,22 +1733,10 @@ namespace augmented_containers
                                                                             .COLOR=part.it_vertex_exposed1==p_tree_node->arc_backward.head||part.it_vertex_exposed2==p_tree_node->arc_backward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                             .PORT = u8"arc_backward.head",
                                                                             .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                               .member_name =
-#endif
-                                                                                    u8"arc_backward.head",
-#ifndef __EMSCRIPTEN__
-                                                                               .datum =
-#endif
-                                                                                    p_tree_node->arc_backward.head,
-#ifndef __EMSCRIPTEN__
-                                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                                .accumulated_storage_node_type =
-#endif
-                                                                                    storage_node_type_e::top_tree_cluster_hierarchy_vertex,
+                                                                                .member_name = u8"arc_backward.head",
+                                                                                .datum = p_tree_node->arc_backward.head,
+                                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                                .accumulated_storage_node_type = storage_node_type_e::top_tree_cluster_hierarchy_vertex,
                                                                             }),
                                                                         },
                                                                         cell_t{
@@ -2085,22 +1785,10 @@ namespace augmented_containers
                                                                             .COLOR=part.it_vertex_exposed1==p_tree_node->arc_forward.head||part.it_vertex_exposed2==p_tree_node->arc_forward.head?std::make_optional<std::u8string>(u8"#FF0000"):std::nullopt,
                                                                             .PORT = u8"arc_forward.head",
                                                                             .content = to_graphs_parameters.vertex_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                                .member_name =
-#endif
-                                                                                    u8"arc_forward.head",
-#ifndef __EMSCRIPTEN__
-                                                                                .datum =
-#endif
-                                                                                    p_tree_node->arc_forward.head,
-#ifndef __EMSCRIPTEN__
-                                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                                .accumulated_storage_node_type =
-#endif
-                                                                                    storage_node_type_e::top_tree_cluster_hierarchy_vertex,
+                                                                                .member_name = u8"arc_forward.head",
+                                                                                .datum = p_tree_node->arc_forward.head,
+                                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                                .accumulated_storage_node_type = storage_node_type_e::top_tree_cluster_hierarchy_vertex,
                                                                             }),
                                                                         },
                                                                     }});
@@ -2115,22 +1803,10 @@ namespace augmented_containers
                                                             .BGCOLOR = active_cell_color,
                                                             .COLSPAN = 4,
                                                             .content = std::get<part_index>(to_graphs_parameters.part_data_to_string_converter_per_part)(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                .member_name =
-#endif
-                                                                    u8"cluster",
-#ifndef __EMSCRIPTEN__
-                                                                .datum =
-#endif
-                                                                    std::make_tuple(p_tree_node->arc_backward.head, std::cref(*p_tree_node->p_cluster()), p_tree_node->arc_forward.head),
-#ifndef __EMSCRIPTEN__
-                                                                .converter_generated_statements_back_inserter =
-#endif
-                                                                    std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                .accumulated_storage_node_type =
-#endif
-                                                                    storage_node_type_e::top_tree_cluster_hierarchy_cluster,
+                                                                .member_name = u8"cluster",
+                                                                .datum = std::make_tuple(p_tree_node->arc_backward.head, std::cref(*p_tree_node->p_cluster()), p_tree_node->arc_forward.head),
+                                                                .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                .accumulated_storage_node_type = storage_node_type_e::top_tree_cluster_hierarchy_cluster,
                                                             }),
                                                         },
                                                     }});

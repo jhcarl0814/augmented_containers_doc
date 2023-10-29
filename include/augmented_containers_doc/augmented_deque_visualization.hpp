@@ -405,22 +405,10 @@ namespace augmented_containers
                                                               .BGCOLOR = active_cell_color,
                                                               .COLSPAN = 6,
                                                               .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                  .member_name =
-#endif
-                                                                      u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                  .datum =
-#endif
-                                                                      *tagged_ptr_bit0_unsetted(sequence.digit_node_end)->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                  .converter_generated_statements_back_inserter =
-#endif
-                                                                      std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                  .accumulated_storage_node_type =
-#endif
-                                                                      accumulated_storage_node_type_e::digit_node_end_accumulated_storage,
+                                                                  .member_name = u8"accumulated_storage",
+                                                                  .datum = *tagged_ptr_bit0_unsetted(sequence.digit_node_end)->p_accumulated_storage(),
+                                                                  .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                  .accumulated_storage_node_type = accumulated_storage_node_type_e::digit_node_end_accumulated_storage,
                                                               }),
                                                           },
                                                       }},
@@ -433,22 +421,10 @@ namespace augmented_containers
                                 {{
                                     {u8"id", u8"read_range"},
                                     {u8"label", std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                    .member_name =
-#endif
-                                                        u8"read_range(it[0], it[1])",
-#ifndef __EMSCRIPTEN__
-                                                    .datum =
-#endif
-                                                        augmented_deque.template read_range<I>(to_graphs_parameters.iterators_element[0], to_graphs_parameters.iterators_element[1]),
-#ifndef __EMSCRIPTEN__
-                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                    .accumulated_storage_node_type =
-#endif
-                                                        accumulated_storage_node_type_e::read_range,
+                                                    .member_name = u8"read_range(it[0], it[1])",
+                                                    .datum = augmented_deque.template read_range<I>(to_graphs_parameters.iterators_element[0], to_graphs_parameters.iterators_element[1]),
+                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                    .accumulated_storage_node_type = accumulated_storage_node_type_e::read_range,
                                                 })},
                                 }}});
                         }
@@ -598,22 +574,10 @@ namespace augmented_containers
                                                                 .BGCOLOR = active_cell_color,
                                                                 .COLSPAN = 4,
                                                                 .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        *p_tree_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                    .accumulated_storage_node_type =
-#endif
-                                                                        accumulated_storage_node_type_e::tree_node,
+                                                                    .member_name = u8"accumulated_storage",
+                                                                    .datum = *p_tree_node->p_accumulated_storage(),
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                    .accumulated_storage_node_type = accumulated_storage_node_type_e::tree_node,
                                                                 }),
                                                             },
                                                         }});
@@ -765,22 +729,10 @@ namespace augmented_containers
                                                                     .BGCOLOR = active_cell_color,
                                                                     .COLSPAN = 6,
                                                                     .content = std::get<1>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"accumulated_storage",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            *p_digit_node->p_accumulated_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
-#ifndef __EMSCRIPTEN__
-                                                                        .accumulated_storage_node_type =
-#endif
-                                                                            accumulated_storage_node_type_e::digit_node,
+                                                                        .member_name = u8"accumulated_storage",
+                                                                        .datum = *p_digit_node->p_accumulated_storage(),
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
+                                                                        .accumulated_storage_node_type = accumulated_storage_node_type_e::digit_node,
                                                                     }),
                                                                 },
                                                             }});
@@ -932,18 +884,9 @@ namespace augmented_containers
                                                                 },
                                                                 cell_t{
                                                                     .content = std::get<0>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"projected_storage",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            *p_list_node->actual_projected_storage.p_projected_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
+                                                                        .member_name = u8"projected_storage",
+                                                                        .datum = *p_list_node->actual_projected_storage.p_projected_storage(),
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                                     }),
                                                                 },
                                                                 cell_t{
@@ -956,18 +899,9 @@ namespace augmented_containers
                                                             result.push_back(row_t{{
                                                                 cell_t{
                                                                     .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                        .member_name =
-#endif
-                                                                            u8"element",
-#ifndef __EMSCRIPTEN__
-                                                                        .datum =
-#endif
-                                                                            *p_list_node->actual_projected_storage.p_element(),
-#ifndef __EMSCRIPTEN__
-                                                                        .converter_generated_statements_back_inserter =
-#endif
-                                                                            std::back_inserter(converter_generated_statements),
+                                                                        .member_name = u8"element",
+                                                                        .datum = *p_list_node->actual_projected_storage.p_element(),
+                                                                        .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                                     }),
                                                                 },
                                                             }});
@@ -997,18 +931,9 @@ namespace augmented_containers
                                                                 result.push_back(row_t{{
                                                                     cell_t{
                                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                            .member_name =
-#endif
-                                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                                            .datum =
-#endif
-                                                                                *p_list_node->actual_projected_storage.p_element(),
-#ifndef __EMSCRIPTEN__
-                                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                                std::back_inserter(converter_generated_statements),
+                                                                            .member_name = u8"element",
+                                                                            .datum = *p_list_node->actual_projected_storage.p_element(),
+                                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                                         }),
                                                                     },
                                                                 }});
@@ -1023,18 +948,9 @@ namespace augmented_containers
                                                                     },
                                                                     cell_t{
                                                                         .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                            .member_name =
-#endif
-                                                                                u8"element",
-#ifndef __EMSCRIPTEN__
-                                                                            .datum =
-#endif
-                                                                                *p_list_node->actual_projected_storage.p_element(),
-#ifndef __EMSCRIPTEN__
-                                                                            .converter_generated_statements_back_inserter =
-#endif
-                                                                                std::back_inserter(converter_generated_statements),
+                                                                            .member_name = u8"element",
+                                                                            .datum = *p_list_node->actual_projected_storage.p_element(),
+                                                                            .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                                         }),
                                                                     },
                                                                     cell_t{
@@ -1167,18 +1083,9 @@ namespace augmented_containers
                                                             cell_t{
                                                                 .BGCOLOR = active_cell_color,
                                                                 .content = std::get<0>(std::get<I>(to_graphs_parameters.projected_and_accumulated_storage_to_string_converter_per_sequence))(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"projected_storage",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        *p_list_node->actual_projected_storage.p_projected_storage(),
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
+                                                                    .member_name = u8"projected_storage",
+                                                                    .datum = *p_list_node->actual_projected_storage.p_projected_storage(),
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                                 }),
                                                             },
                                                             cell_t{
@@ -1286,18 +1193,9 @@ namespace augmented_containers
                                                             },
                                                             cell_t{
                                                                 .content = to_graphs_parameters.element_to_string_converter(to_string_converter_parameters_t{
-#ifndef __EMSCRIPTEN__
-                                                                    .member_name =
-#endif
-                                                                        u8"element",
-#ifndef __EMSCRIPTEN__
-                                                                    .datum =
-#endif
-                                                                        *p_list_node->actual_projected_storage.p_element(),
-#ifndef __EMSCRIPTEN__
-                                                                    .converter_generated_statements_back_inserter =
-#endif
-                                                                        std::back_inserter(converter_generated_statements),
+                                                                    .member_name = u8"element",
+                                                                    .datum = *p_list_node->actual_projected_storage.p_element(),
+                                                                    .converter_generated_statements_back_inserter = std::back_inserter(converter_generated_statements),
                                                                 }),
                                                             },
                                                             cell_t{
