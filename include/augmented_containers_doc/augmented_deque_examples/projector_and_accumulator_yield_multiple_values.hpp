@@ -202,10 +202,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
     using namespace augmented_containers::detail::visualization::augmented_deque;
     for(dot::graph_t &graph : to_graphs(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque),
             to_graphs_parameters_t{
-#ifndef __EMSCRIPTEN__
-                .element_to_string_converter =
-#endif
-                    [](auto parameters) -> html_label_t
+                .element_to_string_converter = [](auto parameters) -> html_label_t
                 {
                     return html_label_t{fonttable_t{table_t{
                         .BORDER = 0,
@@ -222,9 +219,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                         }(),
                     }}};
                 },
-#ifndef __EMSCRIPTEN__
                .projected_and_accumulated_storage_to_string_converter_per_sequence =
-#endif
                     std::make_tuple(
                         std::make_pair(std::nullopt, std::nullopt),
                         std::make_pair([](auto parameters) -> html_label_t
@@ -561,14 +556,8 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                 }}};
                             })*/
                         ),
-#ifndef __EMSCRIPTEN__
-               .iterators_element =
-#endif
-                    AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
-#ifndef __EMSCRIPTEN__
-               .read_range_per_sequence =
-#endif
-                    std::make_tuple(false, true, true),
+               .iterators_element = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
+               .read_range_per_sequence = std::make_tuple(false, true, true),
             }))
         result.push_back((std::ostringstream() << graph).str());
     return result;

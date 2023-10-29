@@ -837,15 +837,9 @@ std::vector<std::vector<std::string>> AUGMENTED_GRAPH_EXAMPLE_PREFIXING(to_graph
     for(std::vector<dot::graph_t> &graphs : to_graphs(
             AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph),
             to_graphs_parameters_t{
-#ifndef __EMSCRIPTEN__
-                .vertex_to_string_converter =
-#endif
-                    [](auto parameters) -> html_label_t
+                .vertex_to_string_converter = [](auto parameters) -> html_label_t
                 { return html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << "[" << std::ranges::distance(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex(), parameters.datum) << "]:" << (*parameters.datum ? "☑" : "☐")).str().data()))}}}}; }, // ⚐ ⚑
-#ifndef __EMSCRIPTEN__
-                .edge_to_string_converter =
-#endif
-                    [](auto parameters) -> html_label_t
+                .edge_to_string_converter = [](auto parameters) -> html_label_t
                 {
                     switch(parameters.accumulated_storage_node_type)
                     {
@@ -868,19 +862,11 @@ std::vector<std::vector<std::string>> AUGMENTED_GRAPH_EXAMPLE_PREFIXING(to_graph
                         break;
                     }
                 },
-#ifndef __EMSCRIPTEN__
                .part_data_to_string_converter_per_part =
-#endif
                     std::make_tuple([](auto parameters) -> html_label_t
                         { return AUGMENTED_GRAPH_EXAMPLE_PREFIXING(C1001)(parameters); }),
-#ifndef __EMSCRIPTEN__
-               .iterators_vertex =
-#endif
-                    AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex),
-#ifndef __EMSCRIPTEN__
-               .iterators_edge =
-#endif
-                    AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge),
+               .iterators_vertex = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex),
+               .iterators_edge = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge),
             }))
     {
         std::vector<std::string> sub_result;
