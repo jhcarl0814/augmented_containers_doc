@@ -5,6 +5,7 @@
 
 #include <augmented_containers/augmented_graph.hpp>
 #include <augmented_containers_doc/augmented_graph_visualization.hpp>
+
 #include <random>
 
 std::random_device AUGMENTED_GRAPH_EXAMPLE_PREFIXING(rd); // Will be used to obtain a seed for the random number engine
@@ -24,7 +25,7 @@ struct AUGMENTED_GRAPH_EXAMPLE_PREFIXING(get_top_tree_internal_operations_median
         };
         void create([[maybe_unused]] graph_t *graph, [[maybe_unused]] graph_t::it_vertex_t it_vertex1, cluster_t *cluster, [[maybe_unused]] graph_t::it_vertex_t it_vertex2, graph_t::it_edge_it_vertexes_t it_edge_it_vertexes) const
         {
-            new(cluster) cluster_t{
+            new (cluster) cluster_t{
                 .distance = it_edge_it_vertexes->first,
                 .vertex_sum_except_boundary_vertexes = 0,
                 .distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward = 0,
@@ -37,75 +38,75 @@ struct AUGMENTED_GRAPH_EXAMPLE_PREFIXING(get_top_tree_internal_operations_median
         };
         void join(graph_t *graph, cluster_t *cluster_parent, graph_t::it_vertex_t it_vertex1, cluster_t *cluster_child_left, graph_t::it_vertex_t it_vertex2, cluster_t *cluster_child_right, graph_t::it_vertex_t it_vertex3, int dummy_or_rake_or_compress) const
         {
-            if(dummy_or_rake_or_compress == 0)
-                new(cluster_parent) cluster_t(std::as_const(*cluster_child_left));
-            else if(dummy_or_rake_or_compress == 1)
+            if (dummy_or_rake_or_compress == 0)
+                new (cluster_parent) cluster_t(std::as_const(*cluster_child_left));
+            else if (dummy_or_rake_or_compress == 1)
             {
                 length_t distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left;
-                if(std::as_const(graph->comparator_it_vertex_address)(it_vertex1, it_vertex2))
+                if (std::as_const(graph->comparator_it_vertex_address)(it_vertex1, it_vertex2))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left = cluster_child_left->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward;
-                else if(std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex1))
+                else if (std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex1))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left = cluster_child_left->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward;
                 else std::unreachable();
 
                 length_t distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right;
-                if(std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
+                if (std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right = cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward;
-                else if(std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
+                else if (std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right = cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward;
                 else std::unreachable();
 
                 length_t distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward, distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward;
-                if(std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
+                if (std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
                 {
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward = *it_vertex1 * cluster_child_left->distance + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right;
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward = *it_vertex1 * (cluster_child_left->distance + cluster_child_right->distance) + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left + cluster_child_left->vertex_sum_except_boundary_vertexes * cluster_child_right->distance + cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward;
                 }
-                else if(std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
+                else if (std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
                 {
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward = *it_vertex1 * cluster_child_left->distance + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right;
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward = *it_vertex1 * (cluster_child_left->distance + cluster_child_right->distance) + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left + cluster_child_left->vertex_sum_except_boundary_vertexes * cluster_child_right->distance + cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward;
                 }
                 else std::unreachable();
 
-                new(cluster_parent) cluster_t{
+                new (cluster_parent) cluster_t{
                     .distance = cluster_child_right->distance,
                     .vertex_sum_except_boundary_vertexes = *it_vertex1 + cluster_child_left->vertex_sum_except_boundary_vertexes + cluster_child_right->vertex_sum_except_boundary_vertexes,
                     .distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward = distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward,
                     .distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward = distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward,
                 };
             }
-            else if(dummy_or_rake_or_compress == 2)
+            else if (dummy_or_rake_or_compress == 2)
             {
                 assert(std::as_const(graph->comparator_it_vertex_address)(it_vertex1, it_vertex3));
 
                 length_t distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left;
-                if(std::as_const(graph->comparator_it_vertex_address)(it_vertex1, it_vertex2))
+                if (std::as_const(graph->comparator_it_vertex_address)(it_vertex1, it_vertex2))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left = cluster_child_left->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward;
-                else if(std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex1))
+                else if (std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex1))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left = cluster_child_left->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward;
                 else std::unreachable();
 
                 length_t distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right;
-                if(std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
+                if (std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right = cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward;
-                else if(std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
+                else if (std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right = cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward;
                 else std::unreachable();
 
                 length_t distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward, distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward;
-                if(std::as_const(graph->comparator_it_vertex_address)(it_vertex1, it_vertex2))
+                if (std::as_const(graph->comparator_it_vertex_address)(it_vertex1, it_vertex2))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward = cluster_child_left->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward + *it_vertex2 * cluster_child_left->distance + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right + cluster_child_right->vertex_sum_except_boundary_vertexes * cluster_child_left->distance;
-                else if(std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex1))
+                else if (std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex1))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward = cluster_child_left->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward + *it_vertex2 * cluster_child_left->distance + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_right + cluster_child_right->vertex_sum_except_boundary_vertexes * cluster_child_left->distance;
                 else std::unreachable();
-                if(std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
+                if (std::as_const(graph->comparator_it_vertex_address)(it_vertex2, it_vertex3))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward = cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward + *it_vertex2 * cluster_child_right->distance + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left + cluster_child_left->vertex_sum_except_boundary_vertexes * cluster_child_right->distance;
-                else if(std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
+                else if (std::as_const(graph->comparator_it_vertex_address)(it_vertex3, it_vertex2))
                     distance_weighted_vertex_sum_except_boundary_vertexes_vertex_forward = cluster_child_right->distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward + *it_vertex2 * cluster_child_right->distance + distance_weighted_vertex_sum_except_boundary_vertexes_vertex2_child_left + cluster_child_left->vertex_sum_except_boundary_vertexes * cluster_child_right->distance;
                 else std::unreachable();
 
-                new(cluster_parent) cluster_t{
+                new (cluster_parent) cluster_t{
                     .distance = cluster_child_left->distance + cluster_child_right->distance,
                     .vertex_sum_except_boundary_vertexes = cluster_child_left->vertex_sum_except_boundary_vertexes + *it_vertex2 + cluster_child_right->vertex_sum_except_boundary_vertexes,
                     .distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward = distance_weighted_vertex_sum_except_boundary_vertexes_vertex_backward,
@@ -144,14 +145,14 @@ std::size_t AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge_count)() { return A
 
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_decrement)(std::size_t iterator_vertex_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex())
         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)
     [iterator_vertex_index] = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex();
     else --AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index];
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_increment)(std::size_t iterator_vertex_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)
     [iterator_vertex_index] = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex();
     else ++AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index];
@@ -168,36 +169,29 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_insert)(std::size_t itera
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_erase)(std::size_t iterator_vertex_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
 #ifdef __EMSCRIPTEN__
         std::vector<bool> iterators_vertex_will_be_invalidated;
-        std::ranges::transform(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex), std::back_inserter(iterators_vertex_will_be_invalidated), [&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_vertex_t iterator_vertex)
-            { return iterator_vertex == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]; });
+        std::ranges::transform(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex), std::back_inserter(iterators_vertex_will_be_invalidated), [&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_vertex_t iterator_vertex) { return iterator_vertex == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]; });
         std::vector<bool> iterators_edge_will_be_invalidated;
-        std::ranges::transform(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge), std::back_inserter(iterators_edge_will_be_invalidated), [&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge)
-            { return iterator_edge != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge() && (iterator_edge->second.first == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] || iterator_edge->second.second == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]); });
+        std::ranges::transform(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge), std::back_inserter(iterators_edge_will_be_invalidated), [&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge) { return iterator_edge != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge() && (iterator_edge->second.first == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] || iterator_edge->second.second == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]); });
 #else
-        std::vector<bool> iterators_vertex_will_be_invalidated = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex) | std::views::transform([&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_vertex_t iterator_vertex)
-                                                                                                                           { return iterator_vertex == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]; }) |
+        std::vector<bool> iterators_vertex_will_be_invalidated = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex) | std::views::transform([&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_vertex_t iterator_vertex) { return iterator_vertex == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]; }) |
             std::ranges::to<std::vector>();
-        std::vector<bool> iterators_edge_will_be_invalidated = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge) | std::views::transform([&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge)
-                                                                                                                       { return iterator_edge != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge() && (iterator_edge->second.first == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] || iterator_edge->second.second == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]); }) |
+        std::vector<bool> iterators_edge_will_be_invalidated = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge) | std::views::transform([&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge) { return iterator_edge != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge() && (iterator_edge->second.first == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] || iterator_edge->second.second == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]); }) |
             std::ranges::to<std::vector>();
 #endif
         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)
         [iterator_vertex_index] = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).erase_vertex(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]);
-        std::ranges::for_each(iterators_vertex_will_be_invalidated, [&, index = 0](bool iterator_vertex_will_be_invalidated) mutable
-            {if(iterator_vertex_will_be_invalidated)AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[index]=AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index];++index; });
-        std::ranges::for_each(iterators_edge_will_be_invalidated, [&, index = 0](bool iterator_edge_will_be_invalidated) mutable
-            {if(iterator_edge_will_be_invalidated)AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[index]=AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge();++index; });
+        std::ranges::for_each(iterators_vertex_will_be_invalidated, [&, index = 0](bool iterator_vertex_will_be_invalidated) mutable {if(iterator_vertex_will_be_invalidated)AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[index]=AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index];++index; });
+        std::ranges::for_each(iterators_edge_will_be_invalidated, [&, index = 0](bool iterator_edge_will_be_invalidated) mutable {if(iterator_edge_will_be_invalidated)AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[index]=AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge();++index; });
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_update)(std::size_t iterator_vertex_index, std::string value)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
-        AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).update_vertex(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index], [&value](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::vertex_t &vertex)
-            {
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+        AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).update_vertex(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index], [&value](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::vertex_t &vertex) {
             int value_int;
             std::istringstream(value) >> value_int;
             vertex = value_int; });
@@ -205,13 +199,11 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_update)(std::size_t itera
 
 bool AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_is_disconnected)(std::size_t part_index, std::size_t iterator_vertex1_index, std::size_t iterator_vertex2_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
         bool result;
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     auto root_cluster_tree_node1 = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().root_cluster_tree_node(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index]), root_cluster_tree_node2 = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().root_cluster_tree_node(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index]);
@@ -222,8 +214,7 @@ bool AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_is_disconnected)(std::s
                     else
                         result = true;
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
         return result;
     }
     else
@@ -231,13 +222,11 @@ bool AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_is_disconnected)(std::s
 }
 bool AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_is_connected)(std::size_t part_index, std::size_t iterator_vertex1_index, std::size_t iterator_vertex2_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
         bool result;
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     auto root_cluster_tree_node1 = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().root_cluster_tree_node(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index]), root_cluster_tree_node2 = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().root_cluster_tree_node(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index]);
@@ -248,8 +237,7 @@ bool AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_is_connected)(std::size
                     else
                         result = false;
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
         return result;
     }
     else
@@ -257,14 +245,14 @@ bool AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_is_connected)(std::size
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_decrement)(std::size_t iterator_edge_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_edge())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_edge())
         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)
     [iterator_edge_index] = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge();
     else --AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index];
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_increment)(std::size_t iterator_edge_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)
     [iterator_edge_index] = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_edge();
     else ++AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index];
@@ -276,34 +264,30 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_set_index)(std::size_t iter
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_insert)(std::size_t iterator_edge_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[0] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[1] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[0] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[1] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)
     [iterator_edge_index] = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).insert_edge(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[0], AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[1], AUGMENTED_GRAPH_EXAMPLE_PREFIXING(distrib)(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(gen)));
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_erase)(std::size_t iterator_edge_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
     {
 #ifdef __EMSCRIPTEN__
         std::vector<bool> iterators_will_be_invalidated;
-        std::ranges::transform(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge), std::back_inserter(iterators_will_be_invalidated), [&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge)
-            { return iterator_edge == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]; });
+        std::ranges::transform(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge), std::back_inserter(iterators_will_be_invalidated), [&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge) { return iterator_edge == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]; });
 #else
-        std::vector<bool> iterators_will_be_invalidated = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge) | std::views::transform([&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge)
-                                                                                                                  { return iterator_edge == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]; }) |
+        std::vector<bool> iterators_will_be_invalidated = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge) | std::views::transform([&](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::it_edge_it_vertexes_t iterator_edge) { return iterator_edge == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]; }) |
             std::ranges::to<std::vector>();
 #endif
         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)
         [iterator_edge_index] = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).erase_edge(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]);
-        std::ranges::for_each(iterators_will_be_invalidated, [&, index = 0](bool iterator_will_be_invalidated) mutable
-            {if(iterator_will_be_invalidated)AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[index]=AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index];++index; });
+        std::ranges::for_each(iterators_will_be_invalidated, [&, index = 0](bool iterator_will_be_invalidated) mutable {if(iterator_will_be_invalidated)AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[index]=AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index];++index; });
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_update)(std::size_t iterator_edge_index, std::string value)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
-        AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).update_edge(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index], [&value](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::edge_t &edge)
-            {
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
+        AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).update_edge(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index], [&value](decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::edge_t &edge) {
             int value_int;
             std::istringstream(value) >> value_int;
             edge = value_int; });
@@ -311,12 +295,10 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_update)(std::size_t iterato
 
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_expose)(std::size_t part_index, std::size_t iterator_vertex_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().it_vertex_exposed1.has_value() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().it_vertex_exposed1.value() != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] &&
@@ -325,52 +307,43 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_expose)(std::size_t part_
                     else
                         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().expose(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]);
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_unexpose)(std::size_t part_index, std::size_t iterator_vertex_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().it_vertex_exposed1 == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] ||
                         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().it_vertex_exposed2 == AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index])
                         AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().unexpose(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]);
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_expose_replace)(std::size_t part_index, std::size_t iterator_vertex_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().expose_replace(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]);
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_expose)(std::size_t part_index, std::size_t iterator_vertex1_index, std::size_t iterator_vertex2_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index]==AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index])
@@ -390,34 +363,28 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_expose)(std::size_t par
                             AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().expose(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index], AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index]);
                     }
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertexes_expose_replace)(std::size_t part_index, std::size_t iterator_vertex1_index, std::size_t iterator_vertex2_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex() && AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().expose_replace(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex1_index], AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex2_index]);
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_expose)(std::size_t part_index, std::size_t iterator_edge_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]->second.first==AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]->second.second)
@@ -437,48 +404,39 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_expose)(std::size_t part_in
                             AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().expose(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]->second.first, AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]->second.second);
                     }
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_edge_expose_replace)(std::size_t part_index, std::size_t iterator_edge_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_edge())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().expose_replace(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]->second.first, AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge)[iterator_edge_index]->second.second);
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(unexpose)(std::size_t part_index)
 {
-    [&]<std::size_t... I>(std::index_sequence<I...>)
-    {
-        (..., [&]()
-            {
+    [&]<std::size_t... I>(std::index_sequence<I...>) {
+        (..., [&]() {
             if(part_index == I)
             {
                 AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().unexpose();
             } }());
-    }
-    (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+    }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
 }
 
 void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_non_local_search)(std::size_t part_index, std::size_t iterator_vertex_index)
 {
-    if(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
+    if (AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index] != AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).end_vertex())
     {
-        [&]<std::size_t... I>(std::index_sequence<I...>)
-        {
-            (..., [&]()
-                {
+        [&]<std::size_t... I>(std::index_sequence<I...>) {
+            (..., [&]() {
                 if(part_index == I)
                 {
                     if(auto root_cluster_tree_node = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).part<I>().root_cluster_tree_node( AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex)[iterator_vertex_index]); root_cluster_tree_node.has_value())
@@ -505,8 +463,7 @@ void AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterator_vertex_non_local_search)(std::si
                                                 .value();
                     }
                 } }());
-        }
-        (std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
+        }(std::make_index_sequence<decltype(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph))::parts_count>());
     }
 }
 
@@ -515,38 +472,36 @@ std::vector<std::vector<std::string>> AUGMENTED_GRAPH_EXAMPLE_PREFIXING(to_graph
     std::vector<std::vector<std::string>> result;
     using namespace dot;
     using namespace augmented_containers::detail::visualization::augmented_graph;
-    for(std::vector<dot::graph_t> &graphs : to_graphs(
-            AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph),
-            to_graphs_parameters_t{
-                .vertex_to_string_converter = [](auto parameters) -> html_label_t
-                {
-                    switch(parameters.accumulated_storage_node_type)
-                    {
-                    case storage_node_type_e::vertex:
-                    case storage_node_type_e::top_tree_graph_vertex:
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << "[" << std::ranges::distance(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex(), parameters.datum) << "]:").str().data()))},
-                            {br_t{}},
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << *parameters.datum).str().data()))},
-                            {br_t{}},
-                        }}};
-                        break;
-                    case storage_node_type_e::top_tree_graph_hierarchy_vertex:
-                    case storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex:
-                    case storage_node_type_e::top_tree_cluster_hierarchy_vertex:
-                        return html_label_t{text_t{{
-                            {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << "[" << std::ranges::distance(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex(), parameters.datum) << "]: " << *parameters.datum).str().data()))},
-                            {br_t{}},
-                        }}};
-                        break;
-                    default:
-                        std::unreachable();
-                        break;
-                    }
-                },
-               .edge_to_string_converter = [](auto parameters) -> html_label_t
-                {
-                    switch(parameters.accumulated_storage_node_type)
+    for (std::vector<dot::graph_t> &graphs : to_graphs(
+             AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph),
+             to_graphs_parameters_t{
+                 .vertex_to_string_converter = [](auto parameters) -> html_label_t {
+                     switch (parameters.accumulated_storage_node_type)
+                     {
+                     case storage_node_type_e::vertex:
+                     case storage_node_type_e::top_tree_graph_vertex:
+                         return html_label_t{text_t{{
+                             {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << "[" << std::ranges::distance(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex(), parameters.datum) << "]:").str().data()))},
+                             {br_t{}},
+                             {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << *parameters.datum).str().data()))},
+                             {br_t{}},
+                         }}};
+                         break;
+                     case storage_node_type_e::top_tree_graph_hierarchy_vertex:
+                     case storage_node_type_e::top_tree_graph_hierarchy_cluster_title_vertex:
+                     case storage_node_type_e::top_tree_cluster_hierarchy_vertex:
+                         return html_label_t{text_t{{
+                             {std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << "[" << std::ranges::distance(AUGMENTED_GRAPH_EXAMPLE_PREFIXING(augmented_graph).begin_vertex(), parameters.datum) << "]: " << *parameters.datum).str().data()))},
+                             {br_t{}},
+                         }}};
+                         break;
+                     default:
+                         std::unreachable();
+                         break;
+                     }
+                 },
+                .edge_to_string_converter = [](auto parameters) -> html_label_t {
+                    switch (parameters.accumulated_storage_node_type)
                     {
                     case storage_node_type_e::edge:
                     case storage_node_type_e::top_tree_graph_edge:
@@ -567,9 +522,8 @@ std::vector<std::vector<std::string>> AUGMENTED_GRAPH_EXAMPLE_PREFIXING(to_graph
                         break;
                     }
                 },
-               .part_data_to_string_converter_per_part =
-                    std::make_tuple([](auto parameters) -> html_label_t
-                        {
+                .part_data_to_string_converter_per_part =
+                     std::make_tuple([](auto parameters) -> html_label_t {
             auto [it_vertex_backward, cluster, it_vertex_forward] = parameters.datum;
             return html_label_t
             {fonttable_t{table_t{
@@ -620,12 +574,13 @@ std::vector<std::vector<std::string>> AUGMENTED_GRAPH_EXAMPLE_PREFIXING(to_graph
             (),
                             }}
 }; }),
-               .iterators_vertex = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex),
-               .iterators_edge = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge),
-            }))
+                .iterators_vertex = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_vertex),
+                .iterators_edge = AUGMENTED_GRAPH_EXAMPLE_PREFIXING(iterators_edge),
+             }
+         ))
     {
         std::vector<std::string> sub_result;
-        for(dot::graph_t &graph : graphs)
+        for (dot::graph_t &graph : graphs)
         {
             sub_result.push_back((std::ostringstream() << graph).str());
         }
