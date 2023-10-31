@@ -5,8 +5,9 @@
 
 #include <augmented_containers/augmented_deque.hpp>
 #include <augmented_containers_doc/augmented_deque_visualization.hpp>
-#include <random>
+
 #include <array>
+#include <random>
 
 std::random_device AUGMENTED_DEQUE_EXAMPLE_PREFIXING(rd); // Will be used to obtain a seed for the random number engine
 std::mt19937 AUGMENTED_DEQUE_EXAMPLE_PREFIXING(gen)(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(rd)()); // Standard mersenne_twister_engine seeded with rd()
@@ -22,10 +23,8 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_min_n_element_t)
     {
         assert(chunk_size <= N);
         projected_storage_t result{};
-        std::ranges::transform(std::ranges::subrange(it_chunk_begin, it_chunk_end), result.begin(), [](element_t const &element)
-            { return &const_cast<element_t &>(element); });
-        std::ranges::stable_sort(result | std::views::take(chunk_size), [](element_t * const &lhs, element_t * const &rhs)
-            {
+        std::ranges::transform(std::ranges::subrange(it_chunk_begin, it_chunk_end), result.begin(), [](element_t const &element) { return &const_cast<element_t &>(element); });
+        std::ranges::stable_sort(result | std::views::take(chunk_size), [](element_t *const &lhs, element_t *const &rhs) {
                 if constexpr(!reverse)
                     return (*lhs <=> *rhs) != std::strong_ordering::greater;
                 else
@@ -59,7 +58,7 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(projector_min_n_element_t)
     {
         assert(chunk_size != 0);
         projected_storage_t value_new(project_n_ary_functor(it_chunk_begin, it_chunk_end, chunk_size));
-        if(value == value_new)
+        if (value == value_new)
             return false;
         else
         {
@@ -79,10 +78,9 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulating_min_n_element_binary_funct
         accumulated_storage_t result{};
         auto in1 = lhs.begin(), in1_end = lhs.end(), in2 = rhs.begin(), in2_end = rhs.end();
         auto out = result.begin(), out_end = result.end();
-        while(in1 != in1_end && *in1 != nullptr && in2 != in2_end && *in2 != nullptr && out != out_end)
+        while (in1 != in1_end && *in1 != nullptr && in2 != in2_end && *in2 != nullptr && out != out_end)
         {
-            if([&]()
-                {
+            if ([&]() {
                 if constexpr (!reverse)
                   return (**in1 <=> **in2) != std::strong_ordering::greater;
                 else
@@ -91,9 +89,9 @@ struct AUGMENTED_DEQUE_EXAMPLE_PREFIXING(accumulating_min_n_element_binary_funct
             else
                 *out++ = *in2++;
         }
-        while(in1 != in1_end && *in1 != nullptr && out != out_end)
+        while (in1 != in1_end && *in1 != nullptr && out != out_end)
             *out++ = *in1++;
-        while(in2 != in2_end && *in2 != nullptr && out != out_end)
+        while (in2 != in2_end && *in2 != nullptr && out != out_end)
             *out++ = *in2++;
         return result;
     }
@@ -141,9 +139,8 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(iterator_element_advance)(std::size_t ite
 // element access
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(iterator_element_output)(std::size_t iterator_index, std::string value)
 {
-    if(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[iterator_index] != AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element())
-        *AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[iterator_index] = [&value]()
-        {
+    if (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[iterator_index] != AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element())
+        *AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[iterator_index] = [&value]() {
             int value_int;
             std::istringstream(value) >> value_int;
             return value_int;
@@ -155,43 +152,37 @@ void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(push_front)() { AUGMENTED_DEQUE_EXAMPLE_P
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(push_back)() { AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).push_back(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(distrib)(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(gen))); }
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_front)()
 {
-    if(!AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).empty())
+    if (!AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).empty())
     {
 #ifdef __EMSCRIPTEN__
         std::vector<bool> iterator_element_is_front_list;
-        std::transform(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).begin(), AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).end(), std::back_inserter(iterator_element_is_front_list), [](auto iterator_element)
-            { return iterator_element == AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().begin_element(); });
+        std::transform(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).begin(), AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).end(), std::back_inserter(iterator_element_is_front_list), [](auto iterator_element) { return iterator_element == AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().begin_element(); });
 #else
-        std::vector<bool> iterator_element_is_front_list = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element) | std::views::transform([](auto iterator_element)
-                                                                                                                                      { return iterator_element == AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().begin_element(); }) |
+        std::vector<bool> iterator_element_is_front_list = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element) | std::views::transform([](auto iterator_element) { return iterator_element == AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().begin_element(); }) |
             std::ranges::to<std::vector>();
 #endif
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).pop_front();
-        std::ranges::for_each(iterator_element_is_front_list, [index = 0](bool iterator_element_is_front) mutable
-            {if(iterator_element_is_front)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .begin_element();++index; });
+        std::ranges::for_each(iterator_element_is_front_list, [index = 0](bool iterator_element_is_front) mutable {if(iterator_element_is_front)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .begin_element();++index; });
     }
 }
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(pop_back)()
 {
-    if(!AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).empty())
+    if (!AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).empty())
     {
 #ifdef __EMSCRIPTEN__
         std::vector<bool> iterator_element_is_back_list;
-        std::transform(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).begin(), AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).end(), std::back_inserter(iterator_element_is_back_list), [](auto iterator_element)
-            { return iterator_element == --augmented_containers::detail::utility::unmove(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element()); });
+        std::transform(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).begin(), AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).end(), std::back_inserter(iterator_element_is_back_list), [](auto iterator_element) { return iterator_element == --augmented_containers::detail::utility::unmove(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element()); });
 #else
-        std::vector<bool> iterator_element_is_back_list = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element) | std::views::transform([](auto iterator_element)
-                                                                                                                                     { return iterator_element == --augmented_containers::detail::utility::unmove(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element()); }) |
+        std::vector<bool> iterator_element_is_back_list = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element) | std::views::transform([](auto iterator_element) { return iterator_element == --augmented_containers::detail::utility::unmove(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).sequence<0>().end_element()); }) |
             std::ranges::to<std::vector>();
 #endif
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).pop_back();
-        std::ranges::for_each(iterator_element_is_back_list, [index = 0](bool iterator_element_is_back) mutable
-            {if(iterator_element_is_back)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .end_element();++index; });
+        std::ranges::for_each(iterator_element_is_back_list, [index = 0](bool iterator_element_is_back) mutable {if(iterator_element_is_back)AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[index] = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque) .sequence<0>() .end_element();++index; });
     }
 }
 void AUGMENTED_DEQUE_EXAMPLE_PREFIXING(update_range)()
 {
-    if(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0] <= AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[1])
+    if (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0] <= AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[1])
         AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque).update_range(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0], AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[1]);
 }
 
@@ -200,30 +191,25 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
     std::vector<std::string> result;
     using namespace dot;
     using namespace augmented_containers::detail::visualization::augmented_deque;
-    for(dot::graph_t &graph : to_graphs(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque),
-            to_graphs_parameters_t{
-                .element_to_string_converter = [](auto parameters) -> html_label_t
-                {
-                    return html_label_t{fonttable_t{table_t{
-                        .BORDER = 0,
-                        .CELLBORDER = 1,
-                        .CELLSPACING = 0,
-                        .PORT = u8"element",
-                        .rows = [&]()
-                        {
-                            return decltype(table_t::rows){
-                                row_t{{cell_t{
-                                    .content = html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}},
-                                }}},
-                            };
-                        }(),
-                    }}};
-                },
-               .projected_and_accumulated_storage_to_string_converter_per_sequence =
-                    std::make_tuple(
-                        std::make_pair(std::nullopt, std::nullopt),
-                        std::make_pair([](auto parameters) -> html_label_t
-                            {
+    for (dot::graph_t &graph : to_graphs(
+             AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque),
+             to_graphs_parameters_t{
+                 .element_to_string_converter = [](auto parameters) -> html_label_t {
+                     return html_label_t{fonttable_t{table_t{
+                         .BORDER = 0,
+                         .CELLBORDER = 1,
+                         .CELLSPACING = 0,
+                         .PORT = u8"element",
+                         .rows = [&]() {
+                             return decltype(table_t::rows){
+                                 row_t{{cell_t{
+                                     .content = html_label_t{text_t{{{std::u8string(reinterpret_cast<char8_t const *>((std::ostringstream() << parameters.datum).str().data()))}}}},
+                                 }}},
+                             };
+                         }(),
+                     }}};
+                 },
+                .projected_and_accumulated_storage_to_string_converter_per_sequence = std::make_tuple(std::make_pair(std::nullopt, std::nullopt), std::make_pair([](auto parameters) -> html_label_t {
                                 using namespace augmented_containers::detail::language;
                                 using namespace augmented_containers::detail::visualization;
                                 using element_t = typename decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::element_t;
@@ -265,9 +251,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                                 return cells;
                                             }()},
                                         },
-                                    }}}; },
-                            [](auto parameters) -> html_label_t
-                            {
+                                    }}}; }, [](auto parameters) -> html_label_t {
                                 using namespace augmented_containers::detail::language;
                                 using namespace augmented_containers::detail::visualization;
                                 using element_t = typename decltype(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque))::element_t;
@@ -387,8 +371,7 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                                 return cells;
                                             }()},
                                     },
-                                }}};
-                            }) /*,
+                                }}}; }) /*,
                         std::make_pair([](auto parameters) -> html_label_t
                             {
                                 using namespace augmented_containers::detail::language;
@@ -555,22 +538,21 @@ std::vector<std::string> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(to_graphs_string)()
                                     },
                                 }}};
                             })*/
-                        ),
-               .iterators_element = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
-               .read_range_per_sequence = std::make_tuple(false, true, true),
-            }))
+                ),
+                .iterators_element = AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element),
+                .read_range_per_sequence = std::make_tuple(false, true, true),
+             }
+         ))
         result.push_back((std::ostringstream() << graph).str());
     return result;
 }
 std::string AUGMENTED_DEQUE_EXAMPLE_PREFIXING(additional_info)()
 {
     std::ostringstream oss;
-    std::ranges::for_each(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element), [&, index = 0](auto iterator_element) mutable
-        {  oss << "it[" << index << "].index(): " << iterator_element.index() << "; " << "it[" << index << "].is_end(): " << std::boolalpha << iterator_element.is_end() << ";" << /*R"(\l)"*/ "\n"; ++index; });
-    if(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).size() >= 2)
+    std::ranges::for_each(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element), [&, index = 0](auto iterator_element) mutable {  oss << "it[" << index << "].index(): " << iterator_element.index() << "; " << "it[" << index << "].is_end(): " << std::boolalpha << iterator_element.is_end() << ";" << /*R"(\l)"*/ "\n"; ++index; });
+    if (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element).size() >= 2)
     {
-        oss << "it[0] <=> it[1]: " << [](std::weak_ordering cmp)
-        { return cmp < 0 ? -1 : (cmp > 0 ? 1 : 0); }(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0] <=> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[1])
+        oss << "it[0] <=> it[1]: " << [](std::weak_ordering cmp) { return cmp < 0 ? -1 : (cmp > 0 ? 1 : 0); }(AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0] <=> AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[1])
             << "; "
             << "it[1] - it[0]: " << (AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[1] - AUGMENTED_DEQUE_EXAMPLE_PREFIXING(augmented_deque_iterators_element)[0]) << ";" << /*R"(\l)"*/ "\n";
     }
