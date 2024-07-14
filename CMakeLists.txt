@@ -18,11 +18,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include(FetchContent)
 FetchContent_Declare(Boost
     GIT_REPOSITORY https://github.com/boostorg/boost.git
-    GIT_TAG 564e2ac16907019696cdaba8a93e3588ec596062 # boost-1.83.0
+    GIT_TAG ad09f667e61e18f5c31590941e748ac38e5a81bf # boost-1.84.0
     GIT_SHALLOW TRUE
     EXCLUDE_FROM_ALL
     #SYSTEM
-    FIND_PACKAGE_ARGS 1.83.0
+    FIND_PACKAGE_ARGS 1.84.0
 )
 FetchContent_Declare(augmented_containers
     GIT_REPOSITORY https://github.com/jhcarl0814/augmented_containers.git
