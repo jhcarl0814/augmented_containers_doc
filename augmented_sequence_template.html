@@ -80,7 +80,7 @@
 
 
 <div class="container mx-auto">
-	<details class="m-[9px] border-[1px] border-[#000000]">
+	<details class="mt-[9px] border-[1px] border-[#000000]">
 		<summary class="p-[9px] cursor-pointer">/ &gt;&gt; augmented_containers &gt;&gt; augmented_sequence_t</summary>
 <pre class="whitespace-pre-wrap p-[9px] border-t-[1px] border-t-[#000000]">
 <a href="/">jhcarl0814.github.io</a>
@@ -99,7 +99,7 @@
 
 <div class="container mx-auto">
 	<h1 class="heading1"><span class="text-[112%]">augmented_containers::</span>&ZeroWidthSpace;<span class="text-[160%]">augmented_sequence_t</span></h1>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 <span class="keyword">enum</span> <span class="keyword">class</span> <span class="struct"><span class="struct_in_question">augmented_sequence_physical_representation_e</span></span> {
 	rb3p,
 	rb2p,
@@ -117,8 +117,8 @@
 	<span class="keyword">typename</span> augmented_sequence_size_management_t = std::<span class="struct">integral_constant</span>&lt;<span class="struct">augmented_sequence_size_management_e</span>, <span class="struct">augmented_sequence_size_management_e</span>::at_each_node_except_node_end&gt;
 &gt; <span class="keyword">struct</span> <span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>;
 </pre>
-	<div class="mx-[12px]"><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/include/augmented_containers/augmented_rb2p.hpp">augmented_rb2p.hpp</a>&gt; (one single header file library)</span></div>
-<pre class="mx-[12px] block-code mb-[18px]">
+	<div><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/include/augmented_containers/augmented_rb2p.hpp">augmented_rb2p.hpp</a>&gt; (one single header file library)</span></div>
+<pre class="block-code mb-[18px]">
 <span class="keyword">template</span>&lt;
 	<span class="keyword">typename</span> element_t,
 	<span class="keyword">typename</span> allocator_t,
@@ -128,8 +128,8 @@
 &gt; requires(<span class="keyword">static_cast</span>&lt;<span class="struct">augmented_sequence_physical_representation_e</span>&gt;(<span class="struct">augmented_sequence_physical_representation_t</span>{}) == <span class="struct">augmented_sequence_physical_representation_e</span>::rb2p)
 <span class="keyword">struct</span> <span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>;
 </pre>
-	<div class="mx-[12px]"><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/include/augmented_containers/augmented_rb3p.hpp">augmented_rb3p.hpp</a>&gt; (one single header file library)</span></div>
-<pre class="mx-[12px] block-code mb-[18px]">
+	<div><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/include/augmented_containers/augmented_rb3p.hpp">augmented_rb3p.hpp</a>&gt; (one single header file library)</span></div>
+<pre class="block-code mb-[18px]">
 <span class="keyword">template</span>&lt;
 	<span class="keyword">typename</span> element_t,
 	<span class="keyword">typename</span> allocator_t,
@@ -154,7 +154,7 @@
 
 <div class="container mx-auto">
 	<h2 class="heading2">Physical representations and Size management</h2>
-	<table class="mx-[12px] my-[6px] bg-[#f2f2f2] table-default-border table-default-align">
+	<table class="my-[6px] bg-[#f2f2f2] table-default-border table-default-align">
 		<thead class="border-b-[2px] border-b-[#000000]">
 			<tr>
 				<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
@@ -180,7 +180,7 @@
 		</tbody>
 	</table>
 	
-	<table class="mx-[12px] my-[6px] bg-[#f2f2f2] table-default-border table-default-align">
+	<table class="my-[6px] bg-[#f2f2f2] table-default-border table-default-align">
 		<thead class="border-b-[2px] border-b-[#000000]">
 			<tr>
 				<td colspan="2" rowspan="2" class="!border-r-[2px] !border-r-[#000000]"></td>
@@ -228,7 +228,7 @@
 <div class="container mx-auto">
 	<h3 class="heading3">empty</h3>
 	<p class="paragraph">The accumulation step is skipped. What's left (when <span class="inline-code">augmented_sequence_size_management_t</span> is <span class="inline-code">augmented_containers&ZeroWidthSpace;::&ZeroWidthSpace;<span class="struct">augmented_sequence_size_management_e</span>&ZeroWidthSpace;::&ZeroWidthSpace;at_each_node_except_node_end</span>) can be seen as a <span class="inline-code">std::vector</span>/<span class="inline-code">std::deque</span> that supports fast split/concatenate and never invalidates iterators/references/pointers, or a <span class="inline-code">std::list</span> with random access ability.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
 	<span class="keyword">char</span>,
 	std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;,
@@ -313,7 +313,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">accumulator_yield_one_value</h3>
 	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">char</span></span>)s are accumulated into <span class="inline-code">accumulated_storage_t</span>(<span class="inline-code">std::<span class="struct">string</span></span>)s.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
 	<span class="keyword">char</span>,
 	std::<span class="struct">allocator</span>&lt;<span class="keyword">char</span>&gt;,
@@ -398,7 +398,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">accumulator_yield_multiple_values</h3>
 	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)s' addresses and arrays thereof are accumulated into their <span class="inline-code">std::ranges::merge | std::views::take(3)</span> (stores addresses so you can modify the original elements).</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
 	<span class="keyword">int</span>,
 	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
@@ -483,7 +483,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">accumulator_yield_one_view</h3>
 	<p class="paragraph">Each <span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)'s corresponding <span class="inline-code">accumulated_storage_t</span> comes with the navigator portion (<span class="inline-code">prev</span> and <span class="inline-code">next</span> pointers) to be ready to form a circular doubly linked list. The accumulator takes chunk-begins (<span class="inline-code">std::ranges::prev(it).is_end() || (*std::ranges::prev(it) &lt; 50) != (*it &lt; 50)</span>), discards non-chunk-begins (and takes other accumulated circular doubly linked lists), accumulates them into a circular doubly linked lists representing <span class="inline-code">std::ranges::chunk_by_view</span> of the original sequence.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
 	<span class="keyword">int</span>,
 	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
@@ -568,7 +568,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">accumulator_yield_multiple_views</h3>
 	<p class="paragraph">Similar to the <span class="inline-code">accumulator_yield_one_view</span> example, except that each <span class="inline-code">accumulated_storage_t</span> has "a map from <span class="inline-code">element % 3</span> to circular doubly linked list's end node" (instead of just "one end node"). The result represents C++32's <span class="inline-code">std::ranges::group_by_view</span> of the original sequence (<span class="inline-code">navigator_style = std::ranges::group_by_view::navigator_style_t::circular_doubly_linked_list, map_container_tt = std::map</span>).</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
 	<span class="keyword">int</span>,
 	std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
@@ -653,7 +653,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">find_by_monotonic_predicate</h3>
 	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code">std::<span class="struct">string</span></span>)s' <span class="inline-code">.size()</span>s are accumulated by <span class="inline-code">std::<span class="keyword">size_t</span> operator+(std::<span class="keyword">size_t</span>, std::<span class="keyword">size_t</span>)</span>. Use <span class="inline-code">.find_by_monotonic_predicate([&amp;](){ ... })</span> to find the first element where the <span class="inline-code">accumulated_storage_t</span>(<span class="inline-code">std::<span class="keyword">size_t</span></span>) (accumulated string size so far) starts to be greater than <span class="inline-code">the given character index</span>, i.e., the element that contains the <span class="inline-code">the given character index</span>th character. Note that the hierarchical structure saves time by skiping substructures that don't contain the results.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
     std::<span class="struct">string</span>,
     std::<span class="struct">allocator</span>&lt;std::<span class="struct">string</span>&gt;,
@@ -738,7 +738,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">find_by_heap_predicate</h3>
 	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)s are accumulated into their <span class="inline-code">std::ranges::max</span>. Use <span class="inline-code">.find_by_heap_predicate(jts_output, [&amp;](){ ... })</span> to eagerly find all elements greater than or equal to <span class="inline-code">the given threshold</span>. Note that the hierarchical structure saves time by skiping substructures that don't contain the results. It's possible to parallelize the search, depending on the availability of <span class="inline-code">std::execution</span>.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
     <span class="keyword">int</span>,
     std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,
@@ -823,7 +823,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">find_by_heap_predicate_generator</h3>
 	<p class="paragraph"><span class="inline-code">element_t</span>(<span class="inline-code"><span class="keyword">int</span></span>)s are accumulated into their <span class="inline-code">std::ranges::max</span>. Use <span class="inline-code">.find_by_heap_predicate_generator([&amp;](){ ... })</span> to lazily iterate through elements greater than or equal to <span class="inline-code">the given threshold</span>, until an element divisible by <span class="inline-code">the given denominator</span> is encountered. Note that the hierarchical structure saves time by skiping substructures that don't contain the results. It's possible to parallelize the search, depending on the availability of <span class="inline-code">std::execution</span>.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_sequence_t</span></span>&lt;
     <span class="keyword">int</span>,
     std::<span class="struct">allocator</span>&lt;<span class="keyword">int</span>&gt;,

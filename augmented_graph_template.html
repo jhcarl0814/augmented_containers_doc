@@ -80,7 +80,7 @@
 
 
 <div class="container mx-auto">
-	<details class="m-[9px] border-[1px] border-[#000000]">
+	<details class="mt-[9px] border-[1px] border-[#000000]">
 		<summary class="p-[9px] cursor-pointer">/ &gt;&gt; augmented_containers &gt;&gt; augmented_graph_t</summary>
 <pre class="whitespace-pre-wrap p-[9px] border-t-[1px] border-t-[#000000]">
 <a href="/">jhcarl0814.github.io</a>
@@ -99,8 +99,8 @@
 
 <div class="container mx-auto">
 	<h1 class="heading1"><span class="text-[112%]">augmented_containers::</span>&ZeroWidthSpace;<span class="text-[160%]">augmented_graph_t</span></h1>
-	<div class="mx-[12px]"><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/include/augmented_containers/augmented_graph.hpp">augmented_graph.hpp</a>&gt; (one single header file library)</span></div>
-<pre class="mx-[12px] block-code mb-[18px]">
+	<div><span class="text-[80%]"><span class="keyword">#include</span>&lt;augmented_containers/<a href="https://github.com/jhcarl0814/augmented_containers/blob/main/include/augmented_containers/augmented_graph.hpp">augmented_graph.hpp</a>&gt; (one single header file library)</span></div>
+<pre class="block-code mb-[18px]">
 <span class="keyword">enum</span> <span class="keyword">class</span> <span class="struct"><span class="struct_in_question">augmented_graph_part_data_structure_e</span></span> {
 	top_tree,
 	<span style="color:transparent;">link_cut_tree,</span>
@@ -141,7 +141,7 @@
 <div class="container mx-auto">
 	<h3 class="heading3">empty</h3>
 	<p class="paragraph">Each <span class="inline-code">vertex_t</span>/<span class="inline-code">edge_t</span>(<span class="inline-code">std::<span class="struct">monostate</span></span>) does not store any information. No parts are attached to the graph. Only structual information of the graph is maintained.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_graph_t</span></span>&lt;
 	std::<span class="struct">monostate</span>,
 	std::<span class="struct">monostate</span>,
@@ -157,7 +157,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 <div class="container mx-auto">
 	<h3 class="heading3">arbitrary_spanning_forest</h3>
 	<p class="paragraph">A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span>(<span class="inline-code"><span class="keyword">void</span></span>) does not store any information. The internal operation does not suggest any tree edge to <span class="inline-code">cut</span> when <span class="inline-code">insert</span>ed edge's 2 vertices belong to same tree. An arbitrary spanning forest of the graph is maintained, so <a href="https://en.wikipedia.org/wiki/Circuit_rank">circuit rank (cyclomatic number)</a>, <a href="https://en.wikipedia.org/wiki/Cycle_basis">a cycle basis</a> and <a href="https://en.wikipedia.org/wiki/Feedback_arc_set">a feedback edge set</a> of the graph can be answered quickly. <a href="https://en.wikipedia.org/wiki/Component_(graph_theory)">Connected components</a> of the graph and whether 2 vertices belong to same component can also be answered quickly, but note that there are faster data structures dedicated to maintaining connectivity information of graphs.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::<span class="struct"><span class="struct_in_question">augmented_graph_t</span></span>&lt;
     std::<span class="struct">monostate</span>,
     std::<span class="struct">monostate</span>,
@@ -177,7 +177,7 @@ augmented_containers::<span class="struct"><span class="struct_in_question">augm
 	<p class="paragraph">Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the weight of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span>(<span class="inline-code"><span class="struct">graph_t</span>::<span class="struct">it_edge_it_vertex_t</span></span>) points to the maximum-weight edge among the cluster's <span class="highlight_bold">path</span> descendant edges.</p>
 	<p class="paragraph">When <span class="inline-code">insert</span>ing an edge whose 2 vertices belong to same tree, <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> <span class="inline-code">expose</span>s the 2 vertices (so the iterator pointing to the maximum-weight edge among the <span class="highlight_bold">tree path</span>'s edges can be read from root cluster). <span class="inline-code"><span class="struct">get_top_tree_internal_operations_selecting_path_t</span></span> selects the old edge for <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> to <span class="inline-code">cut</span> before <span class="inline-code">link</span>ing the new edge, or doesn't select any edge and <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> just put the edge to the set of edges that do not belong to the forest.</p>
 	<p class="paragraph"><span class="inline-code"><span class="struct">get_top_tree_internal_operations_selecting_path_t</span></span> let <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> order the set of edges that do not belong to the forest in weight-increasing order, so that when <span class="inline-code">erase</span>ing a tree edge, <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> look for replacement among the edges in weight-increasing order.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::augmented_graph_t&lt;
 	std::<span class="struct">monostate</span>,
 	<span class="keyword">int</span>,
@@ -194,7 +194,7 @@ augmented_containers::augmented_graph_t&lt;
 <div class="container mx-auto">
 	<h3 class="heading3">minimum_spanning_forests</h3>
 	<p class="paragraph">Two <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span>s are attached to the graph. Part-0 and part-1 maintain minimum spanning forest and maximum spanning forest of the graph respectively. Negating the comparator of minimum spanning forest configuration results in maximum spanning forest configuration.</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::augmented_graph_t&lt;
 	std::<span class="struct">monostate</span>,
 	<span class="keyword">int</span>,
@@ -212,7 +212,7 @@ augmented_containers::augmented_graph_t&lt;
 <div class="container mx-auto">
 	<h3 class="heading3">tree_nearest_marked_vertexes</h3>
 	<p class="paragraph">Each <span class="inline-code">vertex_t</span>(<span class="inline-code"><span class="keyword">bool</span></span>) stores whether the vertex is marked. Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores: tree path length between its 2 boundary vertices, the nearest marked vertices (among the cluster's descendant edges' vertices excluding the 2 boundary vertices) and distance to them for each its 2 boundary vertices. Quickly answers the nearest marked vertices to any vertex and its distance to them by <span class="inline-code">expose</span>ing the vertex and adding the information excluded. Quickly mark/unmark any vertex by <span class="inline-code">expose</span>ing the vertex (so that no <span class="inline-code">cluster_t</span> has the vertex as non-boundary descendant vertex) and <span class="inline-code">update</span>ing it. Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::augmented_graph_t&lt;
 	<span class="keyword">bool</span>,
 	<span class="keyword">int</span>,
@@ -228,7 +228,7 @@ augmented_containers::augmented_graph_t&lt;
 <div class="container mx-auto">
 	<h3 class="heading3">tree_diameter_and_centers</h3>
 	<p class="paragraph">Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">non-negative</span> length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores: tree path length between its 2 boundary vertices, eccentricity and 1 farthest vertex (through the cluster's descendant edges) for each its 2 boundary vertices, diameter and 2 farthest vertices (through the cluster's descendant edges). Quickly answers the eccentricity and 1 farthest vertex of any vertex by <span class="inline-code">expose</span>ing the vertex. Quickly answers the diameter and 2 farthest vertices of the graph because the information is stored in root cluster. Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::augmented_graph_t&lt;
 	std::<span class="struct">monostate</span>,
 	<span class="keyword">int</span>,
@@ -245,7 +245,7 @@ augmented_containers::augmented_graph_t&lt;
 <div class="container mx-auto">
 	<h3 class="heading3">tree_medians</h3>
 	<p class="paragraph">Each <span class="inline-code">vertex_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">non-negative</span> weight of the vertex. Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">non-negative</span> length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores: tree path length between its 2 boundary vertices, distance-weighted weight sum of vertices (among the cluster's descendant edges' vertices excluding the 2 boundary vertices) for each its 2 boundary vertices, weight sum of vertices (among the cluster's descendant edges' vertices excluding the 2 boundary vertices). Quickly answers the median of the graph by <span class="inline-code">non_local_search</span>ing choosing sub-cluster having larger weight sum of vertices (including its 2 boundary vertices) each round, <span class="inline-code">expose</span>ing the 2 vertices of the result edge and adding the information excluded. Quickly change the weight of any vertex by <span class="inline-code">expose</span>ing the vertex (so that no <span class="inline-code">cluster_t</span> has the vertex as non-boundary descendant vertex) and <span class="inline-code">update</span>ing it. Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::augmented_graph_t&lt;
 	<span class="keyword">int</span>,
 	<span class="keyword">int</span>,
@@ -261,7 +261,7 @@ augmented_containers::augmented_graph_t&lt;
 <div class="container mx-auto">
 	<h3 class="heading3">tree_jump_and_meet</h3>
 	<p class="paragraph">Each <span class="inline-code">edge_t</span>(<span class="inline-code"><span class="keyword">int</span></span>) stores the <span class="highlight_bold">positive</span> length of the edge. A <span class="inline-code"><span class="struct">augmented_graph_part_data_structure_e</span>::top_tree</span> is attached to the graph. Each <span class="inline-code">cluster_t</span> stores tree path length between its 2 boundary vertices. Quickly answers: along the tree path between any 2 vertices, edge including any number (each edge includes range <span class="math_formula">[0,l1)</span>, <span class="math_formula">[l1,l1+l2)</span>, ..., or each edge includes range <span class="math_formula">(0,l1]</span>, <span class="math_formula">(l1,l1+l2]</span>, ...) starting from one of the vertex, by exposing the 2 vertices and <span class="inline-code">search</span>ing among <span class="highlight_bold">path</span> descendant sub-clusters between the 2 vertices. Quickly answers the intersection vertex of any 3 vertices by exposing each of 3 vertex pairs and reading tree path length between each vertex pair from the root cluster, along the tree path between v1 and v2 calculating the 2 edges including number <span class="math_formula">(d12+d13-d23)/2</span> using left-inclusive-right-exclusive view and left-exclusive-right-inclusive view respectively (the intersection vertex is the common vertex of the 2 edges). Quickly change the length of any edge by <span class="inline-code">update</span>ing it (the underlying top tree performs a <span class="inline-code">cut</span> and a <span class="inline-code">link</span>).</p>
-<pre class="mx-[12px] block-code mb-[18px]">
+<pre class="block-code mb-[18px]">
 augmented_containers::augmented_graph_t&lt;
 	std::<span class="struct">monostate</span>,
 	<span class="keyword">int</span>,

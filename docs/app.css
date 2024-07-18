@@ -433,13 +433,12 @@ video {
 }
 
 .heading1 {
-  margin: 9px;
+  margin-block: 12px;
 }
 
 .heading2 {
   font-size: 140%;
   font-weight: 700;
-  margin-inline: 12px;
   -webkit-margin-before: 36px;
           margin-block-start: 36px;
   -webkit-margin-after: 12px;
@@ -449,7 +448,6 @@ video {
 .heading3 {
   font-size: 120%;
   font-weight: 700;
-  margin-inline: 12px;
   -webkit-margin-before: 36px;
           margin-block-start: 36px;
   -webkit-margin-after: 12px;
@@ -457,7 +455,6 @@ video {
 }
 
 .paragraph {
-  margin-inline: 12px;
   margin-block: 6px;
 }
 

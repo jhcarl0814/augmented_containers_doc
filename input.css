@@ -14,16 +14,16 @@
 		@apply text-[calc(var(--font-size-paragraph)*1rem)] leading-[calc(var(--line-height-paragraph)*1em)];
 	}
 	.heading1 {
-		@apply m-[9px];
+		@apply [margin-block:12px];
 	}
 	.heading2 {
-		@apply [margin-inline:12px] [margin-block-start:36px] [margin-block-end:12px] font-bold text-[140%];
+		@apply [margin-block-start:36px] [margin-block-end:12px] font-bold text-[140%];
 	}
 	.heading3 {
-		@apply [margin-inline:12px] [margin-block-start:36px] [margin-block-end:12px] font-bold text-[120%];
+		@apply [margin-block-start:36px] [margin-block-end:12px] font-bold text-[120%];
 	}
 	.paragraph {
-		@apply [margin-inline:12px] [margin-block:6px];
+		@apply [margin-block:6px];
 	}
 
 	a
